@@ -108,60 +108,60 @@
           
           <div class="col-12">
 
-            <h4>Populares</h4>
+            <h4>Categoria</h4>
             <div class="dashboard-row col-12">
 
                <div class="card" style="width: 12rem;">
-                  <img src="Img/hojas.jpg" class="object-fit-contain card-img" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Hojas Xerox Tamaño Carta</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="Img/plumas.jpeg" class="card-img" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Pluma PinPoint Azor Colores Varios</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="Img/plumones.jpeg" class="card-img" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Plumones Touch de Doble Punta Pincel</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
                 </div>
 
                 <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
                 </div>
 
                 <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
                 </div>
 
                 <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
                 </div>
 
                 <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                  </div>
+                </div>
+
+                <div class="card" style="width: 12rem;">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                  </div>
+                </div>
+
+                <div class="card" style="width: 12rem;">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                  </div>
+                </div>
+
+                <div class="card" style="width: 12rem;">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
@@ -179,21 +179,21 @@
             <div class="dashboard-row col-12">
 
                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Titulo de dos lineas</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
                 </div>
 
                 <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                  </div>
+                </div>
+
+                <div class="card" style="width: 12rem;">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
@@ -209,14 +209,14 @@
             <div class="dashboard-row col-12">
 
                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
                 </div>
 
                 <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                  <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                   </div>
