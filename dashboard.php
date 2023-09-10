@@ -108,62 +108,88 @@
           
           <div class="col-12">
 
+            <div class="dashboard-cat-title">
             <h4>Populares</h4>
-            <div class="dashboard-row col-12">
+            </div>
+            <div class="dashboard-row col-12 justify-content-start">
 
-               <div class="card" style="width: 12rem;">
+               <div class="card" >
                   <img src="Img/hojas.jpg" class="object-fit-contain card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Hojas Xerox Tamaño Carta</h5>
+                    <a href="..." title="Hojas Xerox Tamaño Carta" class="card-link-product">
+                      <h5 class="card-title card-title-product">Hojas Xerox Tamaño Carta</h5>
+                      <h6 class="card-title card-price-product">$150.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card" >
                   <img src="Img/plumas.jpeg" class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Pluma PinPoint Azor Colores Varios</h5>
+                    <a href="..." title="Pluma PinPoint Azor Colores Varios" class="card-link-product">
+                      <h5 class="card-title card-title-product">Pluma PinPoint Azor Colores Varios</h5>
+                      <h6 class="card-title card-price-product">$21.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card" >
                   <img src="Img/plumones.jpeg" class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Plumones Touch de Doble Punta Pincel</h5>
+                    <a href="..." title="Plumones Touch de Doble Punta Pincel" class="card-link-product">
+                      <h5 class="card-title card-title-product">Plumones Touch de Doble Punta Pincel</h5>
+                      <h6 class="card-title card-price-product">$1,500.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img" alt="...">
+                <div class="card" >
+                  <img src="Img/gises.jpeg" class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Gises Pastel 36 Piezas" class="card-link-product">
+                      <h5 class="card-title card-title-product">Gises Pastel 36 Piezas</h5>
+                      <h6 class="card-title card-price-product">$250.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card" >
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card" >
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card">
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card" >
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
@@ -175,27 +201,39 @@
 
           <div class="col-12" style="padding-top: 10px;">
             
-            <h4>Más Vendidos</h4>
-            <div class="dashboard-row col-12">
+            <div class="dashboard-cat-title">
+              <h4>Más Vendidos</h4>
+            </div>
 
-               <div class="card" style="width: 12rem;">
+            <div class="dashboard-row col-12 justify-content-start">
+
+               <div class="card" >
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Titulo de dos lineas</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Titulo de dos lineas larguito para que se oculte</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card" >
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card">
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
@@ -205,20 +243,29 @@
 
           <div class="col-12" style="padding-top: 10px;">
             
-            <h4>Categoria</h4>
-            <div class="dashboard-row col-12">
+            <div class="dashboard-cat-title">
+              <h4>Categoria</h4>
+            </div>
 
-               <div class="card" style="width: 12rem;">
+            <div class="dashboard-row col-12 justify-content-start">
+
+               <div class="card">
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
-                <div class="card" style="width: 12rem;">
+                <div class="card">
                   <img src="..." class="card-img" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
+                      <h5 class="card-title card-title-product">Card title</h5>
+                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
+                    </a>
                   </div>
                 </div>
 
