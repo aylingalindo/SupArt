@@ -43,6 +43,7 @@ body{
 .navbar {
     background-color: var(--primary)!important;
     display: inline-block;
+    padding-bottom: 0; 
 }
 
 #search-bar {
@@ -616,5 +617,30 @@ h1{
 
 .table {
     --bs-table-bg: var(--light);
-    --bs-table-border-color: var(--primary);
+    border-color: var(--primary);
+
+}
+
+.td-title{
+    font-weight: bold;
+}
+
+.table tbody tr {
+    border-bottom: 2px solid var(--primary);
+ }
+
+.filter-menu {
+    min-width: 100vw; 
+    display: inline-block;
+    min-width: 1rem;
+}
+
+.filter-container {
+    background-color: var(--light);
+    border-bottom: 1px solid var(--primary); 
+}
+
+.form-select {
+    background-color: var(--light);
+    border: 0;
 }

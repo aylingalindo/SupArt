@@ -96,10 +96,11 @@
       <div class="container-fluid d-flex justify-content-end filter-container">
         <div class="row filter-menu">
           <select class="form-select" aria-label="Default select example">
-            <option selected>Ordenar por: </option>
-            <option value="1">Menor/Mayor Precio</option>
-            <option value="2">Mejor Calificado</option>
-            <option value="3">Más/Menos Vendidos</option>
+            <option selected>Todas las Categorias </option>
+            <option value="1">Plumones</option>
+            <option value="2">Lienzos y Bastidores</option>
+            <option value="3">Papel</option>
+            <option value="4">Pintura</option>
           </select>
         </div>
       </div>
@@ -113,7 +114,7 @@
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
 
-          <h4>Libretas</h4>
+          <h4>Mis Productos</h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
@@ -133,7 +134,8 @@
                     </div>
                   </td>
                   <td>
-                    <h4 class="td-price">$350.00 MXN</h4>
+                    <h5>En Stock:</h5>
+                    <h4 class="td-price">20</h4>
                   </td>
                 </tr>
                 <tr>
@@ -149,7 +151,8 @@
                     </div>
                   </td>
                   <td>
-                    <h4 class="td-price">$240.00 MXN</h4>
+                    <h5>En Stock:</h5>
+                    <h4 class="td-price">132</h4>
                   </td>
                 </tr>
                 <tr>
@@ -165,7 +168,8 @@
                     </div>
                   </td>
                   <td>
-                    <h4 class="td-price">$235.50 MXN</h4>
+                    <h5>En Stock:</h5>
+                    <h4 class="td-price">34</h4>
                   </td>
                 </tr>
               </tbody>
@@ -175,6 +179,73 @@
           </div>
 
         </div>
+
+        <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+
+          <h4>Pendientes de Aprobación</h4>
+          
+          <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
+
+            
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="Img/gises.jpeg" class="object-fit-contain td-img" alt="...">
+                  </td>
+                  <td>
+                    <div class="row">
+                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
+                    </div>
+                    <div class="row">
+                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
+                    </div>
+                    <div class="row">
+                      <p>Publicado por: Edson Arguello</p>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary signUpBtn">
+                      <i class="icon ion-md-close"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary signUpBtn">
+                      <i class="icon ion-md-checkmark"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="Img/plumas.jpeg" class="object-fit-contain td-img" alt="...">
+                  </td>
+                  <td>
+                    <div class="row">
+                      <h5 class="td-title">Canson® Art Book One</h5>
+                    </div>
+                    <div class="row">
+                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
+                    </div>
+                    <div class="row">
+                      <p>Publicado por: Michelle Saenz</p>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary signUpBtn">
+                      <i class="icon ion-md-close"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary signUpBtn">
+                      <i class="icon ion-md-checkmark"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </section>
     
       </section>
