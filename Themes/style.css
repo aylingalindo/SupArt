@@ -618,6 +618,7 @@ h1{
 .table {
     --bs-table-bg: var(--light);
     border-color: var(--primary);
+    /*--bs-table-hover-color: var(--hover);*/
 
 }
 
@@ -644,3 +645,63 @@ h1{
     background-color: var(--light);
     border: 0;
 }
+
+.row-wborder {
+    margin-left: 60px; 
+    margin-right: 60px;
+    border: 2px solid var(--primary);
+    padding: 0;
+}
+
+.right-border {
+    border-right: 2px solid var(--primary);
+    padding: 0;
+}
+
+.row-box{
+    margin-left: 40px; 
+    margin-right: 40px; 
+    max-width: 100vw;
+}
+
+.list-box {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+}
+
+.list-group-item {
+    background-color: var(--primary);
+    border-color: var(--light);
+    margin-bottom: 0.2rem;
+    flex-wrap: wrap;
+}
+
+.list-group-item.active{
+    background-color: var(--hover);
+    border-color: var(--light);
+}
+
+#wishlistList h5{
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+
+#wishlistDetail h3{
+    font-weight: bold;
+    color: var(--titles);
+}
+
+i {
+    font-size: 1.2rem;
+}
+
+#wishlistDetail i{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+
+

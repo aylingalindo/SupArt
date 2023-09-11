@@ -23,7 +23,7 @@
     <!-- NAV BAR-->
 
     <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid" style="padding-bottom: 1rem;">
+      <div class="container-fluid">
         <div id="navbar-content" class="row">
           <div class="col-4 d-flex align-items-center">
             <a class="navbar-brand" href="#">SupArt</a>
@@ -107,7 +107,7 @@
 
 
     <!-- CONTENT -->
-    <div id="content" style="padding-top: 8rem;">
+    <div id="content" style="padding-top: 7rem;">
       <!-- FEED -->
       <section>
 

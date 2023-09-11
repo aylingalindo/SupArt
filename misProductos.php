@@ -23,7 +23,7 @@
     <!-- NAV BAR-->
 
     <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid" style="padding-bottom: 1rem;">
+      <div class="container-fluid">
         <div id="navbar-content" class="row">
           <div class="col-4 d-flex align-items-center">
             <a class="navbar-brand" href="#">SupArt</a>
@@ -205,12 +205,12 @@
                     </div>
                   </td>
                   <td>
-                    <button class="btn btn-primary signUpBtn">
+                    <button class="btn btn-primary closeBtn">
                       <i class="icon ion-md-close"></i>
                     </button>
                   </td>
                   <td>
-                    <button class="btn btn-primary signUpBtn">
+                    <button class="btn btn-primary closeBtn">
                       <i class="icon ion-md-checkmark"></i>
                     </button>
                   </td>
@@ -231,12 +231,12 @@
                     </div>
                   </td>
                   <td>
-                    <button class="btn btn-primary signUpBtn">
+                    <button class="btn btn-primary closeBtn">
                       <i class="icon ion-md-close"></i>
                     </button>
                   </td>
                   <td>
-                    <button class="btn btn-primary signUpBtn">
+                    <button class="btn btn-primary closeBtn">
                       <i class="icon ion-md-checkmark"></i>
                     </button>
                   </td>
