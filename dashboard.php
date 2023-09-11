@@ -99,7 +99,8 @@
     <!-- CONTENT -->
     <div id="content">
 
-      <h2>Dashboard</h2>
+      <h2></h2>
+      <h2></h2>
 
       <!-- FEED -->
       <section>

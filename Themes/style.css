@@ -42,6 +42,7 @@ body{
 
 .navbar {
     background-color: var(--primary)!important;
+    display: inline-block;
 }
 
 #search-bar {
@@ -105,6 +106,11 @@ h2 {
     margin-bottom: 32px;
     margin-left: 64px;
     margin-right: 64px;
+}
+
+h4 {
+    color: var(--titles);
+    font-weight: bold;
 }
 
 .col.sortingItem.active {
@@ -594,4 +600,21 @@ h1{
     font-weight: bold;
 }
 
+.td {
+    width: 100%;
+}
 
+.td-img {
+    height: 200px;
+    width: 200px;
+}
+
+.td-price {
+    color: var(--titles);
+    font-weight: bold;
+}
+
+.table {
+    --bs-table-bg: var(--light);
+    --bs-table-border-color: var(--primary);
+}

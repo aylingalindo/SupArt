@@ -99,134 +99,77 @@
     <!-- CONTENT -->
     <div id="content">
 
-      <h2>Dashboard</h2>
+      <h2></h2>
+      <h2></h2>
 
       <!-- FEED -->
       <section>
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
+
+          <h4>Libretas</h4>
           
-          <div class="col-12">
+          <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
-            <h4>Categoria</h4>
-            <div class="dashboard-row col-12">
-
-               <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-            </div>
-
+            
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
+                  </td>
+                  <td>
+                    <div class="row">
+                      <h5>Block Strathmore 400 Sketch</h5>
+                    </div>
+                    <div class="row">
+                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
+                    </div>
+                  </td>
+                  <td>
+                    <h6 class="td-price">$350.00 MXN</h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
+                  </td>
+                  <td>
+                    <div class="row">
+                      <h5>Canson® Art Book One</h5>
+                    </div>
+                    <div class="row">
+                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
+                    </div>
+                  </td>
+                  <td>
+                    <h6 class="td-price">$240.00 MXN</h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img src="Img/libreta3.jpg" class="object-fit-contain td-img" alt="...">
+                  </td>
+                  <td>
+                    <div class="row">
+                      <h5>Strathmore - Cuaderno de bocetos de la serie 200</h5>
+                    </div>
+                    <div class="row">
+                      <h6>Almohadilla de alambre, 8.5 x 11 pulgadas, 100 hojas (50 lb/74 g) - Papel de artista para adultos y estudiantes - Grafito, carbón, lápiz, lápiz de colores</h6>
+                    </div>
+                  </td>
+                  <td>
+                    <h6 class="td-price">$235.50 MXN</h6>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
            
 
           </div>
 
-          <div class="col-12" style="padding-top: 10px;">
-            
-            <h4>Más Vendidos</h4>
-            <div class="dashboard-row col-12">
-
-               <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-12" style="padding-top: 10px;">
-            
-            <h4>Categoria</h4>
-            <div class="dashboard-row col-12">
-
-               <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-                <div class="card" style="width: 12rem;">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                  </div>
-                </div>
-
-            </div>
-
-          </div>
-
         </div>
+      </section>
     
       </section>
       
