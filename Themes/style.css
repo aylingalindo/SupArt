@@ -204,7 +204,7 @@ h4 {
 .card{
     border: 2px;
     padding: 0px;
-    border-radius: 5%;
+    /*border-radius: 5%;*/
     overflow: hidden;
     margin-right: 10px;
     margin-left: 10px;
@@ -673,11 +673,15 @@ h1{
 .list-group-item {
     background-color: var(--primary);
     border-color: var(--light);
-    margin-bottom: 0.2rem;
     flex-wrap: wrap;
 }
 
 .list-group-item.active{
+    background-color: var(--hover);
+    border-color: var(--light);
+}
+
+.list-group-item : hover{
     background-color: var(--hover);
     border-color: var(--light);
 }
@@ -702,6 +706,76 @@ i {
     margin-bottom: 1rem;
 }
 
+.msjImg {
+    max-width: 4rem; 
+    border-radius: 50%;
+}
 
+#msjChat {
+    background-color: #FFFFFF;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+    min-height: 100%;
+    padding-bottom: 2.5rem;
+}
+
+#inputChat {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+    min-width: 100%;
+}
+
+#inputChat .btn {
+    min-width: 100%;
+    border-radius: 0;
+    border-color: var(--primary);
+    background-color: var(--primary);
+}
+
+#inputChat .btn:hover{
+    background-color: var(--hover);
+    color: var(--light);
+}
+
+#inputChat input {
+    border-radius: 0;
+    border-color: var(--primary);
+}
+
+#msjChat .table {
+     --bs-table-bg: #FFFFFF;
+}
+
+#msjChat .table tbody tr {
+    border-bottom: 0px;
+ }
+
+.miMsj {
+    background-color: var(--hover);
+}
+
+.suMsj {
+    background-color: var(--primary);
+}
+
+#msjCotizacion{
+    min-height: 75vh;
+}
+
+#calif .col-1 {
+    padding: 0;
+    width: fit-content;
+}
+
+#calif {
+    padding-left: 1rem;
+}
+
+#calif .no{
+    color: var(--primary)
+}
 
 
