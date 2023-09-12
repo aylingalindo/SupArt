@@ -99,8 +99,10 @@
 
 
     <!-- CONTENT -->
-    <div id="content">
+    <div id="content" style="padding-top: 6rem;">
       <section>
+        <h4 style="margin-bottom: 20px; margin-left: 30px;">Perfil</h4>
+
         <!-- PROFILE PERSONAL CARD -->
         <div class="container my-5 profile-card" class="profile-card">
             <div class="row justify-content-center">
@@ -117,69 +119,122 @@
         </div>
 
          <!-- PROFILE LIST CARD -->
-        <div class="container my-5 profile-card profile-display">
-            <!-- LIST BUTTON -->
-            <div class="profile-btnList">
-                <button type="button" class="p-btnList">
-                    <div class="profile-btnInfo">
-                        <div class="img-container">
-                            <img class="img" src="https://wallpaperaccess.com/full/5034369.jpg" width="10px" height="10px">
-                        </div>
-                        <div>
-                             <h5>Lista para pintar</h5>
-                             <h6>Descripcion de la lista Descripcion de la lista</h6>
-                        </div>
-                    </div>
-                </button>
-                <button type="button" class="p-btnList">
-                    <div class="profile-btnInfo">
-                        <div class="img-container">
-                            <img class="img" src="https://wallpaperaccess.com/full/5034369.jpg" width="10px" height="10px">
-                        </div>
-                        <div>
-                             <h5>Dibujo</h5>
-                             <h6>Lista de materiales de dibujo</h6>
-                        </div>
-                    </div>
-                </button>
-                <button type="button" class="p-btnList">
-                    <div class="profile-btnInfo">
-                        <div class="img-container">
-                            <img class="img" src="https://wallpaperaccess.com/full/5034369.jpg" width="10px" height="10px">
-                        </div>
-                        <div>
-                             <h5>Para navidad</h5>
-                             <h6>Cositas para regalar en navidad</h6>
-                        </div>
-                    </div>
-                </button>
-                <button type="button" class="p-btnList">
-                    <div class="profile-btnInfo">
-                        <div class="img-container">
-                            <img class="img" src="https://wallpaperaccess.com/full/5034369.jpg" width="10px" height="10px">
-                        </div>
-                        <div>
-                             <h5>Lista de materiales</h5>
-                             <h6>Lista de materiales que ocupo para el semestre</h6>
-                        </div>
-                    </div>
-                </button>
+        <div class="row row-box d-flex justify-content-center">
+
+          <div class="row row-wborder">
+
+            <div id="wishlistList" class="col-4 right-border">
+              <ul class="list-box list-group justify-content-center">
+                <li class="list-group-item active">
+                  <i class="icon ion-md-lock"></i>
+                  <h5>Lista 1</h5>
+                </li>
+                <li class="list-group-item">
+                  <i class="icon ion-md-lock"></i>
+                  <h5>Lista 2</h5>
+                </li>
+                <li class="list-group-item">
+                  <i class="icon ion-md-globe"></i>
+                  <h5>Lista 3</h5>
+                </li>
+              </ul>
             </div>
-            <!-- LIST INFO -->
-            <div class="profile-listInfo">
-                <h3>Lista de materiales</h3>
-                <div class="profile-listObject">
-                    <h5>Lapicero</h5>
-                    <h6>DescripcionDescripcionDescripcionDescripcionDescripcion</h6>
-                    <h6>Precio: $500.00</h6>
+
+            <div id="wishlistDetail" class="col-8">
+
+              <div class="col-12" style="padding: 1.5rem">
+                <div class="row" style="height: 4rem">
+                  <div class="col-8">
+                    <h3>Lista 1</h3>
+                  </div>
+                  <div class="col-4 d-flex justify-content-end">
+                    <i class="icon ion-md-lock" style="color: var(--titles)"></i>
+                    <i class="icon ion-md-close"></i>
+                    <i class="icon ion-md-share"></i>
+                  </div>
                 </div>
-                <div class="profile-listObject">
-                    <h5>Bastidor de tela</h5>
-                    <h6>DescripcionDescripcionDescripcionDescripcionDescripcion</h6>
-                    <h6>Precio: $500.00</h6>
+                <div class="row" style="height: 3rem">
+                  <p>Descripción de mi primera lista de compras</p>
                 </div>
+              </div>
+          
+              <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
+                
+                <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
+                      </td>
+                      <td>
+                        <div class="row">
+                          <h5 class="td-title">Block Strathmore 400 Sketch</h5>
+                        </div>
+                        <div class="row">
+                          <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
+                        </div>
+                      </td>
+                      <td>
+                        <h4 class="td-price">$200.00 MXN</h4>
+                      </td>
+                      <td>
+                        <button class="btn btn-primary closeBtn">
+                          <i class="icon ion-md-close"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
+                      </td>
+                      <td>
+                        <div class="row">
+                          <h5 class="td-title">Canson® Art Book One</h5>
+                        </div>
+                        <div class="row">
+                          <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
+                        </div>
+                      </td>
+                      <td>
+                        <h4 class="td-price">$57.99 MXN</h4>
+                      </td>
+                      <td>
+                        <button class="btn btn-primary closeBtn">
+                          <i class="icon ion-md-close"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src="Img/libreta3.jpg" class="object-fit-contain td-img" alt="...">
+                      </td>
+                      <td>
+                        <div class="row">
+                          <h5 class="td-title">Strathmore - Cuaderno de bocetos de la serie 200</h5>
+                        </div>
+                        <div class="row">
+                          <h6>Almohadilla de alambre, 8.5 x 11 pulgadas, 100 hojas (50 lb/74 g) - Papel de artista para adultos y estudiantes - Grafito, carbón, lápiz, lápiz de colores</h6>
+                        </div>
+                      </td>
+                      <td>
+                        <h4 class="td-price">$250.00 MXN</h4>
+                      </td>
+                      <td>
+                        <button class="btn btn-primary closeBtn">
+                          <i class="icon ion-md-close"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+               
+
+              </div>
             </div>
-        </div>
+
+          </div>
+
+        </div>  
       </section>
       
       <footer>
