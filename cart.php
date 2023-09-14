@@ -11,10 +11,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
+    <script defer src="cart.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -105,6 +107,7 @@
 
           <h4>Carrito de compras</h4>
           
+          <!--CART PRODUCTS-->
           <div class="col-8 right-border" style="padding-left: 40px; padding-right: 40px;">
 
             
@@ -233,10 +236,13 @@
               </tbody>
             </table>
           </div>
-          <div class="col-2" style="padding-left: 40px; padding-right: 40px;">
+
+          <!--TOTAL SECTION-->
+          <div class="col-2 cart-total" style="padding-left: 40px; padding-right: 40px;">
             <div class="cart-total">
                 <h2>TOTAL</h2>
                 <h3 style="text-align: center">$445.99</h3>
+		        <button id="btnBuy" type="button" class="btn btn-primary my-3 signUpBtn">Proceder a pagos</button>
             </div>
           </div>
         </div>
@@ -278,7 +284,58 @@
         </div>
 
 
-    
+    <!-- MODAL FOR PAYMENT METHOD -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Metodo de pago</h5>
+                <button type="button" class="close btnClose" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Tipo de tarjeta:</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Todas las Categorias </option>
+                        <option value="1">Debito</option>
+                        <option value="2">Credito</option>
+                        <option value="2">Paypal</option>
+                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Numero:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Nombre en la tarjeta:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Fecha de expiracion</label>
+                    <div style="display: flex;">
+                            <label for="message-text" class=".col-md-4">Mes:</label>
+                            <input type="text" class="form-control" id="recipient-name" style="margin:0px 10px;">
+                            <label for="message-text" class=".col-md-4">Año:</label>
+                            <input type="text" class="form-control" id="recipient-name" style="margin:0px 10px">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Numero de seguridad:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Comprar</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       
       <footer>

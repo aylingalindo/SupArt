@@ -881,6 +881,11 @@ i {
     border: solid var(--light);
 }
 
-.cart-total{
-    display: grid;
+.cart-total {
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: column;
 }
