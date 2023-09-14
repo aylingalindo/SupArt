@@ -24,7 +24,7 @@
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand ps-3" href="#">SupArt</a>
+        <a class="navbar-brand ps-3" href="dashboard.php">SupArt</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -104,9 +104,9 @@
         <h4 style="margin-bottom: 20px; margin-left: 30px;">Mis Wishlist</h4>
         <div class="row row-box d-flex justify-content-center">
 
-          <div class="row row-wborder">
+          <div class="row row-wborder d-flex">
 
-            <div id="wishlistList" class="col-4 right-border">
+            <div id="wishlistList" class="col-4" style="min-width: 300px;">
               <ul class="list-box list-group justify-content-center">
                 <button class="btnList" data-modal-target="#popupNewWishlist" type="button">
                 <li class="list-group-item">
@@ -135,7 +135,7 @@
               </ul>
             </div>
 
-            <div id="wishlistDetail" class="col-8">
+            <div id="wishlistDetail" class="col-8 border" style="min-width: 600px;">
 
               <div class="col-12" style="padding: 1.5rem">
                 <div class="row" style="height: 4rem">

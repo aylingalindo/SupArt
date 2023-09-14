@@ -24,7 +24,7 @@
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand ps-3" href="#">SupArt</a>
+        <a class="navbar-brand ps-3" href="dashboard.php">SupArt</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -120,7 +120,7 @@
                 <img src="Img/hojas.jpg" class="object-fit-contain product-imgMain" alt="...">
               </div>
             </div>
-            <div class="col">
+            <div class="col" style="min-width: 221px;">
               <div class="row product-div">
                 <h3 style="color: var(--text)"><b>Hojas de maquina</b></h3>
                 <p>Papeles</p>

@@ -1,6 +1,5 @@
 var selectedButton;
 $(document).ready(function () {
-    alert("hola");
     $(".p-btnList").click(function () {
         selectedButton = $(this);
         $(".p-btnList").css({ "background-color": "#DAD2BC", 'box-shadow': ' inset -20px 0px 10px -20px #DAD2BC' });

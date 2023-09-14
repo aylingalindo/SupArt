@@ -26,7 +26,7 @@
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand ps-3" href="#">SupArt</a>
+        <a class="navbar-brand ps-3" href="dashboard.php">SupArt</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -72,12 +72,12 @@
       <!-- FEED -->
       <section>
       
-        <div class="row" style="margin-left: 20px; margin-right: 20px;">
+        <div class="row d-flex" style="margin-left: 20px; margin-right: 20px;">
 
           <h4>Carrito de compras</h4>
           
           <!--CART PRODUCTS-->
-          <div class="col-8 right-border" style="padding-left: 40px; padding-right: 40px; border-width: 2rem !important;">
+          <div class="col-8" style="padding-left: 40px; padding-right: 40px; border-width: 2rem !important; min-width: 455px;">
 
             
             <table class="table table-hover">
@@ -153,11 +153,17 @@
           </div>
 
           <!--TOTAL SECTION-->
-          <div class="col-2 cart-total" style="padding-left: 40px; padding-right: 40px;">
-            <div class="cart-total">
-                <h2>TOTAL</h2>
-                <h3 style="text-align: center">$445.99</h3>
-		        <button id="btnBuy" type="button" class="btn btn-primary my-3 signUpBtn">Proceder a pago</button>
+          <div class="col-2 cart-total d-flex align-items-center" style="padding-left: 40px; padding-right: 40px;">
+            <div class="border">
+                <div class="row d-flex justify-content-center" style="padding-left: 5rem;">  
+                  <h3>TOTAL</h3>
+                </div>
+                <div class="row">
+                  <h2><b>$445.99</b></h2>
+                </div>
+                <div class="row" style="padding-right: 1rem; padding-left: 1rem;"> 
+                  <button id="btnBuy" type="button" class="btn btn-primary my-3 signUpBtn">Proceder a pago</button>
+                </div>
             </div>
           </div>
         </div>

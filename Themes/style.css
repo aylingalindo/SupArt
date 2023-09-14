@@ -806,12 +806,16 @@ h1{
 .row-wborder {
     margin-left: 60px; 
     margin-right: 60px;
-    border: 2px solid var(--primary);
     padding: 0;
 }
 
 .right-border {
     border-right: 2px solid var(--primary);
+    padding: 0;
+}
+
+.border {
+    border: 2px solid var(--primary)!important;
     padding: 0;
 }
 
@@ -975,6 +979,7 @@ i {
     overflow: hidden;
     border-radius: 50%;
     border: solid var(--light);
+    min-width: 200px;
 }
 
 .cart-total {
