@@ -237,9 +237,10 @@
            
 
           </div>
-
         </div>
-
+        <div style="display:flex; justify-content: center;">
+          <button id="btnBuy" type="button" class="btn btn-primary col-md-6 signUpBtn" style="width: 40%;">Enviar</button>
+        </div>
         <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
 
           
