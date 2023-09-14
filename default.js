@@ -12,7 +12,6 @@
       if ((!form.checkValidity()) || (!checkPass())) {
         event.preventDefault()
         event.stopPropagation()
-        showInvalidRegister()
       }
       form.classList.add('was-validated')
     }, false)
@@ -151,10 +150,6 @@ product_imgThmb.forEach(img => {
 
 })
 
-cat.onclick = () => {
-    alert("boton presionado");
-}
-
 /*
 //#region Registro
 $("#btnSignUp").click(function (event) {
@@ -210,4 +205,3 @@ function emptyInputs(input) {
 }*/
 
 //#endregion
-*/

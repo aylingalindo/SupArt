@@ -28,17 +28,15 @@
       			<div class="container d-flex flex-column">
 		        	<div class="card">
 		          		<div class="card-body">
-		            		<!--<form action="loginServlet" method="post" class="needs-validation" novalidate>-->
+		            		<form class="needs-validation" novalidate method="POST" action="dashboard.php">
 		              			<input type="text" class="form-control mb-3" id="usernameLogin" name="nameLogin" placeholder="Username" required>
-		              			<input type="password" class="form-control mb-3" id="passwordLogin" name="passLogin" placeholder="Password" required>
+		              			<input type="password" class="form-control mb-3" id="passwordLogin" name="passLogin" placeholder="Password"required>
 		              			<div class="invalid-feedback">
 		                  			Please fill with the correct sintaxis.
 		              			</div>
-		                    	<div id="invalidPersonalizado" class="bs-danger">
-		                    	</div>
-		                    	<a href="dashboard.php" class="btn btn-primary signInBtn">Iniciar Sesion</a>
+		                    	<button type="submit" class="btn btn-primary signInBtn">Iniciar Sesion</button>
 		              			<!--<input type="submit" action="dashboard.php" class="btn btn-primary signInBtn" value="Sign In">-->
-		            		<!--</form>-->
+		            		</form>
 		          		</div>
 		        	</div>
 
