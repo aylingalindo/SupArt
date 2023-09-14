@@ -14,7 +14,7 @@
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
-    <script type="text/javascript" src="default.js"></script>
+    <script defer src="default.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -96,6 +96,37 @@
     </nav>
 
 
+    <!-- POP UP AGREGAR A WISHLIST -->
+
+    <div id="popupAddToWishlist" class="card">
+
+      <div class="card-header">
+        <div class="row">
+          <div class="col-10 ms-5 me-auto mt-3">
+            <h4>Añadir a wishlist</h4>
+          </div>
+          <div class="col pt-3">
+            <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row filter-menu">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Seleccione una lista</option>
+            <option value="1">Lista 1</option>
+            <option value="2">Lista 2</option>
+            <option value="3">Lista 3</option>
+          </select>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary">Añadir</button>
+        </div>
+      </div>
+
+    </div>
+
     <!-- CONTENT -->
     <div id="content">
 
@@ -156,7 +187,7 @@
                   <a href="..." class="btn btn-primary signUpBtn">Comprar</a>
                 </div>
                 <div class="row d-flex justify-content-center">
-                  <a href="..." class="btn btn-primary productBtn">Agregar a Wishlist</a>
+                  <button data-modal-target="#popupAddToWishlist" type="button" class="btn btn-primary productBtn">Agregar a Wishlist</button>
                 </div>
               </div>
             </div>
@@ -169,13 +200,13 @@
             </div>
             <div id="comentarios">
 
-              <div class="card">
+              <div class="card" style="margin-left: 1rem;">
                 <div class="card-header">
-                  <div class="row">
-                    <div class="col">
-                      <img class="msjImg" src="Img/pfpImg.png">
+                  <div class="row d-flex" style="padding: 0.3rem;">
+                    <img class="msjImg" src="Img/pfpImg.png">
+                    <div class="col-10" style="padding-top: 0.5rem;">
+                      <h5>Aylin Galindo</h5>
                     </div>
-                    <h5>Aylin Galindo</h5>
                   </div>
                   <div id="calif" class="row">
                       <div class="col-1">
@@ -195,11 +226,72 @@
                       </div>
                   </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="padding-left: 1.5rem;">
                   Muy buen producto 
                 </div>
               </div>
 
+              <div class="card" style="margin-left: 1rem;">
+                <div class="card-header">
+                  <div class="row d-flex" style="padding: 0.3rem;">
+                    <img class="msjImg" src="Img/pfpImg.png">
+                    <div class="col-10" style="padding-top: 0.5rem;">
+                      <h5>Michelle Saenz</h5>
+                    </div>
+                  </div>
+                  <div id="calif" class="row">
+                      <div class="col-1">
+                        <i class="icon ion-md-brush"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush no"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush no"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush no"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush no"></i>
+                      </div>
+                  </div>
+                </div>
+                <div class="card-body" style="padding-left: 1.5rem;">
+                  No me gustó 
+                </div>
+              </div>
+
+              <div class="card" style="margin-left: 1rem;">
+                <div class="card-header">
+                  <div class="row d-flex" style="padding: 0.3rem;">
+                    <img class="msjImg" src="Img/pfpImg.png">
+                    <div class="col-10" style="padding-top: 0.5rem;">
+                      <h5>Edson Arguello</h5>
+                    </div>
+                  </div>
+                  <div id="calif" class="row">
+                      <div class="col-1">
+                        <i class="icon ion-md-brush"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush"></i>
+                      </div>
+                      <div class="col-1">
+                        <i class="icon ion-md-brush"></i>
+                      </div>
+                  </div>
+                </div>
+                <div class="card-body" style="padding-left: 1.5rem;">
+                  Me sirivió mucho para la escuela, las hojas eran muy resistentes y de buen tamaño y el paquete es suficientemente grande como para que te dure todo el semestre, gracias a dios por esta oportunidad, estoy muy feliz. Recomiendo ampliamente. 
+                </div>
+              </div>
 
             </div>
 

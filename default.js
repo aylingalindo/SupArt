@@ -2,9 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
- const product_imgMain = document.querySelector('.product-imgMain')
-const product_imgThmb = document.querySelectorAll('product-imgThmb')
-
 (function () {
   'use strict'
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -141,6 +138,8 @@ function showImageEdit(){
 
 const cat = document.querySelector('.cat');
 
+const product_imgMain = document.querySelector('.product-imgMain')
+const product_imgThmb = document.querySelectorAll('.product-imgThmb')
 
 product_imgThmb.forEach(img => {
     img.addEventListener('click', function(){

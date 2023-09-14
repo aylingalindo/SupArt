@@ -132,7 +132,36 @@ h4 {
     color:var(--hover);
 }
 
-/* ------------------------------------ */
+/* ----------------- POP UPS ------------------ */
+
+#popupAddToWishlist {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:50%;
+}
+
+#popupAddToWishlist.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#popupAddToWishlist .closeBtn{
+    background: none;
+    border: none;
+}
+
+#popupAddToWishlist button :hover {
+    background: none;
+    border: none;
+    color: var(--hover);
+}
+
+
+/*-----*/
 
 #content {
     overflow-y: auto;
@@ -238,32 +267,6 @@ h4 {
 
 .card-img {
     height: 200px;
-}
-
-#popupNewpost {
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
-    transition: 200ms ease-in-out;
-    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
-    width:45%;
-    height:50%;
-}
-
-#popupNewpost.active {
-    transform: translate(-50%, -50%)scale(1); 
-}
-
-#popupNewpost .closeBtn{
-    background: none;
-    border: none;
-}
-
-#popupNewpost button :hover {
-    background: none;
-    border: none;
-    color: var(--hover);
 }
 
 .newpostContainer {
@@ -569,6 +572,15 @@ h1{
     transform: translate(-50%, -50%)scale(1); 
 }
 
+#popupAddToWishlist .card-body {
+    padding-right: 3rem;
+    padding-left: 3rem;
+}
+
+#popupAddToWishlist .row {
+    padding-bottom: 1.5rem;
+}
+
 .dashboard-row{
     border-bottom: 2px solid var(--primary);
     display: grid;
@@ -604,10 +616,24 @@ h1{
     margin: 0.3rem;
 }
 
+#product-btns button {
+    width: 40%;
+    margin: 0.3rem;
+}
+
 #comentarios {
     padding-right: 10%; 
     padding-left: 10%;
 }
+
+#comentarios i {
+    font-size: 1rem;
+}
+
+#comentarios .no {
+    color: var(--light)!important;
+}
+
 
 #comentarios .card { 
     width: 100%;
