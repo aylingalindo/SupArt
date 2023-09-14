@@ -95,6 +95,37 @@
       </div>
     </nav>
 
+    <!-- POP UP AGREGAR A WISHLIST -->
+
+    <div id="popupNewWishlist" class="card">
+
+      <div class="card-header">
+        <div class="row">
+          <div class="col-10 ms-5 me-auto mt-3">
+            <h4>Añadir a wishlist</h4>
+          </div>
+          <div class="col pt-3">
+            <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body" style="padding-left: 3rem; padding-right: 3rem;">
+        <form class="needs-validation" novalidate method="POST" action="wishlist.php">
+        <div class="row">
+            <input type="text" class="form-control mb-3" id="wishlistName" name="wishlistName" placeholder="Nombre" required>
+            <textarea rows="3" type="text" class="form-control mb-3" id="wishlistDesc" name="wishlistDesc" placeholder="Descripción" required></textarea>
+            <div class="invalid-feedback">
+              Favor de llenar todos los campos.
+            </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+        </form>
+      </div>
+
+    </div>
 
     <!-- CONTENT -->
     <div id="content" style="padding-top: 6rem;">
@@ -108,22 +139,30 @@
 
             <div id="wishlistList" class="col-4 right-border">
               <ul class="list-box list-group justify-content-center">
+                <button class="btnList" data-modal-target="#popupNewWishlist" type="button">
                 <li class="list-group-item">
                   <i class="icon ion-md-add"></i>
                   <h5><b>Crear</b></h5>
                 </li>
+                </button>
+                <button class="btnList">
                 <li class="list-group-item active">
                   <i class="icon ion-md-lock"></i>
                   <h5>Lista 1</h5>
                 </li>
+                </button>
+                <button class="btnList">
                 <li class="list-group-item">
                   <i class="icon ion-md-lock"></i>
                   <h5>Lista 2</h5>
                 </li>
+                </button>
+                <button class="btnList">
                 <li class="list-group-item">
                   <i class="icon ion-md-globe"></i>
                   <h5>Lista 3</h5>
                 </li>
+                </button>
               </ul>
             </div>
 

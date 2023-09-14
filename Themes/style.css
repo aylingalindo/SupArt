@@ -160,6 +160,57 @@ h4 {
     color: var(--hover);
 }
 
+#popupNewWishlist {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:50%;
+}
+
+#popupNewWishlist.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#popupNewWishlist .closeBtn{
+    background: none;
+    border: none;
+}
+
+#popupNewWishlist button :hover {
+    background: none;
+    border: none;
+    color: var(--hover);
+}
+
+#popupNewCat {
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%)scale(0); /* escala 0 para que no se vea cuando no esta activo, se usa escala y opacidad para poder crear transiciones*/
+    transition: 200ms ease-in-out;
+    z-index: 10; /* su capa, para que se muestre sobre lo demás*/
+    width:45%;
+    height:30%;
+}
+
+#popupNewCat.active {
+    transform: translate(-50%, -50%)scale(1); 
+}
+
+#popupNewCat .closeBtn{
+    background: none;
+    border: none;
+}
+
+#popupNewCat button :hover {
+    background: none;
+    border: none;
+    color: var(--hover);
+}
 
 /*-----*/
 
@@ -780,6 +831,14 @@ h1{
 .list-group-item : hover{
     background-color: var(--hover);
     border-color: var(--light);
+}
+
+.btnList{
+    padding: 0;
+}
+
+#wishlistList button:hover {
+    background-color: var(--hover);
 }
 
 #wishlistList h5{

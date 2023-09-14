@@ -135,7 +135,11 @@
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
-            
+            <div class="row d-flex justify-content-end">
+              <div class="col-2">
+              <a href="nuevoProducto.php" class="btn btn-primary signUpBtn">Nuevo Producto</a>
+              </div>
+            </div>
             <table class="table table-hover">
               <tbody>
                 <tr>
