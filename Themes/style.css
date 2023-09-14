@@ -38,6 +38,9 @@ body{
 #search-icon {
     border-right-width: 0px;
     background-color: var(--bs-body-bg);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 0.1rem;
 }
 
 .navbar {
@@ -48,7 +51,14 @@ body{
 
 #search-bar {
     border-left-width: 0px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
+
+#search-group {
+    width:40%;
+}
+
 
 #sidebar .logo {
     padding: .875rem 1.25rem; 
@@ -969,7 +979,7 @@ i {
 
 .cart-total {
     display: flex;
-    width: 30%;
+    width: 33%;
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;

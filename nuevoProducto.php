@@ -8,12 +8,56 @@
 		<link rel="stylesheet" type="text/css" href="Themes/bootstrap-5.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
 
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="Themes/style.css">
 		<script defer src="default.js"></script>
 	</head>
 	<body>
 
     <div id="overlay"></div>
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand ps-3" href="#">SupArt</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form id="search-group" class="d-flex me-auto ms-auto mb-2 mb-lg-0" role="search">
+            <span class="input-group-text pt-0 pb-0" id="search-icon" >
+              <i class="icon ion-md-search"></i>
+            </span>
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+          </form>
+          <ul class="navbar-nav d-flex">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="user-profile.php">
+                <i class="icon ion-md-person lead align-self-center"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.php">
+                <i class="icon ion-md-cart lead align-self-center"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown me-5 pe-5">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Más
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="wishlist.php">Mis Wishlist</a></li>
+                <li><a class="dropdown-item" href="msjCotizacion.php">Mis Mensajes</a></li>
+                <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
+                <li><a class="dropdown-item" href="misPedidosVentas.php">Mis Pedidos/Ventas</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Categorías</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
 		<div id="signupPage">
 
 			<h6><?php echo "This message is from server side." ?></h6>
@@ -51,7 +95,7 @@
 
 			<!--<div class="d-flex align-items-center">-->
 
-				<div class="container">
+				<div class="container" style="padding-top: 6rem;">
 
             <h4>Nuevo Producto</h4>
         		
