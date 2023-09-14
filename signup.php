@@ -20,7 +20,7 @@
 
 				<div class="container">
         		
-      			<!--<div class="container d-flex flex-column">-->
+      			<form class="container d-flex flex-column needs-validation" novalidate method="POST" action="index.php">
 		        	<div class="row p-5 d-flex justify-content-center">
                   <div class="col-4 form-group">
                     <label for="validationName" class="form-label">Nombre</label>
@@ -101,10 +101,10 @@
                     </div>
                   </div>
                   <div class="col-12 form-group">
-                    <a href="dashboard.php" type="submit" class="btn btn-primary signInBtn" >Sign Up</a>
+                    <button type="submit" class="btn btn-primary signInBtn" >Sign Up</button>
                   </div>
                 </div>
-				    <!--</div>-->
+				    </form>
 
 			</div>
 

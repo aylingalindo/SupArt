@@ -131,7 +131,7 @@
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
 
-          <h4>Mis Pedidos</h4>
+          <h4>Mis Pedidos / Mis Ventas</h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
