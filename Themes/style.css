@@ -726,9 +726,10 @@ h1{
  }
 
 .filter-menu {
-    min-width: 100vw; 
+    min-width: 100vw;
     display: inline-block;
     min-width: 1rem;
+    margin-left: 1rem;
 }
 
 .filter-container {
@@ -869,7 +870,7 @@ i {
     padding-left: 1rem;
 }
 
-#calif .no{
+#calif .no, #califInput .no {
     color: var(--primary)
 }
 
@@ -914,4 +915,16 @@ i {
     justify-content: space-between;
     flex-wrap: nowrap;
     flex-direction: column;
+}
+
+#califInput i {
+    font-size: 2rem;
+}
+
+.calif-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--bs-heading-color);
+    font-size: calc(1.3rem + .6vw);
 }

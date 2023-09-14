@@ -11,10 +11,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
+    <script defer src="ventasProductos.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -94,6 +96,21 @@
         </div>
       </div>
       <div class="container-fluid d-flex justify-content-end filter-container">
+        <div class="row filter-menu" style="display:flex">
+          
+        </select>
+        <div class="dates" style="display: flex; align-items: center;">
+            <h6>Filtrar fecha:</h6>
+            <div class="form-group" style="display:flex; align-items:center; padding-top:1rem; margin-left: 5rem">
+              <label for="date">Date:</label>
+              <input type="date" class="form-control" id="startDate">
+        </div>
+        <div class="form-group" style="display:flex; align-items:center; padding-top:1rem">
+              <label for="date">Date:</label>
+              <input type="date" class="form-control" id="endDate">
+        </div>
+        </div>
+        </div>
         <div class="row filter-menu">
           <select class="form-select" aria-label="Default select example">
             <option selected>Todas las Categorias </option>

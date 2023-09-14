@@ -151,3 +151,63 @@ product_imgThmb.forEach(img => {
 
 })
 
+cat.onclick = () => {
+    alert("boton presionado");
+}
+
+/*
+//#region Registro
+$("#btnSignUp").click(function (event) {
+    //var signup = registerValidation();
+    event.preventDefault(); // Evita la navegación
+    alert("registrado");
+
+    //if (!resultado) {
+       // alert("Registro invalido.");
+    //}
+});
+
+function registerValidation() {
+    //USUARIO - minimo 3 caracteres
+    var username = $("#username").val();
+    if (username.length <= 3) {
+        alert("El nombre de usuario debe ser más de 3 caracteres");
+        return false;
+    }
+
+    //CONTRASEÑA - min 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.
+    var password = $("#username").val();
+    var msj = validatePassword(password);
+    if (msj !== true) {
+        alert(msj);
+        return false;
+    }
+
+
+    return true;
+}
+/*
+function validatePassword(password) {
+    var requisitos = [
+        { regex: /(?=.{8,})/, mensaje: "La contraseña debe tener al menos 8 caracteres" },
+        { regex: /(?=.*[A-Z])/, mensaje: "Debe contener al menos una letra mayúscula" },
+        { regex: /(?=.*[a-z])/, mensaje: "Debe contener al menos una letra minúscula" },
+        { regex: /(?=.*\d)/, mensaje: "Debe contener al menos un número" },
+        { regex: /(?=.*[\W_])/, mensaje: "Debe contener al menos un carácter especial" }
+    ];
+
+    for (var i = 0; i < requisitos.length; i++) {
+        if (!requisitos[i].regex.test(password)) {
+            return requisitos[i].mensaje;
+        }
+    }
+    return "Contraseña válida";
+}
+
+function emptyInputs(input) {
+    var empty = $("#nombre").val().trim() == "" ? false : true;
+    $("#")
+}*/
+
+//#endregion
+*/

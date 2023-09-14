@@ -11,12 +11,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
-    <script defer src="ventasProductos.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -65,7 +63,7 @@
 
                 <li class="nav-item dropdown mx-4">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    MÃ¡s
+                    Más
                   </a>
                   <ul class="dropdown-menu">
                     <li class="nav-item dropdown">
@@ -73,7 +71,7 @@
                         Categorias
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">PapelerÃ­a</a></li>
+                        <li><a class="dropdown-item" href="#">Papelería</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Arte</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -95,43 +93,16 @@
           </div>
         </div>
       </div>
-     <div class="container-fluid d-flex justify-content-end filter-container">
-        <div class="row filter-menu" style="display:flex">
-          
-        </select>
-        <div class="dates" style="display: flex; align-items: center;">
-            <h6>Filtrar fecha:</h6>
-            <div class="form-group" style="display:flex; align-items:center; padding-top:1rem; margin-left: 5rem">
-              <label for="date">Inicio:</label>
-              <input type="date" class="form-control" id="startDate">
-        </div>
-        <div class="form-group" style="display:flex; align-items:center; padding-top:1rem">
-              <label for="date">Fin:</label>
-              <input type="date" class="form-control" id="endDate">
-        </div>
-        </div>
-        </div>
-        <div class="row filter-menu">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Todas las Categorias </option>
-            <option value="1">Plumones</option>
-            <option value="2">Lienzos y Bastidores</option>
-            <option value="3">Papel</option>
-            <option value="4">Pintura</option>
-          </select>
-        </div>
-      </div>
-    </nav>
 
 
     <!-- CONTENT -->
-    <div id="content" style="padding-top: 8rem;">
+    <div id="content" style="padding-top: 2rem;">
       <!-- FEED -->
       <section>
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
-
-          <h4>Mis Pedidos</h4>
+          <h4>¡Califica los productos!</h4>
+        <hr>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
@@ -152,21 +123,20 @@
                   </td>
                   <td>
                     <div class="row">
-                      <h6>Folio: 12345</h6>
-                      <p>15/11/23 15:00</p>
+                      <h3>Calificación:</h3>
                     </div>
-                    <div id="calif" class="row">
+                    <div id="califInput" class="row">
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
                         <i class="icon ion-md-brush no"></i>
@@ -174,8 +144,10 @@
                     </div>
                   </td>
                   <td>
-                    <h5>Cantidad: 1</h5>
-                    <h4 class="td-price">$200.00 MXN</h4>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1" class="calif-label">Comentario:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -184,7 +156,7 @@
                   </td>
                   <td>
                     <div class="row">
-                      <h5 class="td-title">CansonÂ® Art Book One</h5>
+                      <h5 class="td-title">Canson® Art Book One</h5>
                     </div>
                     <div class="row">
                       <h6>Libretas</h6>
@@ -192,15 +164,14 @@
                   </td>
                   <td>
                     <div class="row">
-                      <h6>Folio: 5567</h6>
-                      <p>09/11/23 21:00</p>
+                      <h3>Calificación:</h3>
                     </div>
-                    <div id="calif" class="row">
+                    <div id="califInput" class="row">
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
                         <i class="icon ion-md-brush no"></i>
@@ -214,8 +185,10 @@
                     </div>
                   </td>
                   <td>
-                    <h5>Cantidad: 1</h5>
-                    <h4 class="td-price">$232.00 MXN</h4>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1" class="calif-label">Comentario:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -232,30 +205,31 @@
                   </td>
                   <td>
                     <div class="row">
-                      <h6>Folio: 5567</h6>
-                      <p>09/11/23 21:00</p>
+                      <h3>Calificación:</h3>
                     </div>
-                    <div id="calif" class="row">
+                    <div id="califInput" class="row">
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no" ></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                       <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
+                        <i class="icon ion-md-brush no"></i>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <h5>Cantidad: 2</h5>
-                    <h4 class="td-price">$134.00 MXN</h4>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1" class="calif-label">Comentario:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -263,44 +237,13 @@
            
 
           </div>
-
         </div>
-
+        <div style="display:flex; justify-content: center;">
+          <button id="btnBuy" type="button" class="btn btn-primary col-md-6 signUpBtn" style="width: 40%;">Enviar</button>
+        </div>
         <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
 
-          <h4>Resumen</h4>
           
-          <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
-
-            
-            <table class="table table-hover">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="td-price">Libretas</h4>
-                  </td>
-                  <td>
-                    <h5>Agosto 2023</h5>
-                  </td>
-                  <td>
-                    <h5>Ventas: 10</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h4 class="td-price">Plumas</h4>
-                  </td>
-                  <td>
-                    <h5>Agosto 2023</h5>
-                  </td>
-                  <td>
-                   <h5>Ventas: 2</h5>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
 
       </section>
     
@@ -309,7 +252,7 @@
       <footer>
       <div class="row text-center">
         <div class="col-4">
-          <p>Copyright Â© 2023 wm.In</p>
+          <p>Copyright © 2023 wm.In</p>
         </div>
       </div>
     </footer>
