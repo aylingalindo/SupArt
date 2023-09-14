@@ -631,9 +631,10 @@ h1{
  }
 
 .filter-menu {
-    min-width: 100vw; 
+    min-width: 100vw;
     display: inline-block;
     min-width: 1rem;
+    margin-left: 1rem;
 }
 
 .filter-container {

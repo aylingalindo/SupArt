@@ -142,3 +142,16 @@ const cat = document.querySelector('.cat');
 cat.onclick = () => {
     alert("boton presionado");
 }
+
+//#region formato
+function validateDate() {
+
+    var regexFecha = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (!regexFecha.test(fecha)) {
+        alert("Formato de fecha incorrecto. Utiliza el formato YYYY-MM-DD.");
+    } else {
+        alert("Fecha válida.");
+    }
+}
+//#endregion

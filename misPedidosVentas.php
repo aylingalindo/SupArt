@@ -93,7 +93,22 @@
           </div>
         </div>
       </div>
-      <div class="container-fluid d-flex justify-content-end filter-container">
+     <div class="container-fluid d-flex justify-content-end filter-container">
+        <div class="row filter-menu" style="display:flex">
+          
+        </select>
+        <div class="dates" style="display: flex; align-items: center;">
+            <h6>Filtrar fecha:</h6>
+            <div class="form-group" style="display:flex; align-items:center; padding-top:1rem; margin-left: 5rem">
+              <label for="date">Inicio:</label>
+              <input type="date" class="form-control" id="date">
+        </div>
+        <div class="form-group" style="display:flex; align-items:center; padding-top:1rem">
+              <label for="date">Fin:</label>
+              <input type="date" class="form-control" id="date">
+        </div>
+        </div>
+        </div>
         <div class="row filter-menu">
           <select class="form-select" aria-label="Default select example">
             <option selected>Todas las Categorias </option>
