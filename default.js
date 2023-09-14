@@ -2,6 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+ const product_imgMain = document.querySelector('.product-imgMain')
+const product_imgThmb = document.querySelectorAll('product-imgThmb')
 
 (function () {
   'use strict'
@@ -139,6 +141,14 @@ function showImageEdit(){
 
 const cat = document.querySelector('.cat');
 
-cat.onclick = () => {
-    alert("boton presionado");
-}
+
+product_imgThmb.forEach(img => {
+    img.addEventListener('click', function(){
+      const activo = document.querySelector('.activo')
+      activo.classList.remove('activo')
+      this.classList.add('activo')
+      product_imgMain.src = this.src
+    })
+
+})
+
