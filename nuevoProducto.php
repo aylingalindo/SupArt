@@ -99,11 +99,11 @@
 
             <h4>Nuevo Producto</h4>
         		
-      			<form class="container d-flex flex-column needs-validation" novalidate method="POST" action="index.php">
+      			<form class="container d-flex flex-column needs-validation" novalidate method="POST" action="misProductos.php">
 		        	<div class="row p-5 d-flex justify-content-center">
                   <div class="col-3 form-group">
                     <label for="validationName" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="validationName" name="nameSignup" placeholder="Mark" value="" required>
+                    <input type="text" class="form-control" id="validationName" name="nameSignup" value="" required>
                     <div class="invalid-feedback">
                       Completar con letras. 
                     </div>
@@ -142,14 +142,14 @@
                     <label for="validationSecondLN" class="form-label">Precio</label>
                     <input type="number" class="form-control" id="validationSecondLN" name="mLastnameSignup" value="" required>
                     <div class="invalid-feedback">
-                        Campo vacio. 
+                        Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-2 form-group">
                     <label for="validationSecondLN" class="form-label">Cantidad Disponible</label>
                     <input type="number" class="form-control" id="validationSecondLN" name="mLastnameSignup" value="" required>
                     <div class="invalid-feedback">
-                        Campo vacio. 
+                        Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-4 form-group">
@@ -158,8 +158,16 @@
                   </div>
                   <div class="col-4 form-group flex-column">
                     <div class="row">
-                      <div class="col-8 d-flex">
-                        <img src="Img/addImg.png">
+                      <div class="col-8">
+                        <div class="col-8">
+                          <img src="Img/addImg.png" class="object-fit-contain new-imgMain">
+                        </div>
+                        <div class="col-4 d-flex">
+                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb activo" alt="...">
+                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
+                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
+                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
+                        </div>
                       </div>
                       <div class="col-2 d-flex">
                         <button type="button" class="btn btn-primary align-self-center">+</button>

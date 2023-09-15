@@ -110,7 +110,7 @@
                   </td>
                   <td>
                     <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
+                      <h5 class="td-title">Canson Art Book One</h5>
                     </div>
                     <div class="row">
                       <h6>Libretas</h6>

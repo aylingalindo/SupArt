@@ -32,7 +32,7 @@
 		              			<input type="text" class="form-control mb-3" id="usernameLogin" name="nameLogin" placeholder="Username" required>
 		              			<input type="password" class="form-control mb-3" id="passwordLogin" name="passLogin" placeholder="Password"required>
 		              			<div class="invalid-feedback">
-		                  			Favor de llenar todos los campos.
+		                  			Favor de llenar con campos válidos.
 		              			</div>
 		                    	<button type="submit" class="btn btn-primary signInBtn">Iniciar Sesion</button>
 		              			<!--<input type="submit" action="dashboard.php" class="btn btn-primary signInBtn" value="Sign In">-->

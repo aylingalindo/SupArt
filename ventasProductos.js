@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var actualDate = new Date().toISOString().split('T')[0];
-    alert(actualDate);
     document.getElementById("endDate").value = actualDate;
 })
 
