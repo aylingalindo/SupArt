@@ -1,3 +1,11 @@
+<?php 
+
+	include 'API/usersAPI.php';
+	
+	$obj = new usersAPI();
+	$test = $obj->getAll();
+	
+?>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -15,7 +23,12 @@
 		<div id="indexPage">
 			<div id="overlay"></div>
 
-			<h6><?php echo "This message is from server side." ?></h6>
+			<h6>
+			<?php 
+				echo "This message is from server side.";
+				echo $test;
+			?>
+			</h6>
 				
 			<div class="d-flex align-items-center">
 
