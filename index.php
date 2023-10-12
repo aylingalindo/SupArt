@@ -1,10 +1,10 @@
 <?php 
 
-	include 'API/usersAPI.php';
+	/*include 'API/usersAPI.php';
 	
 	$obj = new usersAPI();
 	$test = $obj->getAll();
-	
+	session_start();*/
 ?>
 <!DOCTYPE html>
 	<html>
@@ -22,21 +22,16 @@
 	<body>
 		<div id="indexPage">
 			<div id="overlay"></div>
-
-			<h6>
+			<h6 id="result">
 			<?php 
 				echo "This message is from server side.";
-				echo $test;
 			?>
 			</h6>
-				
 			<div class="d-flex align-items-center">
-
 				<div class="container">
         			<h1>SupArt</h1>
         			<h5>Find everything you need</h5>
       			</div>
-
       			<!-- log in-->
       			<div class="container d-flex flex-column">
 		        	<div class="card">
