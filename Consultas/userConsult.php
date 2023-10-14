@@ -30,11 +30,12 @@ include_once '../connectionPDO.php';
         //
         function userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vVisibility) {
             $conn = $this->connect(); 
-            eco('hola user consult');
+            echo 'hola user consult';
 
             if ($conn) {
                 try {
-                    $sql = "CALL userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vVisibility)";
+                    $sql = "CALL userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, null, $vVisibility)";
+                    echo $sql;
                     $result = $conn->query($sql);
 
                     if ($result) {
@@ -43,9 +44,13 @@ include_once '../connectionPDO.php';
                         echo json_encode(array('error' => 'Failed to insert data'));
                     }
                 } catch (PDOException $e) {
-                    return false; 
+                    echo "Error en la base de datos: " . $e->getMessage();
+                    echo "SQL ejecutado: " . $sql;
+                    return false;
                 }
             } else {
+            echo 'hola no conn';
+
                 return false;
             }
             

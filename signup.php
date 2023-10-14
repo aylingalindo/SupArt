@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-4 form-group">
                         <label for="validationSecondLN" class="form-label">Sexo</label>
-                        <input type="text" class="form-control" id="validationSecondLN" name="mLastname" value="" required>
+                        <input type="text" class="form-control" id="validationSecondLN" name="gender" value="" required>
                         <div class="invalid-feedback">
                             Campo vacio. 
                         </div>
