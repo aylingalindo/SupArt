@@ -34,7 +34,7 @@ include_once '../connectionPDO.php';
 
             if ($conn) {
                 try {
-                    $sql = "CALL userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, null, $vVisibility)";
+                    $sql = "CALL userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vVisibility)";
                     echo $sql;
                     $result = $conn->query($sql);
 

@@ -47,6 +47,25 @@ BEGIN
 			CURDATE(),
 			vVisibility
 		);
+	ELSEIF vOption = 2 THEN 
+		SELECT 
+			userID,
+			email,
+			username,
+			password,
+			rol,
+			image,
+			name,
+			lastnameP,
+			lastnameM,
+			birthday,
+			gender,
+			joinedDate,
+			visibility
+		FROM users 
+		WHERE username = vUsername
+		AND password = vPassword;
+
 	END IF;
 END //
 

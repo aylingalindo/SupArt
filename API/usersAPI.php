@@ -10,6 +10,9 @@ if (isset($_GET['action'])) {
         echo 'hola';
         $user->createUser();
         break;
+        case 'login':
+        $user->loginUser();
+        break;
     }
 }
 
@@ -48,6 +51,27 @@ class usersAPI {
                 //$visibility = $_POST['visibility'];
                 $resultado = $userito->userManagement(1, 'null', "'$email'", "'$username'", "'$password'", 'null', 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", 'null');
                 echo json_encode($resultado);
+                echo '<script>window.location.href = "../index.php";</script>';
+            } else {
+                echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
+            }
+    }
+
+    function login() {
+        $userito = new User();
+        echo "username: " . (isset($_POST['username']) ? ' true ' : ' false ');
+        echo "password: " . (isset($_POST['password']) ? ' true ' : ' false ');
+
+        echo 'login user api';
+        if isset($_POST['username']) && isset($_POST['password'])) 
+        {
+                echo 'inside if user';
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $resultado = $userito->userManagement(2, 'null', "'null'", "'$username'", "'$password'", 'null', 'null', "'null'", "'null'", "'null'", "'null'", "'null'", 'null');
+                echo json_encode($resultado);
+
+                //echo '<script>window.location.href = "../dashboard.php";</script>';
             } else {
                 echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
             }

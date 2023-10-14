@@ -36,7 +36,7 @@
       			<div class="container d-flex flex-column">
 		        	<div class="card">
 		          		<div class="card-body">
-		            		<form class="needs-validation" novalidate method="POST" action="dashboard.php">
+		            		<form id="signin" class="needs-validation" novalidate method="POST" action="./API/usersAPI.php?action=lognin">
 		              			<input type="text" class="form-control mb-3" id="usernameLogin" name="nameLogin" placeholder="Username" required>
 		              			<input type="password" class="form-control mb-3" id="passwordLogin" name="passLogin" placeholder="Password"required>
 		              			<div class="invalid-feedback">
