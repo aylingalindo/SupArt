@@ -28,12 +28,13 @@ include_once '../connectionPDO.php';
         //USER MANAGEMENT - CALL PROCEDURE
         // vOption = 1 --> CREATE USER
         //
-        function userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vJoinedDate, $vVisibility) {
+        function userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vVisibility) {
             $conn = $this->connect(); 
+            eco('hola user consult');
 
             if ($conn) {
                 try {
-                    $sql = "CALL userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vJoinedDate, $vVisibility)";
+                    $sql = "CALL userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vVisibility)";
                     $result = $conn->query($sql);
 
                     if ($result) {

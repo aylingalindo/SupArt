@@ -14,8 +14,7 @@ CREATE PROCEDURE userManagement(
 	vLastnameM	VARCHAR(50),
 	vBirthday	DATE,
 	vGender	CHAR(1),
-	vJoinedDate	DATE,
-	vVisibility	TINYINT
+	vVisibility	BOOLEAN∫
 )
 BEGIN
 	-- Insert
@@ -45,7 +44,7 @@ BEGIN
 			vLastnameM,
 			vBirthday,
 			vGender,
-			vJoinedDate,
+			CURDATE(),
 			vVisibility
 		);
 	END IF;
