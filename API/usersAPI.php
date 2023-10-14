@@ -7,12 +7,12 @@ if (isset($_GET['action'])) {
 
     switch ($action) {
         case 'insert':
-        echo 'hola';
-        $user->createUser();
-        break;
+            echo 'hola';
+            $user->createUser();
+            break;
         case 'login':
-        $user->loginUser();
-        break;
+            $user->loginUser();
+            break;
     }
 }
 
@@ -59,15 +59,15 @@ class usersAPI {
 
     function login() {
         $userito = new User();
-        echo "username: " . (isset($_POST['username']) ? ' true ' : ' false ');
-        echo "password: " . (isset($_POST['password']) ? ' true ' : ' false ');
+        echo "username: " . (isset($_POST['nameLogin']) ? ' true ' : ' false ');
+        echo "password: " . (isset($_POST['passLogin']) ? ' true ' : ' false ');
 
         echo 'login user api';
         if isset($_POST['username']) && isset($_POST['password'])) 
         {
                 echo 'inside if user';
-                $username = $_POST['username'];
-                $password = $_POST['password'];
+                $username = $_POST['nameLogin'];
+                $password = $_POST['passLogin'];
                 $resultado = $userito->userManagement(2, 'null', "'null'", "'$username'", "'$password'", 'null', 'null', "'null'", "'null'", "'null'", "'null'", "'null'", 'null');
                 echo json_encode($resultado);
 
