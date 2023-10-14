@@ -1,5 +1,5 @@
 <?php
-include_once './connectionPDO.php';
+include_once '../connectionPDO.php';
 
     class User extends DB {
     /*

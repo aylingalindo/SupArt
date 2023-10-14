@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
-    <script defer src="signup.js"></script>
+    <!--<script defer src="signup.js"></script>-->
 </head>
 <body>
     <div id="signupPage">
@@ -23,7 +23,7 @@
 
         <div class="container">
 
-            <form id="signup" class="container d-flex flex-column needs-validation" novalidate method="POST" action="index.php">
+            <form id="signup" class="container d-flex flex-column needs-validation" novalidate method="POST" action="./API/usersAPI.php?action=insert">
                 <div class="row p-5 d-flex justify-content-center">
                     <div class="col-4 form-group">
                         <label for="validationName" class="form-label">Nombre</label>
