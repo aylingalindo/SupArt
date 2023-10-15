@@ -14,7 +14,7 @@ CREATE PROCEDURE userManagement(
 	vLastnameM	VARCHAR(50),
 	vBirthday	DATE,
 	vGender	CHAR(1),
-	vVisibility	BOOLEAN∫
+	vVisibility	BOOLEAN
 )
 BEGIN
 	-- Insert
@@ -66,6 +66,21 @@ BEGIN
 		WHERE username = vUsername
 		AND password = vPassword;
 
+	ELSEIF vOption = 3 THEN 
+		UPDATE users
+			SET 
+			email = vEmail,
+			username = vPassword,
+			password = vPassword,
+			rol = vRol,
+			image = vImage,
+			name = vName,
+			lastnameP = vLastnameP,
+			lastnameM = vLastnameM,
+			birthday = vBirthday,
+			gender = vGender,
+			visibility = vVisibility
+		WHERE userID = vUserID;
 	END IF;
 END //
 

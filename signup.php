@@ -103,6 +103,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-2 form-group flex-column">
+                        <label for="passConfirm" class="form-label">Privacidad del perfil</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="rbtnPrivacidad" id="rbtnPrivacidad" value="1">
+                          <label class="form-check-label" for="chkPublico">
+                            Público
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="rbtnPrivacidad" id="rbtnPrivacidad" value="0" checked>
+                          <label class="form-check-label" for="chkPrivado">
+                            Privado
+                          </label>
+                        </div>
+                        </br>
+                        <label for="passConfirm" class="form-label">Tipo de perfil</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="rbtnRol" id="rbtnRol" value="1">
+                          <label class="form-check-label" for="chkComprador">
+                            Comprador
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="rbtnRol" id="rbtnRol" value="2" checked>
+                          <label class="form-check-label" for="chkVendedor">
+                            Vendedor
+                          </label>
+                        </div>
+                    </div>
                     <div class="col-12 form-group">
                         <button type="submit" class="btn btn-primary signInBtn">Registrarse</button>
                     </div>

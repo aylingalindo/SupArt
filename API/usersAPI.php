@@ -4,6 +4,7 @@
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     $user = new usersAPI();
+    echo($action);
 
     switch ($action) {
         case 'insert':
@@ -11,6 +12,7 @@ if (isset($_GET['action'])) {
             $user->createUser();
             break;
         case 'login':
+            echo 'Hola';
             $user->loginUser();
             break;
     }
@@ -30,8 +32,10 @@ class usersAPI {
         echo "name: " . (isset($_POST['name']) ? ' true ' : ' false ');
         echo "lastnameP: " . (isset($_POST['pLastname']) ? ' true ' : ' false ');
         echo "lastnamem: " . (isset($_POST['mLastname']) ? ' true ' : ' false ');
-        echo "birthday: " . (isset($_POST['fechs']) ? ' true ' : ' false ');
+        echo "birthday: " . (isset($_POST['fecha']) ? ' true ' : ' false ');
         echo "gender: " . (isset($_POST['gender']) ? ' true ' : ' false ');
+        echo "rol: " . (isset($_POST['rbtnRol']) ? ' true ' : ' false ');
+        echo "visibility: " . (isset($_POST['rbtnPrivacidad']) ? ' true ' : ' false ');
 
         echo 'Create user';
         if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name']) && isset($_POST['pLastname']) && isset($_POST['mLastname']) && isset($_POST['fecha']) && isset($_POST['gender'])) // && isset($_POST['joinedDate'])&& isset($_POST['visibility'])) && isset($_POST['rol']) && isset($_POST['image']) 
@@ -40,36 +44,69 @@ class usersAPI {
                 $email = $_POST['email'];   
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-                //$rol = $_POST['rol'];
+                $rol = $_POST['rbtnRol'];
                 //$image = $_POST['image'];
                 $name = $_POST['name'];
                 $lastnameP = $_POST['pLastname'];
                 $lastnameM = $_POST['mLastname'];
                 $birthday = $_POST['fecha'];
                 $gender = $_POST['gender'];
-                //$joinedDate = $_POST['joinedDate'];
-                //$visibility = $_POST['visibility'];
-                $resultado = $userito->userManagement(1, 'null', "'$email'", "'$username'", "'$password'", 'null', 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", 'null');
+                $visibility = $_POST['rbtnPrivacidad'];
+                $resultado = $userito->userManagement(1, 'null', "'$email'", "'$username'", "'$password'", '$rol', 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", '$visibility');
                 echo json_encode($resultado);
-                echo '<script>window.location.href = "../index.php";</script>';
+                echo " <script language='JavaScript'>
+                    alert('Se creó el usuario con exito');
+                    location.assign('../index.php')
+                    </script>";
+                //echo '<script>window.location.href = "../index.php";</script>';
             } else {
                 echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
             }
     }
 
-    function login() {
+    function loginUser() {
         $userito = new User();
         echo "username: " . (isset($_POST['nameLogin']) ? ' true ' : ' false ');
         echo "password: " . (isset($_POST['passLogin']) ? ' true ' : ' false ');
 
         echo 'login user api';
-        if isset($_POST['username']) && isset($_POST['password'])) 
+        if isset($_POST['nameLogin']) && isset($_POST['passLogin'])) 
         {
                 echo 'inside if user';
                 $username = $_POST['nameLogin'];
                 $password = $_POST['passLogin'];
-                $resultado = $userito->userManagement(2, 'null', "'null'", "'$username'", "'$password'", 'null', 'null', "'null'", "'null'", "'null'", "'null'", "'null'", 'null');
+                $resultado = $userito->userManagement(2, 'null', 'null', "'$username'", "'$password'", 'null', 'null', "'null'", "'null'", "'null'", "'null'", "'null'", 'null');
                 echo json_encode($resultado);
+
+                if ($result->num_rows == 1) {
+                  // output data of each row
+                    $row = $result->fetch_assoc();
+
+                    $arrdatos = array(
+                    "userID" => $datos['userID'],
+                    "email" => $datos['email'],
+                    "username" => $datos['username'],
+                    "password" => $datos['password'],
+                    "rol" => $datos['rol'],
+                    "image" => $datos['image'],
+                    "name" => $datos['name'],
+                    "lastnameP" => $datos['lastnameP'],
+                    "lastnameM" => $datos['lastnameM'],
+                    "birthday" => $datos['birthday'],
+                    "gender" => $datos['gender'],
+                    "joinedDate" => $datos['joinedDate'],
+                    "visibility" => $datos['visibility']
+                    );
+
+                    $_SESSION['usersAPI'] = $arrdatos;
+                    
+
+                    echo '<script>window.location.href = "../dashboard.php";</script>';
+                  }
+                } else {echo " <script language='JavaScript'>
+                    alert('Usuario o contraseña incorrecto');
+                    location.assign('../index.php')
+                    </script>";echo "Usuario o contraseña incorrecta";
 
                 //echo '<script>window.location.href = "../dashboard.php";</script>';
             } else {
