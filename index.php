@@ -4,7 +4,7 @@
 	
 	$obj = new usersAPI();
 	$test = $obj->getAll();
-	session_start();*/
+	*/session_start();
 ?>
 <!DOCTYPE html>
 	<html>

@@ -2,6 +2,7 @@
 include_once '../connectionPDO.php';
 
     class User extends DB {
+
     /*
         function getTest() {
             $conn = $this->connect(); 
@@ -27,18 +28,18 @@ include_once '../connectionPDO.php';
     */
         //USER MANAGEMENT - CALL PROCEDURE
         // vOption = 1 --> CREATE USER
-        //
+        // vOption = 2 --> LOGIN
         function userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vVisibility) {
             $conn = $this->connect(); 
             echo 'hola user consult';
-
             if ($conn) {
                 try {
                     $sql = "CALL userManagement($vOption, $vUserID, $vEmail, $vUsername, $vPassword, $vRol, $vImage, $vName, $vLastnameP, $vLastnameM, $vBirthday, $vGender, $vVisibility)";
-                    echo $sql;
+                    echo ' despues query --> ' . $sql;
                     $result = $conn->query($sql);
 
                     if ($result) {
+                        echo '--> ' . json_encode($result) . ' <--';
                         echo json_encode(array('message' => 'Data inserted successfully'));
                     } else {
                         echo json_encode(array('error' => 'Failed to insert data'));
@@ -53,7 +54,21 @@ include_once '../connectionPDO.php';
 
                 return false;
             }
+        }
+
+        function login($vUsername,$password){
             
+            $conn = $this->connect();
+            $sql = "CALL userManagement(2, null, null, $vUsername, $password, null, null, null, null, null, null, null, null)";
+            echo '  query --> ' . $sql;
+            $result = $conn->query($sql);
+            if ($result) {
+                echo '--> ' . json_encode($result) . ' <--';
+                echo json_encode(array('message' => 'login successfully'));
+                return $result;
+                } else {
+                    echo json_encode(array('error' => 'Failed to login'));
+                }
         }
 
     }

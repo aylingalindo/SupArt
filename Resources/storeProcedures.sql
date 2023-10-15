@@ -47,6 +47,7 @@ BEGIN
 			CURDATE(),
 			vVisibility
 		);
+		--login
 	ELSEIF vOption = 2 THEN 
 		SELECT 
 			userID,

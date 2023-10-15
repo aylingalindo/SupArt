@@ -52,8 +52,9 @@ class usersAPI {
                 $birthday = $_POST['fecha'];
                 $gender = $_POST['gender'];
                 $visibility = $_POST['rbtnPrivacidad'];
-                $resultado = $userito->userManagement(1, 'null', "'$email'", "'$username'", "'$password'", '$rol', 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", '$visibility');
-                echo json_encode($resultado);
+                $resultado = $userito->userManagement(1, 'null', "'$email'", "'$username'", "'$password'", "'$rol'", 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", "'$visibility'");
+                echo json_encode($resultado) . '<----- es este';
+                echo ($resultado) . '<----- es este x2';
                 echo " <script language='JavaScript'>
                     alert('Se creó el usuario con exito');
                     location.assign('../index.php')
@@ -70,48 +71,49 @@ class usersAPI {
         echo "password: " . (isset($_POST['passLogin']) ? ' true ' : ' false ');
 
         echo 'login user api';
-        if isset($_POST['nameLogin']) && isset($_POST['passLogin'])) 
-        {
-                echo 'inside if user';
-                $username = $_POST['nameLogin'];
-                $password = $_POST['passLogin'];
-                $resultado = $userito->userManagement(2, 'null', 'null', "'$username'", "'$password'", 'null', 'null', "'null'", "'null'", "'null'", "'null'", "'null'", 'null');
-                echo json_encode($resultado);
+        if (isset($_POST['nameLogin']) && isset($_POST['passLogin'])) {
+            echo 'inside if user';
+            $username = $_POST['nameLogin'];
+            $password = $_POST['passLogin'];
+            $resultado = $userito->login("'$username'", "'$password'");
+            echo json_encode($resultado);
 
-                if ($result->num_rows == 1) {
-                  // output data of each row
-                    $row = $result->fetch_assoc();
-
+            if ($resultado != null) { 
+                // output data of each row
+                echo ' entraaaaaa ';
+                $rowCount = $resultado->rowCount();
+                if($rowCount == 1){
+                    $row = $resultado->fetch(PDO::FETCH_ASSOC);
                     $arrdatos = array(
-                    "userID" => $datos['userID'],
-                    "email" => $datos['email'],
-                    "username" => $datos['username'],
-                    "password" => $datos['password'],
-                    "rol" => $datos['rol'],
-                    "image" => $datos['image'],
-                    "name" => $datos['name'],
-                    "lastnameP" => $datos['lastnameP'],
-                    "lastnameM" => $datos['lastnameM'],
-                    "birthday" => $datos['birthday'],
-                    "gender" => $datos['gender'],
-                    "joinedDate" => $datos['joinedDate'],
-                    "visibility" => $datos['visibility']
+                        "userID" => $row['userID'],
+                        "email" => $row['email'],
+                        "username" => $row['username'],
+                        "password" => $row['password'],
+                        "rol" => $row['rol'],
+                        "image" => $row['image'],
+                        "name" => $row['name'],
+                        "lastnameP" => $row['lastnameP'],
+                        "lastnameM" => $row['lastnameM'],
+                        "birthday" => $row['birthday'],
+                        "gender" => $row['gender'],
+                        "joinedDate" => $row['joinedDate'],
+                        "visibility" => $row['visibility']
                     );
-
+                    echo ' si coincide uno ';
                     $_SESSION['usersAPI'] = $arrdatos;
-                    
-
-                    echo '<script>window.location.href = "../dashboard.php";</script>';
-                  }
-                } else {echo " <script language='JavaScript'>
+                }
+                else {
+                    echo " <script language='JavaScript'>
                     alert('Usuario o contraseña incorrecto');
                     location.assign('../index.php')
                     </script>";echo "Usuario o contraseña incorrecta";
-
-                //echo '<script>window.location.href = "../dashboard.php";</script>';
-            } else {
+                }
+                echo '<script>window.location.href = "../dashboard.php";</script>';
+            } 
+                else {
                 echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
             }
+        }
     }
 
 }
