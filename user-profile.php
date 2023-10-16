@@ -71,6 +71,10 @@
     <div id="content" style="padding-top: 6rem;">
       <section>
         <h4 style="margin-bottom: 20px; margin-left: 30px;">Perfil</h4>
+        <div style="display: inline-block">
+       
+            <button id="edit" class="btn btn-primary signInBtn;" > <a href="signup.php?edit=true"> Editar </a></button>
+        </div>
 
         <!-- PROFILE PERSONAL CARD -->
         <div class="container my-5 profile-card" class="profile-card">

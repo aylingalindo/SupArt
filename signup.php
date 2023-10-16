@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    $edit = isset($_GET['edit']) && $_GET['edit'] == 'true';
+    $current = $_SESSION['usersAPI']; 
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +23,7 @@
 <body>
     <div id="signupPage">
 
-        <h6><?php echo "This message is from server side." ?></h6>
+        <h6><?php echo "This message is from server side." . $current['userID'] ?></h6>
 
         <!--<div class="d-flex align-items-center">-->
 
@@ -27,7 +33,7 @@
                 <div class="row p-5 d-flex justify-content-center">
                     <div class="col-4 form-group">
                         <label for="validationName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="validationName" name="name" placeholder="Mark" value="" required pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$">
+                        <input type="text" class="form-control" id="validationName" name="name" placeholder="Mark" value="<?php $edit ? $current['name'] : ""  ?>" required pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$">
                         <div class="invalid-feedback">
                             Favor de llenar con letras.
                         </div>

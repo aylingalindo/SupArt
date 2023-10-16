@@ -15,6 +15,12 @@ if (isset($_GET['action'])) {
             echo 'Hola';
             $user->loginUser();
             break;
+        case 'fillProfile':
+            $user->fillProfile();
+            break;
+        case 'edit':
+            $user->editUser();
+            break;
     }
 }
 
@@ -115,6 +121,43 @@ class usersAPI {
             }
         }
     }
+
+    function fillUser(){
+        $current = $_SESSION['usersAPI'];
+        return $current;
+    }
+
+    function editUser() {
+        $current = $_SESSION['usersAPI'];
+        echo 'msj de edit user ' . $current['userID'];
+        if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name']) && isset($_POST['pLastname']) && isset($_POST['mLastname']) && isset($_POST['fecha']) && isset($_POST['gender']) && isset($_POST['visibility']) && isset($_POST['rol'])) // && isset($_POST['image']) 
+        {
+                echo 'inside if user';
+                $email = $_POST['email'];   
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $rol = $_POST['rbtnRol'];
+                //$image = $_POST['image'];
+                $name = $_POST['name'];
+                $lastnameP = $_POST['pLastname'];
+                $lastnameM = $_POST['mLastname'];
+                $birthday = $_POST['fecha'];
+                $gender = $_POST['gender'];
+                $visibility = $_POST['rbtnPrivacidad'];
+                $resultado = $userito->userManagement(1, $current['userID'], "'$email'", "'$username'", "'$password'", "'$rol'", 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", "'$visibility'");
+                echo json_encode($resultado);
+                echo ($resultado);
+                echo " <script language='JavaScript'>
+                    alert('Se creó el usuario con exito');
+                    location.assign('../index.php')
+                    </script>";
+                //echo '<script>window.location.href = "../index.php";</script>';
+            } else {
+                echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
+            }
+    }  
+
+
 
 }
 ?>

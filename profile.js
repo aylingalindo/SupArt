@@ -6,4 +6,23 @@ $(document).ready(function () {
         $(selectedButton).css({ "background-color": "#A99985", 'box-shadow': ' inset 0px 0px 0px 0px' });
         $(".profile-listInfo").css({ "background-color": "#A99985" });
     });
+    /*
+
+    $("#edit").click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "./API/usersAPI.php",
+            data: {
+               action: 'edit'
+            },
+            success: function (response) {
+                window.location.href = 'signup.php';
+            },
+            error: function (xhr, status, error) {
+                console.log("Error: " + error);
+            }
+        });
+    })*/
 });
+
