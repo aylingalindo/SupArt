@@ -1,4 +1,5 @@
 <?php
+session_start();
  include_once '../Consultas/userConsult.php';
 
 if (isset($_GET['action'])) {
@@ -94,7 +95,7 @@ class usersAPI {
                         "userID" => $row['userID'],
                         "email" => $row['email'],
                         "username" => $row['username'],
-                        "password" => $row['password'],
+                        "password" => $row['pass'],
                         "rol" => $row['rol'],
                         "image" => $row['image'],
                         "name" => $row['name'],
@@ -107,6 +108,10 @@ class usersAPI {
                     );
                     echo ' si coincide uno ';
                     $_SESSION['usersAPI'] = $arrdatos;
+                    echo "<script language='JavaScript'>
+                    alert('Exito: " . $_SESSION['usersAPI']['username'] . $_SESSION['usersAPI']['userID'] . $_SESSION['usersAPI']['password'] ."');
+                    location.assign('../dashboard.php')
+                    </script>";
                 }
                 else {
                     echo " <script language='JavaScript'>
@@ -114,9 +119,9 @@ class usersAPI {
                     location.assign('../index.php')
                     </script>";echo "Usuario o contraseña incorrecta";
                 }
-                echo '<script>window.location.href = "../dashboard.php";</script>';
+                
             } 
-                else {
+            else {
                 echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
             }
         }

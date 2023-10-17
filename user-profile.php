@@ -1,3 +1,12 @@
+<?php session_start(); 
+
+  $username = $_SESSION['usersAPI']['username'];
+  $name = $_SESSION['usersAPI']['name'];
+  $lastnameP = $_SESSION['usersAPI']['lastnameP'];
+  $lastnameM = $_SESSION['usersAPI']['lastnameM'];
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,7 +93,7 @@
                             <img src="https://i.pinimg.com/originals/66/44/b3/6644b34c91f57f8d40a4eaa94e3cb797.png" alt="Circular Image" class="img img-fluid" width="200">
                         </div>
                         <div>
-                            <h2>Jose Juan Perez Lopez</h2>
+                            <h2> <?php echo $name . ' '. $lastnameP . ' '. $lastnameM; ?> </h2>
                             <h2>Perfil publico</h2>
                         </div>
                     </div>
