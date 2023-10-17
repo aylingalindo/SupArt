@@ -13,6 +13,8 @@
         $birthday = $_SESSION['usersAPI']['birthday'];
         $gender = $_SESSION['usersAPI']['gender'];
         $email = $_SESSION['usersAPI']['email'];
+        $visibility = $_SESSION['usersAPI']['visibility'];
+        $rol = $_SESSION['usersAPI']['rol'];
 
     }else {
         clearFields();
@@ -29,6 +31,8 @@
         $birthday = '';
         $gender = '';
         $email = '';
+        $visibility = '1';
+        $rol = '1';
     }
     
 ?>
@@ -138,13 +142,13 @@
                     <div class="col-2 form-group flex-column">
                         <label for="passConfirm" class="form-label">Privacidad del perfil</label>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="rbtnPrivacidad" id="rbtnPrivacidad" value="1">
+                          <input class="form-check-input" type="radio" name="rbtnPrivacidad" id="rbtnPrivacidad" value="1" <?php echo   $visibility != '0' ? 'checked' : '' ?> >
                           <label class="form-check-label" for="chkPublico">
                             Público
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="rbtnPrivacidad" id="rbtnPrivacidad" value="0" checked>
+                          <input class="form-check-input" type="radio" name="rbtnPrivacidad" id="rbtnPrivacidad" value="0" <?php echo   $visibility == '0' ? 'checked' : '' ?> >
                           <label class="form-check-label" for="chkPrivado">
                             Privado
                           </label>
@@ -152,20 +156,27 @@
                         </br>
                         <label for="passConfirm" class="form-label">Tipo de perfil</label>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="rbtnRol" id="rbtnRol" value="1">
+                          <input class="form-check-input" type="radio" name="rbtnRol" id="rbtnRol" value="1" <?php echo $rol != '2' ? 'checked' : '' ?>>
                           <label class="form-check-label" for="chkComprador">
                             Comprador
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="rbtnRol" id="rbtnRol" value="2" checked>
+                          <input class="form-check-input" type="radio" name="rbtnRol" id="rbtnRol" value="2"  <?php echo $rol == '2' ? 'checked' : '' ?>>
                           <label class="form-check-label" for="chkVendedor">
                             Vendedor
                           </label>
                         </div>
                     </div>
                     <div class="col-12 form-group">
-                        <button type="submit" class="btn btn-primary signInBtn">Registrarse</button>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="<?php echo $edit == true ? 'user-profile.php' : 'index.php' ?>" class="btn btn-primary signInBtn">Cancelar</a>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary signInBtn" style="background-color: var(--primary)"><?php  echo $edit == true ? 'Guardar cambios' : 'Registrarse' ?> </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
