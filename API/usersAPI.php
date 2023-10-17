@@ -73,6 +73,22 @@ class usersAPI {
                 echo ($resultado) . '<----- es este x2';
 
                 if ($option == 3) {
+                    $arrdatos = array(
+                        "userID" => $row['userID'],
+                        "email" => $email,
+                        "username" => $username,
+                        "password" => $password,
+                        "rol" => $rol,
+                        "image" => $row['image'],
+                        "name" => $name,
+                        "lastnameP" => $lastnameP,
+                        "lastnameM" => $lastnameM,
+                        "birthday" => $birthday,
+                        "gender" => $gender,
+                        "visibility" => $visibility
+                    );
+                    echo ' si array ';
+                    $_SESSION['usersAPI'] = $arrdatos;
                     echo " <script language='JavaScript'>
                     alert('Se actualizó el usuario con exito');
                     location.assign('../user-profile.php')
@@ -169,9 +185,27 @@ class usersAPI {
                 $resultado = $userito->userManagement(1, $current['userID'], "'$email'", "'$username'", "'$password'", "'$rol'", 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", "'$visibility'");
                 echo json_encode($resultado);
                 echo ($resultado);
+
+                $arrdatos = array(
+                        "userID" => $row['userID'],
+                        "email" => $email,
+                        "username" => $username,
+                        "password" => $password,
+                        "rol" => $rol,
+                        "image" => $row['image'],
+                        "name" => $name,
+                        "lastnameP" => $lastnameP,
+                        "lastnameM" => $lastnameM,
+                        "birthday" => $birthday,
+                        "gender" => $gender,
+                        "visibility" => $visibility
+                    );
+                    echo ' si array ';
+                    $_SESSION['usersAPI'] = $arrdatos;
+
                 echo " <script language='JavaScript'>
                     alert('Se creó el usuario con exito');
-                    location.assign('../index.php')
+                    <!--location.assign('../index.php')-->
                     </script>";
                 //echo '<script>window.location.href = "../index.php";</script>';
             } else {
