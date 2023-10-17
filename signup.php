@@ -60,6 +60,7 @@
 
             <form id="signup" class="container d-flex flex-column needs-validation" novalidate method="POST" action="./API/usersAPI.php?action=insert">
                 <div class="row p-5 d-flex justify-content-center">
+                    <input id="userID" name="userID" value="<?php echo $userID;?>" hidden>
                     <div class="col-4 form-group">
                         <label for="validationName" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="validationName" name="name" placeholder="Mark" 

@@ -59,13 +59,30 @@ class usersAPI {
                 $birthday = $_POST['fecha'];
                 $gender = $_POST['gender'];
                 $visibility = $_POST['rbtnPrivacidad'];
-                $resultado = $userito->userManagement(1, 'null', "'$email'", "'$username'", "'$password'", "'$rol'", 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", "'$visibility'");
+                $userID = $_POST['userID'];
+                if ($userID != null) {
+                    $option = 3;
+                }else {
+                    $option = 1;
+                    $userID = 0;
+                }
+                echo($option);
+
+                $resultado = $userito->userManagement("'$option'", "'$userID'", "'$email'", "'$username'", "'$password'", "'$rol'", 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", "'$visibility'");
                 echo json_encode($resultado) . '<----- es este';
                 echo ($resultado) . '<----- es este x2';
-                echo " <script language='JavaScript'>
+
+                if ($option == 3) {
+                    echo " <script language='JavaScript'>
+                    alert('Se actualizó el usuario con exito');
+                    location.assign('../user-profile.php')
+                    </script>";
+                }else {
+                    echo " <script language='JavaScript'>
                     alert('Se creó el usuario con exito');
                     location.assign('../index.php')
                     </script>";
+                }
                 //echo '<script>window.location.href = "../index.php";</script>';
             } else {
                 echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));

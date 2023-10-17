@@ -5,7 +5,7 @@
   $lastnameP = $_SESSION['usersAPI']['lastnameP'];
   $lastnameM = $_SESSION['usersAPI']['lastnameM'];
   $visibility = $_SESSION['usersAPI']['visibility'];
-
+  $rol = $_SESSION['usersAPI']['rol'];
 ?>
 
 <!DOCTYPE html>
@@ -116,7 +116,7 @@
 
 
         <!-- PRIVATE PROFILE BANNER-->
-        <div class="row d-flex justify-content-center" style="margin: 5rem;" <?php echo $visibility == '0' ? '': 'hidden' ?> >
+        <div class="row justify-content-center" style="margin: 5rem;" <?php echo $visibility != '0' ? 'hidden': '' ?> >
           <div class="col-1" style="background-color: var(--titles)">
             <i class="icon ion-md-lock" style="font-size: 3rem; color: var(--primary); margin-left: 3rem;"></i>
           </div>
@@ -128,7 +128,7 @@
          <!-- PROFILE LIST CARD -->
         <div class="row" <?php echo $visibility == '0' ? 'hidden': '' ?> >
 
-          <h4 style="margin-left: 30px;">Listas / Productos</h4>
+          <h4 style="margin-left: 30px;"> <?php echo $rol == '2' ? 'Productos': 'Listas'?></h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
