@@ -130,14 +130,14 @@
          <!-- PROFILE LIST CARD -->
         <div class="row" <?php echo $visibility == '0' ? 'hidden': '' ?> >
 
-          <h4 style="margin-left: 30px;"> <?php echo $rol == '2' ? 'Productos': 'Listas'?></h4>
+          <h4 style="margin-left: 30px;"> <?php echo $rol == '2' ? 'Productos' : ($rol == '4' ? 'Administrador' : 'Listas'); ?></h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
             
             <table class="table table-hover">
               <tbody>
-                <tr <?php echo $rol == '2' ? '': 'hidden'?> >
+                <tr <?php echo $rol == '1' ? 'hidden': ''?> >
                   <td>
                     <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
                   </td>
@@ -153,7 +153,7 @@
                     <h4 class="td-price">$350.00 MXN</h4>
                   </td>
                 </tr>
-                <tr <?php echo $rol == '2' ? '': 'hidden'?> >
+                <tr <?php echo $rol == '1' ? 'hidden': ''?> >
                   <td>
                     <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
                   </td>
@@ -169,7 +169,7 @@
                     <h4 class="td-price">$240.00 MXN</h4>
                   </td>
                 </tr>
-                <tr <?php echo $rol == '1' ? '': 'hidden'?> >
+                <tr <?php echo $rol == '2' ? 'hidden': ''?> >
                   <td>
                   </td>
                   <td>
@@ -182,7 +182,7 @@
                   </td>
                   <td>
                   </td>
-                  <tr <?php echo $rol == '1' ? '': 'hidden'?> >
+                  <tr <?php echo $rol == '2' ? 'hidden': ''?> >
                   <td>
                   </td>
                   <td>

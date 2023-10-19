@@ -145,7 +145,7 @@
                         <div class="row">
                             <div class="row d-flex" style="padding-bottom: 1rem;">
                                 <label id="file-label" class="form-label" for="file"> Selecciona una imagen: </label>
-                                <input id="file" name="file" class="form-control" type="file"></input>
+                                <input id="file" name="file" class="form-control" type="file" onchange="mostrarImagen()"></input>
                             </div>
                             <div class="row d-flex">
                                 <img id="file-preview" src="Img/addImg.png" style="max-height: 15rem; max-width: 15rem;">

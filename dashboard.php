@@ -154,9 +154,6 @@
 
             <div class="dashboard-cat-title">
             <h4>Populares</h4>
-            <?php 
-              echo "Editar: " . $_SESSION['usersAPI']['username'];
-             ?>
             </div>
             <div class="dashboard-row col-12 justify-content-start">
 

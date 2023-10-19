@@ -40,18 +40,6 @@ include_once '../connectionPDO.php';
                     $vBirthday = date('Y-m-d H:i:s');
                     $stmt = $conn->prepare($sql);
 
-                    echo "opcion: " . $vOption;
-                    echo " email: " . $vEmail;
-                    echo " username: " . $vUsername;
-                    echo " password: " . $vPassword;
-                    echo " rol: " . $vRol;
-                    echo " image: " . $vImage;
-                    echo " name: " . $vName;
-                    echo " lastnameP: " . $vLastnameP;
-                    echo " lastnameM: " . $vLastnameM;
-                    echo " birthday: " . $vBirthday;
-                    echo " gender: " . $vGender;
-                    echo " visibility: " . $vVisibility;
 
                     $stmt->bindValue(1, $vOption, PDO::PARAM_INT);
                     $stmt->bindValue(2, $vUserID, PDO::PARAM_INT);

@@ -117,11 +117,9 @@ class usersAPI {
             $username = $_POST['nameLogin'];
             $password = $_POST['passLogin'];
             $resultado = $userito->login("'$username'", "'$password'");
-            echo json_encode($resultado);
 
             if ($resultado != null) { 
                 // output data of each row
-                echo ' entraaaaaa ';
                 $rowCount = $resultado->rowCount();
                 if($rowCount == 1){
                     $row = $resultado->fetch(PDO::FETCH_ASSOC);
@@ -140,13 +138,12 @@ class usersAPI {
                         "joinedDate" => $row['joinedDate'],
                         "visibility" => $row['visibility']
                     );
-                    echo ' si coincide uno ';
                     $_SESSION['usersAPI'] = $arrdatos;
-                    echo($_SESSION['usersAPI']);
-                    echo "<script language='JavaScript'>
-                    alert('Exito: " . $_SESSION['usersAPI']['username'] . $_SESSION['usersAPI']['userID'] . $_SESSION['usersAPI']['password'] ."');
-                    location.assign('../dashboard.php')
-                    </script>";
+                    //echo "<script language='JavaScript'>
+                    //alert('Exito: " . $_SESSION['usersAPI']['username'] . $_SESSION['usersAPI']['userID'] . $_SESSION['usersAPI']['password'] ."');
+                    //location.assign('../dashboard.php')
+                    //</script>";
+                    echo '<script>window.location.href = "../dashboard.php";</script>';
                 }
                 else {
                     echo " <script language='JavaScript'>
