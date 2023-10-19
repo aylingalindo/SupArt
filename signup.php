@@ -2,7 +2,6 @@
 
     if (isset($_GET['edit']) && $_GET['edit'] == 'true') {
         session_start();
-
         $edit = true; 
 
         $userID =  $_SESSION['usersAPI']['userID']; 
@@ -15,9 +14,21 @@
         $email = $_SESSION['usersAPI']['email'];
         $visibility = $_SESSION['usersAPI']['visibility'];
         $rol = $_SESSION['usersAPI']['rol'];
-
+        $formBirthday = date("Y-m-d", strtotime($birthday));
     }else {
         clearFields();
+        $edit = false; 
+
+        $userID =  null; 
+        $username = '';
+        $name = '';
+        $lastnameP = '';
+        $lastnameM = '';
+        $birthday = '';
+        $gender = '';
+        $email = '';
+        $visibility = '1';
+        $rol = '1';
     }
 
     function clearFields(){
@@ -86,7 +97,7 @@
                     <div class="col-4 form-group">
                         <label for="fechaID" class="form-label">Fecha de Nacimiento</label>
                         <div class="input-group has-validation">
-                            <input type="date" class="form-control" id="fechaID" name="fecha" value="<?php echo $birthday;?>" min="1800-01-01" max="" onclick="dateValidation()" required>
+                            <input type="date" class="form-control" id="fechaID" name="fecha" value="<?php echo $formBirthday;?>" min="1800-01-01" max="" onclick="dateValidation()" required>
                             <div class="invalid-feedback">
                                 Favor de seleccionar una fecha válida. 
                             </div>
