@@ -90,15 +90,15 @@ class usersAPI {
                     );
                     echo ' si array ';
                     $_SESSION['usersAPI'] = $arrdatos;
-                    //echo " <script language='JavaScript'>
-                    //alert('Se actualizó el usuario con exito');
-                    //location.assign('../user-profile.php')
-                    //</script>";
+                    echo " <script language='JavaScript'>
+                    alert('Se actualizó el usuario con exito');
+                    location.assign('../user-profile.php')
+                    </script>";
                 }else {
-                    //echo " <script language='JavaScript'>
-                    //alert('Se creó el usuario con exito');
-                    //location.assign('../index.php')
-                    //</script>";
+                    echo " <script language='JavaScript'>
+                    alert('Se creó el usuario con exito');
+                    location.assign('../index.php')
+                    </script>";
                 }
                 //echo '<script>window.location.href = "../index.php";</script>';
             } else {

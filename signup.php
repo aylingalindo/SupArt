@@ -130,7 +130,7 @@
                             Las contraseñas no coinciden
                         </div>
                     </div>
-                    <div class="col-4 form-group flex-column">
+                    <div class="col-4 form-group flex-column" <?php echo $edit == true ? 'hidden' : ''?>>
                         <div class="row">
                             <div class="row d-flex" style="padding-bottom: 1rem;">
                                 <label id="file-label" class="form-label" for="file"> Selecciona una imagen: </label>

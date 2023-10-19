@@ -97,7 +97,7 @@
             <div class="row justify-content-center">
                     <div class="profile-hero">
                         <div class="container-profilePic">
-                            <img src="https://i.pinimg.com/originals/66/44/b3/6644b34c91f57f8d40a4eaa94e3cb797.png" alt="Circular Image" class="img img-fluid" width="200">
+                            <img src="<?php echo $imageBlob == null ? 'Img/pfpImg.png'  : 'data:image/jpeg;base64,'. $image ?>" alt="Circular Image" class="img img-fluid" width="200">
                         </div>
                         <div>
                             <div class="row">
@@ -137,7 +137,7 @@
             
             <table class="table table-hover">
               <tbody>
-                <tr>
+                <tr <?php echo $rol == '2' ? '': 'hidden'?> >
                   <td>
                     <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
                   </td>
@@ -153,7 +153,7 @@
                     <h4 class="td-price">$350.00 MXN</h4>
                   </td>
                 </tr>
-                <tr>
+                <tr <?php echo $rol == '2' ? '': 'hidden'?> >
                   <td>
                     <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
                   </td>
@@ -169,7 +169,7 @@
                     <h4 class="td-price">$240.00 MXN</h4>
                   </td>
                 </tr>
-                <tr>
+                <tr <?php echo $rol == '1' ? '': 'hidden'?> >
                   <td>
                   </td>
                   <td>
@@ -182,7 +182,7 @@
                   </td>
                   <td>
                   </td>
-                  <tr>
+                  <tr <?php echo $rol == '1' ? '': 'hidden'?> >
                   <td>
                   </td>
                   <td>
