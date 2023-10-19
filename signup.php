@@ -58,7 +58,7 @@
 
         <div class="container">
 
-            <form id="signup" class="container d-flex flex-column needs-validation" novalidate method="POST" action="./API/usersAPI.php?action=insert">
+            <form id="signup" class="container d-flex flex-column needs-validation" novalidate method="POST" enctype="multipart/form-data" action="./API/usersAPI.php?action=insert">
                 <div class="row p-5 d-flex justify-content-center">
                     <input id="userID" name="userID" value="<?php echo $userID;?>" hidden>
                     <div class="col-4 form-group">
@@ -132,11 +132,12 @@
                     </div>
                     <div class="col-4 form-group flex-column">
                         <div class="row">
-                            <div class="col-8 d-flex">
-                                <img src="Img/addImg.png">
+                            <div class="row d-flex" style="padding-bottom: 1rem;">
+                                <label id="file-label" class="form-label" for="file"> Selecciona una imagen: </label>
+                                <input id="file" name="file" class="form-control" type="file"></input>
                             </div>
-                            <div class="col-2 d-flex">
-                                <button type="button" class="btn btn-primary align-self-center">+</button>
+                            <div class="row d-flex">
+                                <img id="file-preview" src="Img/addImg.png" style="max-height: 15rem; max-width: 15rem;">
                             </div>
                         </div>
                     </div>

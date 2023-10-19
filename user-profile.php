@@ -6,6 +6,8 @@
   $lastnameM = $_SESSION['usersAPI']['lastnameM'];
   $visibility = $_SESSION['usersAPI']['visibility'];
   $rol = $_SESSION['usersAPI']['rol'];
+  $imageBlob = $_SESSION['usersAPI']['image'];
+  $image = base64_encode($imageBlob);
 ?>
 
 <!DOCTYPE html>

@@ -150,6 +150,19 @@ product_imgThmb.forEach(img => {
 
 })
 
+
+
+function mostrarImagen() {
+    var input = document.getElementById('file');
+    var imagenPreview = document.getElementById('file-preview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            imagenPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 /*
 //#region Registro
 $("#btnSignUp").click(function (event) {

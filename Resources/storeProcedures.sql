@@ -8,12 +8,12 @@ CREATE PROCEDURE userManagement(
 	vUsername	VARCHAR(50),
 	vPassword	VARCHAR(50),
 	vRol	INT,
-	vImage	VARCHAR(255),
+	vImage	BLOB,
 	vName	VARCHAR(50),
 	vLastnameP	VARCHAR(50),
 	vLastnameM	VARCHAR(50),
 	vBirthday	DATE,
-	vGender	CHAR(1),
+	vGender	VARCHAR(30),
 	vVisibility	BOOLEAN
 )
 BEGIN
