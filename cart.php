@@ -102,6 +102,9 @@
                     <button class="btn btn-primary closeBtn">
                       <i class="icon ion-md-close"></i>
                     </button>
+                    <button class="btn btn-primary closeBtn">
+                        <i class="icon ion-md-create"></i>
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -169,13 +172,13 @@
         </div>
 
 
-    <!-- MODAL FOR PAYMENT METHOD -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- MODAL PAGO -->
+      <div class="modal fade" id="payModal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Metodo de pago</h5>
-                <button type="button" class="close btnClose" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="payModalLabel">Metodo de pago</h5>
+                <button type="button" class="close btnClose" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -215,8 +218,8 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Comprar</button>
+                <button type="button" class="btn btn-secondary btnClose productBtn" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary signUpBtn">Comprar</button>
               </div>
             </div>
           </div>

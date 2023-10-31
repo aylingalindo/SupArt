@@ -11,10 +11,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
+    <script defer src="cart.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -149,8 +151,8 @@
                 </div>
               </div>
               <div id="product-btns" class="row">
-                <div class="row d-flex justify-content-center">
-                  <a href="..." class="btn btn-primary productBtn">Agregar al carrito</a>
+                <div class="row d-flex justify-content-center" >
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="btn btn-primary productBtn">Agregar al carrito</a>
                 </div>
                 <div class="row d-flex justify-content-center">
                   <a href="..." class="btn btn-primary signUpBtn">Comprar</a>
@@ -358,6 +360,29 @@
 
         </div>
     
+        <!-- Modal Carrito -->
+        <div class="modal fade" id="cartModal" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addToCartModalLabel">¡Agregando producto al carrito!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="numItems">Cantidad:</label>
+                                <input type="number" class="form-control" id="numItems" placeholder="1" min="1" value=1>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary productBtn" data-bs-dismiss="modal">Cancelar</button>
+                        <button id="addCart" type="button" class="btn btn-primary signUpBtn">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
       </section>
       
       <footer>

@@ -86,3 +86,28 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE cartManagement(
+	vOption		INT,
+	vProductID	INT,
+	vNumItems	INT, 
+	vUser		INT
+)
+BEGIN
+	-- Insert
+	IF vOption = 1 THEN
+		INSERT INTO cart(
+			product,
+			numItems,
+			user
+		)
+		VALUES(
+			vProductID,
+			vNumItems,
+			vUser
+		);
+		SELECT 'Producto insertado correctamente!' as Mensaje;
+	END IF;
+END //
+DELIMITER ;
