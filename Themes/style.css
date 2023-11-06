@@ -1030,3 +1030,13 @@ i {
     font-size: 1.8rem; 
 }
 
+.underlineAction {
+    color: var(--titles);
+    cursor: pointer;
+}
+
+.underlineAction:hover {
+    text-decoration: underline;
+    color: var(--titles);
+    cursor: pointer;
+}

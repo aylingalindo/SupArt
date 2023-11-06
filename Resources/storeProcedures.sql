@@ -89,25 +89,61 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE cartManagement(
-	vOption		INT,
-	vProductID	INT,
-	vNumItems	INT, 
-	vUser		INT
+    vOption     INT,
+    vID  INT,
+    vNumItems   INT, 
+    vUser       INT
 )
 BEGIN
-	-- Insert
-	IF vOption = 1 THEN
-		INSERT INTO cart(
-			product,
-			numItems,
-			user
-		)
-		VALUES(
-			vProductID,
-			vNumItems,
-			vUser
-		);
-		SELECT 'Producto insertado correctamente!' as Mensaje;
+    -- Insert
+    SET @currentItems = (SELECT numItems FROM cart WHERE product = vID);
+    SET @totalItems = @currentItems + vNumItems;
+
+    IF vOption = 1 THEN
+        IF @currentItems = 0 THEN
+            INSERT INTO cart(
+                product,
+                numItems,
+                user
+            )
+            VALUES(
+                vID,
+                @totalItems,
+                vUser
+            );
+        ELSEIF @currentItems <> 0 THEN
+            UPDATE cart SET 
+                numItems = @totalItems
+            WHERE product = vID;
+            SELECT 'Producto insertado correctamente!' as Mensaje;
+        END IF;
+    END IF;
+
+    -- Select
+    IF vOption = 2 THEN
+        SELECT 
+            cart.cartID, 
+            cart.product, 
+            cart.numItems, 
+            cart.user,
+            products.name,
+            products.description,
+            products.pricingType,
+            products.price,
+            products.review,
+            category.name AS `category`,
+            products.stock AS `totalStock`
+        FROM cart
+        JOIN products ON cart.product = products.productID
+        JOIN product_category ON cart.product = product_category.product
+        JOIN category ON product_category.category = category.categoryID;
+    END IF;
+
+	--	Update numItems
+	IF vOption = 3 THEN
+		UPDATE cart SET
+			numItems = vNumItems
+        WHERE cartID = vID;
 	END IF;
 END //
 DELIMITER ;
