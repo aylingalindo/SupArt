@@ -131,24 +131,32 @@
                 <h6>Descripción</h6>
               </div>
               <div class="row product-div">
-                <h4 class="text-end">$20.00 MXN</h4>
-                <div id="calif" class="row d-flex justify-content-end">
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                </div>
+                  <div style="flex:1">
+                    <h6 class="text-end">Precio negociable</h6>
+                    <div id="calif" class="row d-flex justify-content-end">
+                        <h6 class="underlineAction">Guardar</h6>
+                    </div>
+                  </div>
+                  <div style="flex:1">
+                    <h4 class="text-end">$20.00 MXN</h4>
+                    <div id="calif" class="row d-flex justify-content-end">
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush no"></i>
+                          </div>
+                    </div>
+                  </div>
               </div>
               <div id="product-btns" class="row">
                 <div class="row d-flex justify-content-center" >

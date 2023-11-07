@@ -147,3 +147,39 @@ BEGIN
 	END IF;
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE msgManagement(
+	vOption		INT,
+    vSenderID	INT,
+    vReceiverID INT,
+	vMessageID	INT,
+	vMessage	TEXT
+)
+BEGIN
+	-- Get all user conversations
+    IF vOption = 1 THEN
+		SELECT
+			messageID,
+			senderID,
+			receiverID,
+			message
+		FROM userMessages 
+		WHERE senderID = vSenderID;
+	END IF;
+
+	-- Insert message to conversation
+    IF vOption = 2 THEN
+		INSERT INTO userMessages(
+			senderID,
+			receiverID,
+			message
+		)
+		VALUES(
+			vSenderID,
+			vReceiverID,
+			vMessage
+		);
+	END IF;
+END //
+DELIMITER ;
