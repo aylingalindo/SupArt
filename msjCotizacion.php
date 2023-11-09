@@ -77,12 +77,17 @@
 
             <div id="wishlistList" class="col-4">
               <ul class="list-box list-group justify-content-center">
+<?php
+                foreach ($_SESSION['messageAPI'] as $conversation) {
+                        $converID = $conversation['conversationID'];
+                        $reciever = $conversation['reciever'];}?>
                 <li class="list-group-item">
                   <div class="row">
                     <img class="msjImg" src="Img/pfpImg.png">
-                    <h5>Aylin Galindo</h5>
+                    <!--echo'<h5>'. $reciever .'</h5>';-->
                   </div>
                 </li>
+
                 <li class="list-group-item active">
                   <div class="row">
                     <img class="msjImg" src="Img/pfpImg.png">
