@@ -11,10 +11,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
+    <script defer src="cart.js"></script>
+    <script defer src="ventasProductos.js"></script>
+    <script defer src="chat.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -124,29 +128,39 @@
               <div class="row product-div">
                 <h3 style="color: var(--text)"><b>Hojas de maquina</b></h3>
                 <p>Papeles</p>
+                
               </div>
               <div class="row product-div">
                 <h6>Descripción</h6>
               </div>
               <div class="row product-div">
-                <h4 class="text-end">$20.00 MXN</h4>
-                <div id="calif" class="row d-flex justify-content-end">
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                </div>
+                  <div style="flex:1">
+                    <div id="calif" class="row d-flex justify-content-end">
+                        <input type=text class="idProducto" product-name:"" value=4 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del producto con php-->
+                        <h6 id="product-message" class="underlineAction" >¡ Negociar precio !</h6>
+                        <input type=text class="idVendedor" value=6 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del vendedor con php-->
+                    </div>
+                  </div>
+                  <div style="flex:1">
+                    <h4 class="text-end">$20.00 MXN</h4>
+                    <div id="calif" class="row d-flex justify-content-end">
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush no"></i>
+                          </div>
+                    </div>
+                  </div>
               </div>
               <div id="product-btns" class="row">
                 <div class="row d-flex justify-content-center">

@@ -121,3 +121,15 @@ CREATE TABLE product_category(
 	,FOREIGN KEY (category) REFERENCES category(categoryID)
 	,FOREIGN KEY (product) REFERENCES products(productID)
 );
+
+CREATE TABLE userMessages (
+    messageID	INT AUTO_INCREMENT PRIMARY KEY,
+    senderID	INT,
+    receiverID	INT,
+    message		TEXT,
+	product		INT
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (senderID) REFERENCES users(userID),
+    FOREIGN KEY (receiverID) REFERENCES users(userID),
+    FOREIGN KEY (product) REFERENCES products(productID)
+);

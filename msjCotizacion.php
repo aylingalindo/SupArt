@@ -1,3 +1,5 @@
+<?php session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -70,13 +72,24 @@
       <!-- FEED -->
       <section>
 
-        <h4 style="margin-bottom: 20px; margin-left: 30px;">Mis Mensajes</h4>
+        <h4 id="msjTitle" style="margin-bottom: 20px; margin-left: 30px;">Mis Mensajes</h4>
         <div id="msjCotizacion" class="row row-box d-flex justify-content-center">
 
           <div class="row row-wborder">
 
             <div id="wishlistList" class="col-4">
               <ul class="list-box list-group justify-content-center">
+<?php
+                $senderID = $_SESSION['chatAPI'][0]['senderID'];
+                $receiverID = $_SESSION['chatAPI'][0]['receiverID'];
+                $producto = $_SESSION['chatAPI'][0]['nombreProducto'];
+                echo '<li class="list-group-item">';
+                echo  '<div class="row">';
+                echo    '<img class="msjImg" src="Img/pfpImg.png">';
+                echo    '<h5>'. $producto .'</h5>';
+                echo '</div>';
+                echo'</li>';
+?>
                 <li class="list-group-item">
                   <div class="row">
                     <img class="msjImg" src="Img/pfpImg.png">
@@ -107,6 +120,66 @@
                     <tbody>
 
                       <!--MI MENSAJE-->
+<?php
+                      function makeProductLink($message, $productID, $productName) {
+                            return preg_replace('/'. $productName .'/', '<a href="product.php?id=' . $productID . '">'. $productName .'</a>', $message);
+                      }
+
+                      function sender($content){
+                          echo'<tr>';
+                          echo  '<td>';
+                          echo    '<!-- celda vacia para el espacio del mensaje de la otra persona-->';
+                          echo  '</td>';
+
+                          echo  '<td class="d-flex justify-content-end">';
+                          echo    '<div class="card miMsj">';
+                          echo      '<div class="card-body miMsj">' . makeProductLink($content, $product, $productName).'';
+                          echo      '</div>';
+                          echo    '</div>';
+                          echo  '</td>';
+
+                          echo'</tr>';
+                      }
+
+                      function reciever($content){
+                          echo'<tr>';
+                          echo  '<td>';
+                          echo    '<div class="card suMsj">';
+                          echo      '<div class="card-body suMsj">' . makeProductLink($content, $product, $productName) .'';
+                          echo     '</div>';
+                          echo   '</div>';
+                          echo '</td>';
+                          echo'<td>';
+                          echo   '<!-- celda vacia para el espacio del mensaje mio-->';
+                          echo'</td>';
+                          echo'</tr>';
+                      }
+                            echo '<h5> hola 2</h5>';
+
+
+                      if(isset($_SESSION['chatAPI'][0]['messages'])){
+
+                        $currentUser = $_SESSION['chatAPI'][0]['senderID'];
+		                $seller = $_SESSION['chatAPI'][0]['receiverID'];
+		                $product = $_SESSION['chatAPI'][0]['producto'];
+		                $productName = $_SESSION['chatAPI'][0]['nombreProducto'];
+
+                        foreach (_SESSION['chatAPI'][0]['messages'] as $message) {
+                            $content = $product['message'];
+                            $sender = $product['senderID'];
+
+                            echo '<h5> hola 1</h5>';
+                            $msg = $sender == $currentUser ? sender($content) : reciever($content);
+                        }
+                            echo '<h5> hola 3</h5>';
+                      }else{
+                            echo '<h5> hola 5</h5>';
+
+                      }
+                            echo '<h5> hola 4</h5>';
+
+
+?>
                       <tr>
                         <td>
                           <!-- celda vacia para el espacio del mensaje de la otra persona-->

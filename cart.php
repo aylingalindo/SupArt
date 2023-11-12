@@ -1,3 +1,14 @@
+<?php session_start(); 
+    /*$cartID = $_SESSION['cartProducts'][i]['cartID'];
+	$product = $_SESSION['cartProducts'][i]['product'];
+	$numItems = $_SESSION['cartProducts'][i]['numItems'];
+	$user = $_SESSION['cartProducts'][i]['user'];
+	$name = $_SESSION['cartProducts'][i]['name'];
+	$description = $_SESSION['cartProducts'][i]['description'];
+	$pricingType = $_SESSION['cartProducts'][i]['pricingType'];
+	$price = $_SESSION['cartProducts'][i]['price'];
+	$review = $_SESSION['cartProducts'][i]['review'];*/
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -79,9 +90,51 @@
           <!--CART PRODUCTS-->
           <div class="col-8" style="padding-left: 40px; padding-right: 40px; border-width: 2rem !important; min-width: 455px;">
 
-            
             <table class="table table-hover">
               <tbody>
+
+    <?php
+                    if(isset($_SESSION['cartProducts'])){
+                        foreach ($_SESSION['cartProducts'] as $product) {
+                            $cartID = $product['cartID'];
+                            $name = $product['name'];
+                            $description = $product['description'];
+                            $numItems = $product['numItems'];
+                            $price = $product['price'];
+                            $category = $product['category'];
+                            $totalStock = $product['totalStock'];
+                    
+                            echo'<tr>';
+                            echo  '<td>';
+                            echo   '<img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">';
+                            echo  '</td>';
+                            echo  '<td>';
+                            echo   '<div class="row">';
+                            echo     '<h5 class="td-title">'. $name . '</h5>';
+                            echo    '</div>';
+                            echo   '<div class="row">';
+                            echo      '<h6>'. $category. '</h6>';
+                            echo    '</div>';
+                            echo  '</td>';
+                            echo  '<td>';
+                            echo    '<h5>Cantidad:</h5>';
+                            echo    '<input type="number" id="cantidad" class="cantidad form-control" name="cantidad" value="'.$numItems .'" max="' . $totalStock . '" min="1">';
+                            echo      '<h6 class="cart-saveItems underlineAction">Guardar</h6>';
+                            echo    '<h6 class="td-price"> Precio: $' . $price . '</h6>';
+                            echo    '<h6 class="td-price cartPricePr" data-amount="' . $price * $numItems . '"> Total: $' . $price * $numItems . '</h6>';
+                            echo     '<input type=text class="cartProduct" value="'. $cartID .'" style="height:0px; visibility: hidden;">';
+                            echo     '<input type=text class="cartPrice" value="'. $price .'" style="height:0px; visibility: hidden;">';
+                            echo  '</td>';
+                            echo  '<td>';
+                            echo    '<button class="btn btn-primary closeBtn">';
+                            echo      '<i class="icon ion-md-close"></i>';
+                            echo   '</button>';
+                            echo  '</td>';
+                            echo'</tr>';
+                        }
+                    }
+    ?>
+
                 <tr>
                   <td>
                     <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
@@ -101,6 +154,9 @@
                   <td>
                     <button class="btn btn-primary closeBtn">
                       <i class="icon ion-md-close"></i>
+                    </button>
+                    <button class="btn btn-primary closeBtn">
+                        <i class="icon ion-md-create"></i>
                     </button>
                   </td>
                 </tr>
@@ -169,13 +225,13 @@
         </div>
 
 
-    <!-- MODAL FOR PAYMENT METHOD -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- MODAL PAGO -->
+      <div class="modal fade" id="payModal" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Metodo de pago</h5>
-                <button type="button" class="close btnClose" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="payModalLabel">Metodo de pago</h5>
+                <button type="button" class="close btnClose" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
