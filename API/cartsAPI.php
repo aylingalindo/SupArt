@@ -56,6 +56,7 @@ class cartsAPI {
     function getAll() {
         $myCart = new Cart();
         
+        echo 'Adding to cart';
         $option = 2;
         $myCart = new Cart();
 

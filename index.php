@@ -23,9 +23,6 @@
 		<div id="indexPage">
 			<div id="overlay"></div>
 			<h6 id="result">
-			<?php 
-				echo "This message is from server side.";
-			?>
 			</h6>
 			<div class="d-flex align-items-center">
 				<div class="container">

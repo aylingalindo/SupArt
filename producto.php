@@ -163,8 +163,8 @@
                   </div>
               </div>
               <div id="product-btns" class="row">
-                <div class="row d-flex justify-content-center">
-                  <a href="..." class="btn btn-primary productBtn">Agregar al carrito</a>
+                <div class="row d-flex justify-content-center" >
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="btn btn-primary productBtn">Agregar al carrito</a>
                 </div>
                 <div class="row d-flex justify-content-center">
                   <a href="..." class="btn btn-primary signUpBtn">Comprar</a>
@@ -372,6 +372,29 @@
 
         </div>
     
+        <!-- Modal Carrito -->
+        <div class="modal fade" id="cartModal" tabindex="-1">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addToCartModalLabel">¡Agregando producto al carrito!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="numItems">Cantidad:</label>
+                                <input type="number" class="form-control" id="numItems" placeholder="1" min="1" value=1>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary productBtn" data-bs-dismiss="modal">Cancelar</button>
+                        <button id="addCart" type="button" class="btn btn-primary signUpBtn">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
       </section>
       
       <footer>

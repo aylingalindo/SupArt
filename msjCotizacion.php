@@ -93,9 +93,10 @@
                 <li class="list-group-item">
                   <div class="row">
                     <img class="msjImg" src="Img/pfpImg.png">
-                    <h5>Aylin Galindo</h5>
+                    <!--echo'<h5>'. $reciever .'</h5>';-->
                   </div>
                 </li>
+
                 <li class="list-group-item active">
                   <div class="row">
                     <img class="msjImg" src="Img/pfpImg.png">

@@ -525,8 +525,8 @@ footer {
 }
 
 .signInBtn{
-    background-color:var(--light) !important;
-    border-color: var(--primary) !important;
+    background-color:var(--light) ;
+    border-color: var(--primary);
     width: 100% !important;
 }
 
@@ -1019,4 +1019,24 @@ i {
     line-height: 1.2;
     color: var(--bs-heading-color);
     font-size: calc(1.3rem + .6vw);
+}
+
+.btn-perfil {
+    background-color: var(--primary);
+    border: 0;
+}
+
+.btn-perfil i {
+    font-size: 1.8rem; 
+}
+
+.underlineAction {
+    color: var(--titles);
+    cursor: pointer;
+}
+
+.underlineAction:hover {
+    text-decoration: underline;
+    color: var(--titles);
+    cursor: pointer;
 }

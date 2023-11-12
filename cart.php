@@ -271,14 +271,15 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Comprar</button>
+                <button type="button" class="btn btn-secondary btnClose productBtn" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary signUpBtn">Comprar</button>
               </div>
             </div>
           </div>
         </div>
       </section>
       
+
       <footer>
       <div class="row text-center">
         <div class="col-4">

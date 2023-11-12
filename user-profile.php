@@ -1,3 +1,13 @@
+<?php session_start(); 
+
+  $username = $_SESSION['usersAPI']['username'];
+  $name = $_SESSION['usersAPI']['name'];
+  $lastnameP = $_SESSION['usersAPI']['lastnameP'];
+  $lastnameM = $_SESSION['usersAPI']['lastnameM'];
+  $visibility = $_SESSION['usersAPI']['visibility'];
+  $rol = $_SESSION['usersAPI']['rol'];
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,7 +60,7 @@
             </li>
             <li class="nav-item dropdown me-5 pe-5">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Más
+                Mas
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="wishlist.php">Mis Wishlist</a></li>
@@ -60,6 +70,11 @@
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                Log out
+              </a>
             </li>
           </ul>
         </div>
@@ -73,7 +88,6 @@
         <h4 style="margin-bottom: 20px; margin-left: 30px;">Perfil</h4>
         <div style="display: inline-block">
        
-            <button id="edit" class="btn btn-primary signInBtn;" > <a href="signup.php?edit=true"> Editar </a></button>
         </div>
 
         <!-- PROFILE PERSONAL CARD -->
@@ -84,17 +98,37 @@
                             <img src="https://i.pinimg.com/originals/66/44/b3/6644b34c91f57f8d40a4eaa94e3cb797.png" alt="Circular Image" class="img img-fluid" width="200">
                         </div>
                         <div>
-                            <h2>Jose Juan Perez Lopez</h2>
-                            <h2>Perfil publico</h2>
+                            <div class="row">
+                              <h2> <?php echo $name . ' '. $lastnameP . ' '. $lastnameM; ?> </h2>
+                            </div>
+                            <div class="row justify-content-end">
+                              <a class="btn-perfil btn btn-primary col-2" style="pointer-events: none">
+                                <i class="<?php echo $visibility == '0' ? 'icon ion-md-lock ': 'icon ion-md-globe' ?>"></i>
+                              </a>
+                              <a id="edit" class="btn-perfil btn btn-primary col-2" href="signup.php?edit=true">
+                                <i class="icon ion-md-create"></i>
+                              </a>
+                            </div>
                         </div>
                     </div>
             </div>
         </div>
 
-         <!-- PROFILE LIST CARD -->
-        <div class="row">
 
-          <h4 style="margin-left: 30px;">Listas / Productos</h4>
+        <!-- PRIVATE PROFILE BANNER-->
+        <div class="row justify-content-center" style="margin: 5rem;" <?php echo $visibility != '0' ? 'hidden': '' ?> >
+          <div class="col-1" style="background-color: var(--titles)">
+            <i class="icon ion-md-lock" style="font-size: 3rem; color: var(--primary); margin-left: 3rem;"></i>
+          </div>
+          <div class="col-5" style="background-color: var(--titles)">
+            <h2 style="color: var(--primary)">Este perfil es privado</h2>
+          </div>
+        </div>
+
+         <!-- PROFILE LIST CARD -->
+        <div class="row" <?php echo $visibility == '0' ? 'hidden': '' ?> >
+
+          <h4 style="margin-left: 30px;"> <?php echo $rol == '2' ? 'Productos': 'Listas'?></h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
@@ -164,6 +198,7 @@
             </table>
 
         </div>  
+
       </section>
       
       <footer>
