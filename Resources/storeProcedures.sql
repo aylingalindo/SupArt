@@ -195,10 +195,11 @@ CREATE PROCEDURE productManagement(
 	vPrice          DECIMAL(10,2), 
 	vReview			DECIMAL(2,2),
 	vApprovedBy		INT,
-	vUploadedBy		INT
+	vUploadedBy		INT,
+	vCategory		INT
 )
 BEGIN
-	-- Get all user conversations
+	-- Get info from products from one user or one product
     IF vOption = 1 THEN
 		SELECT
 			productID
@@ -210,11 +211,12 @@ BEGIN
 			,review
 			,approvedBy
 			,uploadedBy
+			,category
 		FROM products 
-		WHERE productID = vProductID;
+		WHERE (uploadedBy = coalesce(vUploadedBy, uploadedBy)) and (productID = COALESCE(vProductID,productID));
 	END IF;
 
-	-- Insert message to conversation
+	-- Insert product
     IF vOption = 2 THEN
 		INSERT INTO products(
 			stock
@@ -225,6 +227,7 @@ BEGIN
 			,review
 			,approvedBy
 			,uploadedBy
+			,category
 		)
 		VALUES(
 			vStock
@@ -235,9 +238,55 @@ BEGIN
 			,vReview
 			,vApprovedBy
 			,vUploadedBy
+			,vCategory
 		);
 	END IF;
+    
+	-- edit product
+    IF vOption = 3 THEN
+	UPDATE products
+    	    SET
+            stock = vStock,
+            name = vName,
+            description = vDescription,
+            pricingType = vPricingType,
+            price = vPrice,
+            review = vReview,
+            approvedBy = vApprovedBy,
+            uploadedBy = vUploadedBy,
+            category = vCategory
+ 	WHERE productID = vProductID;
+	END IF;
 
+END//
+DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE categoryManagement(
+	vOption int,
+	vName VARCHAR(50),
+	vUserID int
+)
+BEGIN
+	-- Get all user conversations
+    IF vOption = 1 THEN
+		SELECT
+			categoryID,
+			name,
+			user
+		FROM category;
+	END IF;
+
+	-- Insert message to conversation
+    IF vOption = 2 THEN
+		INSERT INTO category(
+			name
+			,user
+		)
+		VALUES(
+			vName
+			,vUserID
+		);
+	END IF;
 END //
 DELIMITER ;

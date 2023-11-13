@@ -4,12 +4,12 @@ include_once 'connectionPDO.php';
 
     class Product extends DB {
 
-        function productManagement($vOption,$vProductID, $vStock, $vName, $vDescription, $vPricingType, $vPrice, $vReview, $vApprovedBy, $vUploadedBy) {
+        function productManagement($vOption,$vProductID, $vStock, $vName, $vDescription, $vPricingType, $vPrice, $vReview, $vApprovedBy, $vUploadedBy, $vCategory) {
             $conn = $this->connect(); 
             if ($conn) {
                 try {
 
-                    $sql = "CALL productManagement(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    $sql = "CALL productManagement(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
 
                     echo ' opcion:' . ($vOption);
@@ -32,6 +32,7 @@ include_once 'connectionPDO.php';
                     $stmt->bindValue(8, $vReview, PDO::PARAM_STR);
                     $stmt->bindValue(9, $vApprovedBy, PDO::PARAM_INT);
                     $stmt->bindValue(10, $vUploadedBy, PDO::PARAM_INT);
+                    $stmt->bindValue(11, $vCategory, PDO::PARAM_INT);
 
                     $stmt->execute();
 
@@ -58,7 +59,7 @@ include_once 'connectionPDO.php';
             try{
 
                 // Prepare the SQL statement
-                $sql = "CALL productManagement(1, :vProductID, null, null, null, null, null, null, null, :vUploadedBy)";
+                $sql = "CALL productManagement(1, :vProductID, null, null, null, null, null, null, null, :vUploadedBy, null)";
                 $stmt = $conn->prepare($sql);
 
                 echo ' uploadedBy:' . ($vUploadedBy);

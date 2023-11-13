@@ -28,7 +28,7 @@ class productsAPI {
     function createProduct() {
         $newProduct = new Product();
 
-        if (isset($_POST['name']) && isset($_POST['pricingType']) && isset($_POST['price']) && isset($_POST['stock']) && isset($_POST['prodDesc']) && isset($_POST['productID'])) 
+        if (isset($_POST['name']) && isset($_POST['pricingType']) && isset($_POST['price']) && isset($_POST['stock']) && isset($_POST['prodDesc']) && isset($_POST['productID']) && isset($_POST['cat'])) 
         {
             
             echo ' dentro del if';
@@ -51,7 +51,8 @@ class productsAPI {
                 $stock = $_POST['stock'];
                 $prodDesc = $_POST['prodDesc'];
                 $productID = $_POST['productID'];
-                
+                $cat = $_POST['cat'];
+
 
                 if (isset($_SESSION['usersAPI']['userID'])){
                     $uploadedBy = $_SESSION['usersAPI']['userID']; 
@@ -74,7 +75,7 @@ class productsAPI {
                 }
 
 
-                $resultado = $newProduct->productManagement($option, $productID, $stock, $name, $prodDesc, $pricingType, $price, null, null, $uploadedBy);
+                $resultado = $newProduct->productManagement($option, $productID, $stock, $name, $prodDesc, $pricingType, $price, null, null, $uploadedBy, $cat);
 
                 echo json_encode($resultado) . '<----- es este';
                 echo ($resultado) . '<----- es este x2';

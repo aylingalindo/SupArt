@@ -6,33 +6,43 @@
   include_once 'API/productsAPI.php';
   $product = new productsAPI();
 
-  if (isset($_GET['editID']) && $_GET['editID'] != '0') {
-        session_start();
-        $edit = $_GET['editID']; 
+  include_once 'API/categoryAPI.php';
+  $cat = new categoryAPI();
 
-        $resultado = $product->showProducts($edit, false);
+  $categorias = $cat->show();
+
+  if (isset($_GET['editID']) && $_GET['editID'] != '0') {
+    session_start();
+    $edit = $_GET['editID']; 
+
+    $resultado = $product->showProducts($edit, false);
 
         //if(count($result) === 1){
-          $name =  $resultado[0]['name']; 
-          $price = $resultado[0]['price'];
-          $stock = $resultado[0]['stock']; 
-          $description = $resultado[0]['description'];
-          echo " <script language='JavaScript'>
-                    alert('name:".$name.", price:".$price." stock:".$stock." desc:".$description." ');
-                  </script>";
+    $name =  $resultado[0]['name']; 
+    $price = $resultado[0]['price'];
+    $stock = $resultado[0]['stock']; 
+    $description = $resultado[0]['description'];
+    $category = $resultado[0]['category'];
+    $type = $resultado[0]['pricingType'];
 
-    }else {
-        clearFields();
-    }
+    echo " <script language='JavaScript'>
+          alert('name:".$name.", price:".$price." stock:".$stock." desc:".$description." ');
+          </script>";
 
-    function clearFields(){
-        $edit = '0'; 
+  }else {
+    clearFields();
+  }
 
-        $name = '';
-        $price = '';
-        $stock = '';
-        $description = '';
-    }
+  function clearFields(){
+    $edit = '0'; 
+
+    $name = '';
+    $price = '';
+    $stock = '';
+    $description = '';
+    $category = '0';
+    $type = 'Sell';
+  }
 ?>
 
 <!DOCTYPE html>
@@ -147,11 +157,12 @@
                   <div class="col-4 form-group">
                     <label for="Cat" class="form-label">Categoria</label>
                     <select name="cat" class="form-select" aria-label="Default select example" id="Cat" required>
-                      <option selected>Seleccione la Categoria </option>
-                      <option value="1">Plumones</option>
-                      <option value="2">Lienzos y Bastidores</option>
-                      <option value="3">Papel</option>
-                      <option value="4">Pintura</option>
+                      <option value="0" selected>Seleccione la Categoria </option>
+                      <?php
+                      foreach($categorias as $cat){
+                        echo "<option " . ($cat['categoryID'] == $category ? 'selected' : '') . " value=". $cat['categoryID'] . " name='cat'>" . $cat['name'] . "</option>";
+                      }
+                      ?> 
                     </select>
                     <div class="invalid-feedback">
                       Favor de seleccionar una categoria. 
@@ -162,13 +173,13 @@
                   </div>
                    <div class="col-4 form-group" style="padding-top: 2rem;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="1" checked>
+                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="1" <?php echo $type == 'Sell' ? 'checked' : '' ?>>
                       <label class="form-check-label" for="pricingType1">
                         Venta
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="0">
+                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="0" <?php echo $type == 'Negotiable' ? 'checked' : '' ?> >
                       <label class="form-check-label" for="pricingType2">
                         Cotización
                       </label>
