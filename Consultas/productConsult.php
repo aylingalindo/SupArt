@@ -58,8 +58,11 @@ include_once 'connectionPDO.php';
             try{
 
                 // Prepare the SQL statement
-                $sql = "CALL productManagement(1, null, null, null, null, null, null, null, :vProductID, :vUploadedBy)";
+                $sql = "CALL productManagement(1, :vProductID, null, null, null, null, null, null, null, :vUploadedBy)";
                 $stmt = $conn->prepare($sql);
+
+                echo ' uploadedBy:' . ($vUploadedBy);
+                echo ' productID:' . ($vProductID);
 
                 // Bind the parameters
                 $stmt->bindValue(':vProductID', $vProductID, PDO::PARAM_INT);

@@ -28,7 +28,7 @@ class productsAPI {
     function createProduct() {
         $newProduct = new Product();
 
-        if (isset($_POST['name']) && isset($_POST['pricingType']) && isset($_POST['price']) && isset($_POST['stock']) && isset($_POST['prodDesc']) ) 
+        if (isset($_POST['name']) && isset($_POST['pricingType']) && isset($_POST['price']) && isset($_POST['stock']) && isset($_POST['prodDesc']) && isset($_POST['productID'])) 
         {
             
             echo ' dentro del if';
@@ -50,7 +50,7 @@ class productsAPI {
                 $price = $_POST['price'];
                 $stock = $_POST['stock'];
                 $prodDesc = $_POST['prodDesc'];
-                $productID = 0;
+                $productID = $_POST['productID'];
                 
 
                 if (isset($_SESSION['usersAPI']['userID'])){
@@ -58,9 +58,6 @@ class productsAPI {
                 }else {
                     $uploadedBy = 0;
                 }
-
-                echo 'uploadedBy: ' . $uploadedBy;
-
 
                 $option = 2;
                 if ($productID != 0) {
@@ -70,16 +67,11 @@ class productsAPI {
                     $productID = 0;
                 }
 
-                echo ($_POST['pricingType']);
-
                 if($_POST['pricingType'] == "0"){
                     $pricingType = "Negotiable";
                 }else {
                     $pricingType = "Sell";
                 }
-
-                echo ($pricingType);
-
 
 
                 $resultado = $newProduct->productManagement($option, $productID, $stock, $name, $prodDesc, $pricingType, $price, null, null, $uploadedBy);
@@ -87,7 +79,7 @@ class productsAPI {
                 echo json_encode($resultado) . '<----- es este';
                 echo ($resultado) . '<----- es este x2';
 
-                /*if ($option == 3) {
+                if ($option == 3) {
                     echo " <script language='JavaScript'>
                     alert('Se actualizó el producto con exito');
                     location.assign('../misProductos.php')
@@ -97,7 +89,7 @@ class productsAPI {
                     alert('Se creó el producto con exito');
                     location.assign('../misProductos.php')
                     </script>";
-                }*/
+                }
                 //echo '<script>window.location.href = "../index.php";</script>';
         } else {
             echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
@@ -110,13 +102,13 @@ class productsAPI {
 
         if ($prodID != null){
             $productID = $prodID;
-            $uploadedBy = 0;
+            $uploadedBy = null;
 
         } 
 
         if($myProducts){
             $uploadedBy = $_SESSION['usersAPI']['userID']; 
-            $productID = 0; 
+            $productID = null; 
         }
 
         $resultado = $Product->showProducts($productID, $uploadedBy);

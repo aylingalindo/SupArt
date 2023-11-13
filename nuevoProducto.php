@@ -10,19 +10,16 @@
         session_start();
         $edit = $_GET['editID']; 
 
-        $result = $product->showProducts($edit, true);
+        $resultado = $product->showProducts($edit, false);
 
         //if(count($result) === 1){
-          $name =  $result[0]['name']; 
-          $price = $result[0]['price'];
-          $stock = $result[0]['stock']; 
-          $description = $result[0]['description'];
-        /*}else {
-          clearFields();
+          $name =  $resultado[0]['name']; 
+          $price = $resultado[0]['price'];
+          $stock = $resultado[0]['stock']; 
+          $description = $resultado[0]['description'];
           echo " <script language='JavaScript'>
-                    alert('No se encontró ningun producto. EditID = " . $edit ."');
+                    alert('name:".$name.", price:".$price." stock:".$stock." desc:".$description." ');
                   </script>";
-        }*/
 
     }else {
         clearFields();
@@ -100,8 +97,6 @@
 
 		<div id="signupPage">
 
-			<h6><?php echo "This message is from server side." ?></h6>
-
       <!-- POP UP NUEVOA CATEGORIA -->
 
     <div id="popupNewCat" class="card">
@@ -137,9 +132,10 @@
 
 				<div class="container" style="padding-top: 6rem;">
 
-            <h4>Nuevo Producto</h4>
+            <h4><?php echo $edit == '0' ? 'Nuevo Producto' : 'Editar Producto' ?></h4>
         		
       			<form class="container d-flex flex-column needs-validation" novalidate method="POST" enctype="multipart/form-data"      action="./API/productsAPI.php?action=insert">
+              <input id="productID" name="productID" value="<?php echo $edit;?>" hidden>
 		        	<div class="row p-5 d-flex justify-content-center">
                   <div class="col-3 form-group">
                     <label for="name" class="form-label">Nombre</label>
@@ -180,21 +176,21 @@
                   </div>
                   <div class="col-2 form-group">
                     <label for="price" class="form-label">Precio</label>
-                    <input type="number" class="form-control" id="price" name="price" value="<?php $price ?>" required>
+                    <input type="number" class="form-control" id="price" name="price" value="<?php echo $price ?>" required>
                     <div class="invalid-feedback">
                         Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-2 form-group">
                     <label for="stock" class="form-label">Cantidad Disponible</label>
-                    <input type="number" class="form-control" id="stock" name="stock" value="<?php $stock ?>" required>
+                    <input type="number" class="form-control" id="stock" name="stock" value="<?php echo $stock ?>" required>
                     <div class="invalid-feedback">
                         Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-4 form-group">
                     <label for="prodDesc" class="form-label">Descripción</label>
-                    <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="prodDesc" required> <?php $description ?> </textarea>
+                    <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="prodDesc" required> <?php echo $description ?> </textarea>
                   </div>
                   <div class="col-4 form-group flex-column">
                     <div class="row">
@@ -215,7 +211,7 @@
                     </div>
                   </div>
                   <div class="col-12 form-group">
-                    <button type="submit" class="btn btn-primary signInBtn">Crear</button>
+                    <button type="submit" class="btn btn-primary signInBtn"><?php echo $edit == '0' ? 'Crear' : 'Editar' ?></button>
                   </div>
                 </div>
 				    </form>
