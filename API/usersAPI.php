@@ -9,11 +9,9 @@ if (isset($_GET['action'])) {
 
     switch ($action) {
         case 'insert':
-            echo 'hola';
             $user->createUser();
             break;
         case 'login':
-            echo 'Hola';
             $user->loginUser();
             break;
         case 'fillProfile':

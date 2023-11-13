@@ -17,18 +17,6 @@
         $formBirthday = date("Y-m-d", strtotime($birthday));
     }else {
         clearFields();
-        $edit = false; 
-
-        $userID =  null; 
-        $username = '';
-        $name = '';
-        $lastnameP = '';
-        $lastnameM = '';
-        $birthday = '';
-        $gender = '';
-        $email = '';
-        $visibility = '1';
-        $rol = '1';
     }
 
     function clearFields(){

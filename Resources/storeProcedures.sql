@@ -183,3 +183,61 @@ BEGIN
 	END IF;
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE productManagement(
+	vOption			INT,
+    vProductID		INT,
+    vStock 			VARCHAR(50),
+	vName			VARCHAR(200),
+	vDescription	TEXT,
+	vPricingType    ENUM('Sell', 'Negotiable'), 
+	vPrice          DECIMAL(10,2), 
+	vReview			DECIMAL(2,2),
+	vApprovedBy		INT,
+	vUploadedBy		INT
+)
+BEGIN
+	-- Get all user conversations
+    IF vOption = 1 THEN
+		SELECT
+			productID
+			,stock
+			,name
+			,description
+			,pricingType
+			,price
+			,review
+			,approvedBy
+			,uploadedBy
+		FROM products 
+		WHERE productID = vProductID;
+	END IF;
+
+	-- Insert message to conversation
+    IF vOption = 2 THEN
+		INSERT INTO products(
+			stock
+			,name
+			,description
+			,pricingType
+			,price
+			,review
+			,approvedBy
+			,uploadedBy
+		)
+		VALUES(
+			vStock
+			,vName
+			,vDescription
+			,vPricingType
+			,vPrice
+			,vReview
+			,vApprovedBy
+			,vUploadedBy
+		);
+	END IF;
+
+
+END //
+DELIMITER ;

@@ -1,3 +1,43 @@
+<?php 
+  session_start();
+  $userID =  $_SESSION['usersAPI']['userID']; 
+  $username = $_SESSION['usersAPI']['username'];
+
+  include_once 'API/productsAPI.php';
+  $product = new productsAPI();
+
+  if (isset($_GET['editID']) && $_GET['editID'] != '0') {
+        session_start();
+        $edit = $_GET['editID']; 
+
+        $result = $product->showProducts($edit, true);
+
+        //if(count($result) === 1){
+          $name =  $result[0]['name']; 
+          $price = $result[0]['price'];
+          $stock = $result[0]['stock']; 
+          $description = $result[0]['description'];
+        /*}else {
+          clearFields();
+          echo " <script language='JavaScript'>
+                    alert('No se encontró ningun producto. EditID = " . $edit ."');
+                  </script>";
+        }*/
+
+    }else {
+        clearFields();
+    }
+
+    function clearFields(){
+        $edit = '0'; 
+
+        $name = '';
+        $price = '';
+        $stock = '';
+        $description = '';
+    }
+?>
+
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -69,7 +109,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-10 ms-5 me-auto mt-3">
-            <h4>Añadir a wishlist</h4>
+            <h4>Nueva categoría</h4>
           </div>
           <div class="col pt-3">
             <button data-close-button type="button" class="closeBtn" style="color: var(--light)"><i class="icon ion-md-close"></i></button>
@@ -99,18 +139,18 @@
 
             <h4>Nuevo Producto</h4>
         		
-      			<form class="container d-flex flex-column needs-validation" novalidate method="POST" action="misProductos.php">
+      			<form class="container d-flex flex-column needs-validation" novalidate method="POST" enctype="multipart/form-data"      action="./API/productsAPI.php?action=insert">
 		        	<div class="row p-5 d-flex justify-content-center">
                   <div class="col-3 form-group">
-                    <label for="validationName" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="validationName" name="nameSignup" value="" required>
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $name ?>" required>
                     <div class="invalid-feedback">
                       Completar con letras. 
                     </div>
                   </div>
                   <div class="col-4 form-group">
                     <label for="Cat" class="form-label">Categoria</label>
-                    <select class="form-select" aria-label="Default select example" id="Cat" required>
+                    <select name="cat" class="form-select" aria-label="Default select example" id="Cat" required>
                       <option selected>Seleccione la Categoria </option>
                       <option value="1">Plumones</option>
                       <option value="2">Lienzos y Bastidores</option>
@@ -126,35 +166,35 @@
                   </div>
                    <div class="col-4 form-group" style="padding-top: 2rem;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                      <label class="form-check-label" for="flexRadioDefault1">
+                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="1" checked>
+                      <label class="form-check-label" for="pricingType1">
                         Venta
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                      <label class="form-check-label" for="flexRadioDefault2">
+                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="0">
+                      <label class="form-check-label" for="pricingType2">
                         Cotización
                       </label>
                     </div>
                   </div>
                   <div class="col-2 form-group">
-                    <label for="validationSecondLN" class="form-label">Precio</label>
-                    <input type="number" class="form-control" id="validationSecondLN" name="mLastnameSignup" value="" required>
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="price" name="price" value="<?php $price ?>" required>
                     <div class="invalid-feedback">
                         Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-2 form-group">
-                    <label for="validationSecondLN" class="form-label">Cantidad Disponible</label>
-                    <input type="number" class="form-control" id="validationSecondLN" name="mLastnameSignup" value="" required>
+                    <label for="stock" class="form-label">Cantidad Disponible</label>
+                    <input type="number" class="form-control" id="stock" name="stock" value="<?php $stock ?>" required>
                     <div class="invalid-feedback">
                         Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-4 form-group">
                     <label for="prodDesc" class="form-label">Descripción</label>
-                    <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="wishlistDesc" required></textarea>
+                    <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="prodDesc" required> <?php $description ?> </textarea>
                   </div>
                   <div class="col-4 form-group flex-column">
                     <div class="row">

@@ -1,3 +1,9 @@
+<?php 
+  session_start();
+
+  $username = $_SESSION['usersAPI']['username'];
+?>
+
 <!DOCTYPE html>
 <html>
     <head>

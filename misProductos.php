@@ -1,3 +1,14 @@
+<?php 
+  session_start();
+  $userID =  $_SESSION['usersAPI']['userID']; 
+  $username = $_SESSION['usersAPI']['username'];
+  $rol = $_SESSION['usersAPI']['rol'];
+
+  include_once 'API/productsAPI.php';
+  $product = new productsAPI();
+  $result = $product->showProducts(null, true);
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -109,59 +120,46 @@
               <a href="nuevoProducto.php" class="btn btn-primary signUpBtn">Nuevo Producto</a>
               </div>
             </div>
+            </br>
             <table class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>En Stock:</h5>
-                    <h4 class="td-price">20</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>En Stock:</h5>
-                    <h4 class="td-price">132</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta3.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Strathmore - Cuaderno de bocetos de la serie 200</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Almohadilla de alambre, 8.5 x 11 pulgadas, 100 hojas (50 lb/74 g) - Papel de artista para adultos y estudiantes - Grafito, carbón, lápiz, lápiz de colores</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>En Stock:</h5>
-                    <h4 class="td-price">34</h4>
-                  </td>
-                </tr>
+
+                <?php 
+
+                  foreach($result as $row){
+
+                  echo "<tr>
+                    <td>
+                      <img src='Img/libreta2.jpg' class='object-fit-contain td-img' alt='...''>
+                    </td>
+                    <td>
+                      <div class='row'>
+                        <h5 class='td-title'>" . $row['name'] . "</h5>
+                      </div>
+                      <div class='row'>
+                        <h6>" . $row['description'] . "</h6>
+                      </div>
+                    </td>
+                    <td>
+                      <h5>En Stock:</h5>
+                      <h4 class='td-price'>" . $row['stock'] . "</h4>
+                    </td>
+                    <td>
+                      <a class='btn btn-primary closeBtn' href='nuevoProducto.php?editID=".$row['productID']."'>
+                        <i class='icon ion-md-create'></i>
+                      </a>
+                    </td>
+                    <td>
+                      <button class='btn btn-primary closeBtn'>
+                        <i class='icon ion-md-close'></i>
+                      </button>
+                    </td>
+                  </tr>";
+
+                  }
+
+                ?>
+
               </tbody>
             </table>
            
@@ -170,7 +168,7 @@
 
         </div>
 
-        <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+        <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;" <?php echo $rol != '4' ? 'hidden': '' ?> >
 
           <h4>Pendientes de Aprobación</h4>
           
@@ -179,32 +177,6 @@
             
             <table class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <img src="Img/gises.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
-                    </div>
-                    <div class="row">
-                      <p>Publicado por: Edson Arguello</p>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-close"></i>
-                    </button>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-checkmark"></i>
-                    </button>
-                  </td>
-                </tr>
                 <tr>
                   <td>
                     <img src="Img/plumas.jpeg" class="object-fit-contain td-img" alt="...">
@@ -236,8 +208,9 @@
           </div>
         </div>
 
-      </section>
-    
+      </br>
+      </br>
+
       </section>
       
       <footer>
