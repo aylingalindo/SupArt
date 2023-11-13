@@ -158,6 +158,9 @@ CREATE PROCEDURE msgManagement(
     vProducto   INT
 )
 BEGIN
+    DECLARE sellerID INT;
+    DECLARE existingRowCount INT;
+
 	-- Get all user conversations
     IF vOption = 1 THEN
 		SELECT
@@ -173,19 +176,17 @@ BEGIN
 
 	-- Insert message to conversation
     IF vOption = 2 THEN
-		INSERT INTO userMessages(
-			senderID,
-			receiverID,
-			message,
-            product
-		)
-		VALUES(
-			vSenderID,
-			vReceiverID,
-			vMessage,
-            vProducto
-		);
-	END IF;
+        -- Check if a row with the same productID already exists
+        SELECT COUNT(product) INTO existingRowCount
+        FROM userMessages
+        WHERE product = vProducto;
+
+        IF existingRowCount = 0 THEN
+            -- Insert the new message
+            INSERT INTO userMessages(senderID, receiverID, message, product)
+            VALUES(vSenderID, vReceiverID, vMessage, vProducto);
+        END IF;
+    END IF;
 
     -- Get current conversation
     IF vOption = 3 THEN
@@ -205,5 +206,24 @@ BEGIN
         WHERE productID = vProducto;
 	END IF;
 
+    -- Send message
+    IF vOption = 5 THEN
+        SELECT senderID INTO sellerID
+        FROM userMessages
+        WHERE product = vProducto
+        LIMIT 1;
+
+        INSERT INTO userMessages(senderID, receiverID, message, product)
+        VALUES(vSenderID, COALESCE(sellerID, vReceiverID), vMessage, vProducto);
+    END IF;
+
+    -- SELECT to all different chats
+    IF vOption = 6 THEN
+        SELECT DISTINCT productID, name, senderID, receiverID
+        FROM chat
+        WHERE senderID = 6 OR receiverID = 6
+        GROUP BY productID, name;
+    END IF;
 END //
 DELIMITER ;
+

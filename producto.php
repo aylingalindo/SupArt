@@ -136,9 +136,9 @@
               <div class="row product-div">
                   <div style="flex:1">
                     <div id="calif" class="row d-flex justify-content-end">
-                        <input type=text class="idProducto" product-name:"" value=4 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del producto con php-->
+                        <input type=text class="idProducto" product-name:"" value=5 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del producto con php-->
                         <h6 id="product-message" class="underlineAction" >¡ Negociar precio !</h6>
-                        <input type=text class="idVendedor" value=6 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del vendedor con php-->
+                        <input type=text class="idVendedor" value=5 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del vendedor con php-->
                     </div>
                   </div>
                   <div style="flex:1">

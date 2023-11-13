@@ -56,7 +56,7 @@ class cartsAPI {
     function getAll() {
         $myCart = new Cart();
         
-        echo 'Adding to cart';
+        echo 'get all to cart';
         $option = 2;
         $myCart = new Cart();
 
@@ -69,6 +69,7 @@ class cartsAPI {
         echo ".....";
 
         $resultado = $myCart->cartManagement($option, 'null', 'null', 'null');
+                echo json_encode($resultado);
         if(isset($resultado))
 		{
             
@@ -92,7 +93,7 @@ class cartsAPI {
 			}
             $_SESSION['cartProducts'] = $arrProducts["cart"];
 			echo json_encode($_SESSION['cartProducts']);
-			//echo json_encode($arrProducts);
+			echo json_encode($arrProducts);
 		} else {
             echo 'this is the result--->' . $resultado . '<---';
 			echo json_encode(array('mensaje' => 'No hay elementos'));

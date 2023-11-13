@@ -13,10 +13,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
+    <script defer src="chat.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -80,35 +83,26 @@
             <div id="wishlistList" class="col-4">
               <ul class="list-box list-group justify-content-center">
 <?php
-                $senderID = $_SESSION['chatAPI'][0]['senderID'];
-                $receiverID = $_SESSION['chatAPI'][0]['receiverID'];
-                $producto = $_SESSION['chatAPI'][0]['nombreProducto'];
-                echo '<li class="list-group-item">';
-                echo  '<div class="row">';
-                echo    '<img class="msjImg" src="Img/pfpImg.png">';
-                echo    '<h5>'. $producto .'</h5>';
-                echo '</div>';
-                echo'</li>';
-?>
-                <li class="list-group-item">
-                  <div class="row">
-                    <img class="msjImg" src="Img/pfpImg.png">
-                    <!--echo'<h5>'. $reciever .'</h5>';-->
-                  </div>
-                </li>
+            $senderID = $_SESSION['chatAPI'][0]['senderID'];
+            $receiverID = $_SESSION['chatAPI'][0]['receiverID'];
+            $currentProduct = $_SESSION['chatAPI'][0]['producto'];
 
-                <li class="list-group-item active">
-                  <div class="row">
-                    <img class="msjImg" src="Img/pfpImg.png">
-                    <h5>Edson Arguello</h5>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="row">
-                    <img class="msjImg" src="Img/pfpImg.png">
-                    <h5>Michelle Saenz</h5>
-                  </div>
-                </li>
+            foreach ($_SESSION['allchatAPI'] as $chat) {
+                $productName = $chat['nombreProducto'];
+                $dinamicID = $chat['producto'];
+
+                echo '<li class="list-group-item ' . (($dinamicID == $currentProduct) ? 'active' : '') . '" onclick="currentChat(' . $dinamicID . ', this)">';
+                echo '  <div class="row">';
+                echo '    <img class="msjImg" src="Img/pfpImg.png">';
+                echo '    <h5>'. $productName .'</h5>';
+                echo '  </div>';
+                echo '  <input type="hidden" class="productID" value="' . $dinamicID . '">';
+
+                echo '</li>';
+            }
+?>
+
+
               </ul>
             </div>
 
@@ -126,7 +120,7 @@
                             return preg_replace('/'. $productName .'/', '<a href="product.php?id=' . $productID . '">'. $productName .'</a>', $message);
                       }
 
-                      function sender($content){
+                      function sender($content, $product, $productName){
                           echo'<tr>';
                           echo  '<td>';
                           echo    '<!-- celda vacia para el espacio del mensaje de la otra persona-->';
@@ -142,7 +136,7 @@
                           echo'</tr>';
                       }
 
-                      function reciever($content){
+                      function reciever($content, $product, $productName){
                           echo'<tr>';
                           echo  '<td>';
                           echo    '<div class="card suMsj">';
@@ -155,80 +149,24 @@
                           echo'</td>';
                           echo'</tr>';
                       }
-                            echo '<h5> hola 2</h5>';
-
-
                       if(isset($_SESSION['chatAPI'][0]['messages'])){
-
                         $currentUser = $_SESSION['chatAPI'][0]['senderID'];
 		                $seller = $_SESSION['chatAPI'][0]['receiverID'];
 		                $product = $_SESSION['chatAPI'][0]['producto'];
 		                $productName = $_SESSION['chatAPI'][0]['nombreProducto'];
 
-                        foreach (_SESSION['chatAPI'][0]['messages'] as $message) {
-                            $content = $product['message'];
-                            $sender = $product['senderID'];
+                        foreach ($_SESSION['chatAPI'][0]['messages'] as $message) {
+                            $content = $message['message'];
+                            $sender = $message['senderID'];
 
-                            echo '<h5> hola 1</h5>';
-                            $msg = $sender == $currentUser ? sender($content) : reciever($content);
+                            $msg = $sender == $currentUser ? sender($content, $product, $productName) : reciever($content, $product, $productName);
                         }
-                            echo '<h5> hola 3</h5>';
                       }else{
-                            echo '<h5> hola 5</h5>';
 
                       }
-                            echo '<h5> hola 4</h5>';
 
 
 ?>
-                      <tr>
-                        <td>
-                          <!-- celda vacia para el espacio del mensaje de la otra persona-->
-                        </td>
-
-                        <td class="d-flex justify-content-end">
-                          <div class="card miMsj">
-                            <div class="card-body miMsj">
-                              Me gustaria cotizar el precio del producto: 
-                              <a href="...">Pluma Pentel 2023</a>
-                            </div>
-                          </div>
-                        </td>
-
-                      </tr>
-
-                      <!--SU MENSAJE-->
-                      <tr>
-                        <td>
-                          <div class="card suMsj">
-                            <div class="card-body suMsj">
-                              Hola! Mucho gusto, si claro.
-                            </div>
-                          </div>
-                        </td>
-
-                        <td>
-                          <!-- celda vacia para el espacio del mensaje mio-->
-                        </td>
-
-                      </tr>
-
-                      <!--SU MENSAJE-->
-                      <tr>
-                        <td>
-                          <div class="card suMsj">
-                            <div class="card-body suMsj">
-                              El precio de ese producto es de 200.
-                            </div>
-                          </div>
-                        </td>
-
-                        <td>
-                          <!-- celda vacia para el espacio del mensaje mio-->
-                        </td>
-
-                      </tr>
-
                     </tbody>
                   </table>
 
@@ -237,10 +175,10 @@
 
               <div id="inputChat" class="row">
                 <div class="col-10" style="padding: 0">
-                  <input type="text" class="form-control" placeholder="Texto...">
+                  <input id="inputMsg" type="text" class="form-control" placeholder="Texto...">
                 </div>
                 <div class="col-2" style="padding: 0">
-                  <button type="button" class="btn btn-primary">Enviar</button>
+                  <button id="sendBtn" type="button" class="btn btn-primary">Enviar</button>
                 </div>
               </div>
 
