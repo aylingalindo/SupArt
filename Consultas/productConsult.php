@@ -120,7 +120,6 @@ include_once 'connectionPDO.php';
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
                 if ($result) {
-                    echo '--> ' . json_encode($result) . ' <--';
                     echo json_encode(array('message' => 'data retrived successfully'));
                     return $result;
                 } else {

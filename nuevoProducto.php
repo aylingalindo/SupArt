@@ -212,7 +212,7 @@
                     <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="prodDesc" required> <?php echo $description ?> </textarea>
                   </div>
 
-                  <div class="col-4 form-group flex-column align-items-center">
+                  <div class="col-4 form-group flex-column align-items-center" <?php echo $edit != '0' ? 'hidden' : ''?> >
                     <div class="row d-flex" style="padding-bottom: 1rem;">
                       <label id="file-label" class="form-label" for="file"> Selecciona una imagen: </label>
                       <input id="file" name="file[]" class="form-control" type="file" onchange="mostrarImagenProd()" multiple></input>

@@ -64,12 +64,19 @@ class productsAPI {
 
                 $resultado = $newProduct->productManagement($option, $productID, $stock, $name, $prodDesc, $pricingType, $price, null, null, $uploadedBy, $cat);
 
+                if ($option == 3) {
+                    echo " <script language='JavaScript'>
+                    alert('Se actualizó el producto con exito');
+                    location.assign('../misProductos.php')
+                    </script>";
+                }
+
                 echo '--- antes de archivos ---->' . json_encode($resultado) . '<----- es este x2';
 
                 $ID = json_encode($resultado);
                 echo 'encode:'.$ID;
                 $iID = json_decode($ID, true);
-                echo 'decode:',$iID;
+                echo 'decode:'.$iID;
 
                 $files = array();
 
@@ -98,17 +105,10 @@ class productsAPI {
                 }
                 echo '--- despues de archivos ---->' . json_encode($resultado) . '<----- es este x2';
 
-                /*if ($option == 3) {
-                    echo " <script language='JavaScript'>
-                    alert('Se actualizó el producto con exito');
-                    location.assign('../misProductos.php')
-                    </script>";
-                }else {
-                    echo " <script language='JavaScript'>
+                echo " <script language='JavaScript'>
                     alert('Se creó el producto con exito');
                     location.assign('../misProductos.php')
                     </script>";
-                }*/
                 //echo '<script>window.location.href = "../index.php";</script>';
         } else {
             echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
