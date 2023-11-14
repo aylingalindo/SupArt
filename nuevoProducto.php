@@ -8,8 +8,9 @@
 
   include_once 'API/categoryAPI.php';
   $cat = new categoryAPI();
-
   $categorias = $cat->show();
+
+  $edit = '0';
 
   if (isset($_GET['editID']) && $_GET['editID'] != '0') {
     session_start();
@@ -123,12 +124,19 @@
       </div>
 
       <div class="card-body" style="padding-left: 3rem; padding-right: 3rem;">
-        <form class="needs-validation" novalidate method="POST" action="wishlist.php">
+        <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="./API/categoryAPI.php">
+        <input id="productID" name="editID" value="<?php echo $edit;?>" hidden>
         <div class="row">
-            <input type="text" class="form-control mb-3" id="wishlistName" name="wishlistName" placeholder="Nombre" required>
-            <div class="invalid-feedback">
-              Favor de llenar todos los campos.
-            </div>
+          <input type="text" class="form-control mb-3" id="catName" name="catName" placeholder="Nombre" required>
+          <div class="invalid-feedback">
+            Campo vacio.
+          </div>
+        </div>
+        <div class="row">
+          <textarea rows="3" type="text" class="form-control mb-3" id="catDesc" name="catDesc" placeholder="Descripción" required></textarea>
+          <div class="invalid-feedback">
+            Campo vacio.
+          </div>
         </div>
         <div class="row">
           <button type="submit" class="btn btn-primary">Crear</button>
@@ -173,7 +181,7 @@
                   </div>
                    <div class="col-4 form-group" style="padding-top: 2rem;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="1" <?php echo $type == 'Sell' ? 'checked' : '' ?>>
+                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="1" <?php echo $type != 'Negotiable' ? 'checked' : '' ?>>
                       <label class="form-check-label" for="pricingType1">
                         Venta
                       </label>
@@ -203,24 +211,24 @@
                     <label for="prodDesc" class="form-label">Descripción</label>
                     <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="prodDesc" required> <?php echo $description ?> </textarea>
                   </div>
-                  <div class="col-4 form-group flex-column">
-                    <div class="row">
-                      <div class="col-8">
-                        <div class="col-8">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgMain">
-                        </div>
-                        <div class="col-4 d-flex">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb activo" alt="...">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
-                        </div>
-                      </div>
-                      <div class="col-2 d-flex">
-                        <button type="button" class="btn btn-primary align-self-center">+</button>
-                      </div>
+
+                  <div class="col-4 form-group flex-column align-items-center">
+                    <div class="row d-flex" style="padding-bottom: 1rem;">
+                      <label id="file-label" class="form-label" for="file"> Selecciona una imagen: </label>
+                      <input id="file" name="file[]" class="form-control" type="file" onchange="mostrarImagenProd()" multiple></input>
+                    </div>
+                    <div class="row d-flex align-items-center justify-content-center" style="padding:0;">
+                      <img id="file-preview" src="Img/addImg.png" class="object-fit-contain product-imgMain">
+                    </div>
+                    <div class="row d-flex align-items-center justify-content-center" style="height:2rem; padding:0;">
+                          <img id="file-mini1" src="Img/addImg.png" class="object-fit-contain product-imgThmb activo" alt="...">
+                          <img id="file-mini2" src="Img/addImg.png" class="object-fit-contain product-imgThmb" alt="...">
+                          <img id="file-mini3" src="Img/addImg.png" class="object-fit-contain product-imgThmb" alt="...">
+                          <img id="file-mini4" src="Img/addImg.png" class="object-fit-contain product-imgThmb" alt="...">
                     </div>
                   </div>
+
+
                   <div class="col-12 form-group">
                     <button type="submit" class="btn btn-primary signInBtn"><?php echo $edit == '0' ? 'Crear' : 'Editar' ?></button>
                   </div>

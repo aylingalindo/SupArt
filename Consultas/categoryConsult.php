@@ -4,17 +4,18 @@ include_once 'connectionPDO.php';
 
     class Category extends DB {
 
-        function newCategory($vName, $vUserID) {
+        function newCategory($vOption, $vName, $vUserID, $vDescription) {
             $conn = $this->connect(); 
             if ($conn) {
                 try {
 
-                    $sql = "CALL categoryManagement(2, ?, ?)";
+                    $sql = "CALL categoryManagement(?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
 
+                    $stmt->bindValue(1, $vOption, PDO::PARAM_INT);
                     $stmt->bindValue(2, $vName, PDO::PARAM_STR);
                     $stmt->bindValue(3, $vUserID, PDO::PARAM_INT);
-
+                    $stmt->bindValue(4, $vDescription, PDO::PARAM_STR);
                     $stmt->execute();
 
                     if ($stmt->errorInfo()[0] != '00000') {
@@ -38,7 +39,7 @@ include_once 'connectionPDO.php';
             try{
 
                 // Prepare the SQL statement
-                $sql = "CALL categoryManagement(1, null, null)";
+                $sql = "CALL categoryManagement(1, null, null, null)";
                 $stmt = $conn->prepare($sql);
 
                 $stmt->execute();
@@ -46,7 +47,6 @@ include_once 'connectionPDO.php';
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
                 if ($result) {
-                    echo '--> ' . json_encode($result) . ' <--';
                     echo json_encode(array('message' => 'data retrived successfully'));
                     return $result;
                 } else {

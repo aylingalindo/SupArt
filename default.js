@@ -163,6 +163,35 @@ function mostrarImagen() {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+function mostrarImagenProd() {
+    var input = document.getElementById('file');
+
+    // Ensure that files are selected and there's at least one file
+    if (input.files && input.files.length > 0) {
+        var files = input.files;
+
+        // Array of image element IDs
+        var imageElementIds = ['file-mini1', 'file-mini2', 'file-mini3', 'file-mini4'];
+
+        // Loop through the first four files or less if there are fewer than four
+        for (var i = 0; i < Math.min(files.length, imageElementIds.length); i++) {
+            var imageElement = document.getElementById(imageElementIds[i]);
+
+            // Use a closure to capture the correct imageElement
+            (function (currentImageElement) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    currentImageElement.src = e.target.result;
+                };
+
+                reader.readAsDataURL(files[i]);
+            })(imageElement);
+        }
+    }
+}
+
 /*
 //#region Registro
 $("#btnSignUp").click(function (event) {

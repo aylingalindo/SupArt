@@ -33,18 +33,6 @@ class productsAPI {
             
             echo ' dentro del if';
 
-                /*$image = null;
-                
-                if (isset($_FILES['file'])) {
-                    if ($_FILES['file']['error'] === UPLOAD_ERR_OK){
-                        $image = file_get_contents($_FILES['file']['tmp_name']);
-                    }else {
-                        echo json_encode(array('mensaje' => 'Error al cargar la imagen'));
-                    }
-                }else {
-                    $image = null;
-                }*/
-
                 $name = $_POST['name'];   
                 $pricingType = $_POST['pricingType'];
                 $price = $_POST['price'];
@@ -52,7 +40,6 @@ class productsAPI {
                 $prodDesc = $_POST['prodDesc'];
                 $productID = $_POST['productID'];
                 $cat = $_POST['cat'];
-
 
                 if (isset($_SESSION['usersAPI']['userID'])){
                     $uploadedBy = $_SESSION['usersAPI']['userID']; 
@@ -77,10 +64,41 @@ class productsAPI {
 
                 $resultado = $newProduct->productManagement($option, $productID, $stock, $name, $prodDesc, $pricingType, $price, null, null, $uploadedBy, $cat);
 
-                echo json_encode($resultado) . '<----- es este';
-                echo ($resultado) . '<----- es este x2';
+                echo '--- antes de archivos ---->' . json_encode($resultado) . '<----- es este x2';
 
-                if ($option == 3) {
+                $ID = json_encode($resultado);
+                echo 'encode:'.$ID;
+                $iID = json_decode($ID, true);
+                echo 'decode:',$iID;
+
+                $files = array();
+
+                if (isset($_FILES['file'])) {
+                    foreach ($_FILES['file']['tmp_name'] as $key => $tempFilePath) {
+                        $fileName = $_FILES['file']['name'][$key];
+
+                        // Read the binary content of the file into a variable
+                        $fileContent = file_get_contents($tempFilePath);
+
+                        // Store the file content in the array
+                        $uploadedFiles[] = array(
+                            'fileName' => $fileName,
+                            'file' => $fileContent,
+                            'product' => $iID
+                        );
+
+                    }
+                }
+
+                if (($iID != 0) && (count($uploadedFiles) > 0)){
+
+                    echo 'insert product files'; 
+                    $resultado = $newProduct->productFilesManagement($uploadedFiles);
+
+                }
+                echo '--- despues de archivos ---->' . json_encode($resultado) . '<----- es este x2';
+
+                /*if ($option == 3) {
                     echo " <script language='JavaScript'>
                     alert('Se actualizó el producto con exito');
                     location.assign('../misProductos.php')
@@ -90,7 +108,7 @@ class productsAPI {
                     alert('Se creó el producto con exito');
                     location.assign('../misProductos.php')
                     </script>";
-                }
+                }*/
                 //echo '<script>window.location.href = "../index.php";</script>';
         } else {
             echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));

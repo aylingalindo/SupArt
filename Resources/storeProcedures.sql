@@ -211,7 +211,7 @@ BEGIN
 			,review
 			,approvedBy
 			,uploadedBy
-			,category
+,category
 		FROM products 
 		WHERE (uploadedBy = coalesce(vUploadedBy, uploadedBy)) and (productID = COALESCE(vProductID,productID));
 	END IF;
@@ -227,7 +227,7 @@ BEGIN
 			,review
 			,approvedBy
 			,uploadedBy
-			,category
+,category
 		)
 		VALUES(
 			vStock
@@ -238,7 +238,7 @@ BEGIN
 			,vReview
 			,vApprovedBy
 			,vUploadedBy
-			,vCategory
+,vCategory
 		);
 	END IF;
     
@@ -254,7 +254,7 @@ BEGIN
             review = vReview,
             approvedBy = vApprovedBy,
             uploadedBy = vUploadedBy,
-            category = vCategory
+category = vCategory
  	WHERE productID = vProductID;
 	END IF;
 
@@ -286,6 +286,39 @@ BEGIN
 		VALUES(
 			vName
 			,vUserID
+		);
+	END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE productFilesManagement(
+	vOption			int,
+	vFileName 		varchar(100),
+	vFileContent 	BLOB,
+	vProduct 		int
+)
+BEGIN
+	-- Get all user conversations
+    IF vOption = 1 THEN
+		SELECT
+			product,
+			file,
+			fileName
+		FROM mediaFilesProduct;
+	END IF;
+
+	-- Insert message to conversation
+    IF vOption = 2 THEN
+		INSERT INTO mediaFilesProduct(
+			product
+			,file
+			,fileName
+		)
+		VALUES(
+			vProduct
+			,vFileContent
+			,vFileName
 		);
 	END IF;
 END //
