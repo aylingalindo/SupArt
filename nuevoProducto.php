@@ -102,6 +102,11 @@
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                Log out
+              </a>
+            </li>
           </ul>
         </div>
       </div>

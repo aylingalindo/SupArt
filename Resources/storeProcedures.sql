@@ -272,6 +272,34 @@ BEGIN
     WHERE approvedBy is null;
     end if;
 
+    -- dashboard populares
+    IF vOption = 6  then
+	    Select 
+	    	a.*,
+	        SUM(b.numItems) AS totalItemsSold
+	    From vProductOverview a
+	    Left Join purchaseInfo b on a.productID = b.product
+	    group by a.productID
+	    order by totalItemsSold DESC
+	    limit 15;
+    END IF;
+
+    -- dashboard mejor calificados
+    IF vOption = 7  then
+	    Select *
+	    From vProductOverview
+	    order by review desc 
+	    limit 15;
+    END IF;
+
+    -- dashboard nuevos
+    IF vOption = 8  then
+    	Select *
+    	From vProductOverview
+    	order by productID desc 
+	    limit 15;
+    END IF;
+
 END//
 DELIMITER ;
 

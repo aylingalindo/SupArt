@@ -1,4 +1,17 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+  $userID =  $_SESSION['usersAPI']['userID']; 
+  $username = $_SESSION['usersAPI']['username'];
+  $rol = $_SESSION['usersAPI']['rol'];
+
+include_once 'API/productsAPI.php';
+$product = new productsAPI();
+
+$populares = $product->showProducts(6,null, null, null);
+$calificados = $product->showProducts(7,null, null, null);
+$nuevos = $product->showProducts(8,null, null, null);
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,81 +33,6 @@
 <body>
   <div class="d-flex"> 
     <div id="overlay"></div>
-
-    <!-- NAV BAR-->
-
-    <!--<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <div id="navbar-content" class="row">
-          <div class="col-4 d-flex align-items-center">
-            <a class="navbar-brand" href="#">SupArt</a>
-          </div>
-
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse d-flex justify-content-evenly" id="navbarSupportedContent">
-
-            <div class="col-4">
-              <div class="d-flex input-group" role="search">
-                <span class="input-group-text pt-0 pb-0" id="search-icon" >
-                  <i class="icon ion-md-search"></i>
-                </span>
-                <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-              </div>
-
-            </div>
-
-            <div class="col-4">
-
-              <ul class="navbar-nav mb-3 mb-lg-0 ">
-
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="user-profile.php">
-                      <i class="icon ion-md-person lead align-self-center"></i>
-                  </a>
-                </li>
-                <li class="nav-item mx-4">
-                  <a class="nav-link" href="cart.php">
-                      <i class="icon ion-md-cart lead align-self-center"></i>
-                  </a>
-                </li>
-
-                <li class="nav-item dropdown mx-4">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Más
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categorias
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Papelería</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Arte</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Oficina</a></li>
-                      </ul>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Listas</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Mensajes</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Mis Productos</a></li>
-                    <li><a class="dropdown-item" href="#">Mis Ventas</a></li>
-                    <li><a class="dropdown-item" href="#">Mis Pedidos</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </nav>-->
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
@@ -133,6 +71,11 @@
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                Log out
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -157,85 +100,26 @@
             </div>
             <div class="dashboard-row col-12 justify-content-start">
 
-               <div class="card" >
-                  <img src="Img/hojas.jpg" class="object-fit-contain card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Hojas Xerox Tamaño Carta" class="card-link-product">
-                      <h5 class="card-title card-title-product">Hojas Xerox Tamaño Carta</h5>
-                      <h6 class="card-title card-price-product">$150.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+              <?php
 
-                <div class="card" >
-                  <img src="Img/plumas.jpeg" class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Pluma PinPoint Azor Colores Varios" class="card-link-product">
-                      <h5 class="card-title card-title-product">Pluma PinPoint Azor Colores Varios</h5>
-                      <h6 class="card-title card-price-product">$21.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+                foreach($populares as $row){
+                  $imageBlob = $row['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $row['fileName'];
 
-                <div class="card" >
-                  <img src="Img/plumones.jpeg" class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Plumones Touch de Doble Punta Pincel" class="card-link-product">
-                      <h5 class="card-title card-title-product">Plumones Touch de Doble Punta Pincel</h5>
-                      <h6 class="card-title card-price-product">$1,500.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+                  echo
+                   "<div class='card' >
+                      <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain card-img' alt='...''>
+                      <div class='card-body'>
+                        <a href='producto.php' title='". $row['name'] ."' class='card-link-product'>
+                          <h5 class='card-title card-title-product'><b>". $row['name'] ."</b></h5>
+                          <h6 class='card-title card-price-product'> $". $row['price'] ." MXN </h6>
+                        </a>
+                      </div>
+                    </div>";
+              }
 
-                <div class="card" >
-                  <img src="Img/gises.jpeg" class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Gises Pastel 36 Piezas" class="card-link-product">
-                      <h5 class="card-title card-title-product">Gises Pastel 36 Piezas</h5>
-                      <h6 class="card-title card-price-product">$250.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="card" >
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="card" >
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="card" >
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+              ?>
 
             </div>
 
@@ -246,40 +130,31 @@
           <div class="col-12" style="padding-top: 10px;">
             
             <div class="dashboard-cat-title">
-              <h4>Más Vendidos</h4>
+              <h4>Mejor Calificados</h4>
             </div>
 
             <div class="dashboard-row col-12 justify-content-start">
 
-               <div class="card" >
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Titulo de dos lineas larguito para que se oculte</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+               <?php
 
-                <div class="card" >
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+                foreach($calificados as $row){
+                  $imageBlob = $row['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $row['fileName'];
 
-                <div class="card">
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+                  echo
+                   "<div class='card' >
+                      <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain card-img' alt='...''>
+                      <div class='card-body'>
+                        <a href='producto.php' title='". $row['name'] ."' class='card-link-product'>
+                          <h5 class='card-title card-title-product'><b>". $row['name'] ."</b></h5>
+                          <h6 class='card-title card-price-product'> $". $row['price'] ." MXN </h6>
+                        </a>
+                      </div>
+                    </div>";
+              }
+
+              ?>
 
             </div>
 
@@ -288,30 +163,31 @@
           <div class="col-12" style="padding-top: 10px;">
             
             <div class="dashboard-cat-title">
-              <h4>Categoria</h4>
+              <h4>Novedades</h4>
             </div>
 
             <div class="dashboard-row col-12 justify-content-start">
 
-               <div class="card">
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+               <?php
 
-                <div class="card">
-                  <img src="..." class="card-img" alt="...">
-                  <div class="card-body">
-                    <a href="..." title="Titulo de dos lineas larguito para que se oculte" class="card-link-product">
-                      <h5 class="card-title card-title-product">Card title</h5>
-                      <h6 class="card-title card-price-product">$00.00 MXN</h6>
-                    </a>
-                  </div>
-                </div>
+                foreach($nuevos as $row){
+                  $imageBlob = $row['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $row['fileName'];
+
+                  echo
+                   "<div class='card' >
+                      <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain card-img' alt='...''>
+                      <div class='card-body'>
+                        <a href='producto.php' title='". $row['name'] ."' class='card-link-product'>
+                          <h5 class='card-title card-title-product'><b>". $row['name'] ."</b></h5>
+                          <h6 class='card-title card-price-product'> $". $row['price'] ." MXN </h6>
+                        </a>
+                      </div>
+                    </div>";
+              }
+
+              ?>
 
             </div>
 
