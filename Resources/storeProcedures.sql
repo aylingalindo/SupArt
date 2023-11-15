@@ -211,7 +211,7 @@ BEGIN
 			,review
 			,approvedBy
 			,uploadedBy
-,category
+			,category
 		FROM products 
 		WHERE (uploadedBy = coalesce(vUploadedBy, uploadedBy)) and (productID = COALESCE(vProductID,productID));
 	END IF;
@@ -227,7 +227,7 @@ BEGIN
 			,review
 			,approvedBy
 			,uploadedBy
-,category
+			,category
 		)
 		VALUES(
 			vStock
@@ -238,8 +238,9 @@ BEGIN
 			,vReview
 			,vApprovedBy
 			,vUploadedBy
-,vCategory
+			,vCategory
 		);
+    SELECT last_insert_id() AS last_insert_id;
 	END IF;
     
 	-- edit product
@@ -254,9 +255,22 @@ BEGIN
             review = vReview,
             approvedBy = vApprovedBy,
             uploadedBy = vUploadedBy,
-category = vCategory
+			category = vCategory
  	WHERE productID = vProductID;
 	END IF;
+	
+	-- overview of products
+  	IF vOption = 4  then
+    Select * from vProductOverview
+    WHERE uploadedBy = coalesce(vUploadedBy, uploadedBy)
+    AND category = coalesce(vCategory, category);
+    end if;
+
+    -- pending of approval products
+  	IF vOption = 5  then
+    Select * from vProductOverview
+    WHERE approvedBy is null;
+    end if;
 
 END//
 DELIMITER ;

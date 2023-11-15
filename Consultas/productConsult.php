@@ -99,27 +99,35 @@ include_once 'connectionPDO.php';
             }
         }
 
-        function showProducts($vProductID, $vUploadedBy){
+        function showProducts($vOption,$vProductID, $vUploadedBy, $vCategory){
             
             $conn = $this->connect();
 
             try{
 
-                // Prepare the SQL statement
-                $sql = "CALL productManagement(1, :vProductID, null, null, null, null, null, null, null, :vUploadedBy, null)";
+                $sql = "CALL productManagement(:vOption, :vProductID, null, null, null, null, null, null, null, :vUploadedBy, :vCategory)";
                 $stmt = $conn->prepare($sql);
 
                 // Bind the parameters
+                $stmt->bindValue(':vOption', $vOption, PDO::PARAM_INT);
                 $stmt->bindValue(':vProductID', $vProductID, PDO::PARAM_INT);
                 $stmt->bindValue(':vUploadedBy', $vUploadedBy, PDO::PARAM_INT);
+                $stmt->bindValue(':vCategory', $vCategory, PDO::PARAM_INT);
 
-                // Execute the statement
+                echo '$vOption: ' . $vOption;
+                echo ' $vProductID: ' . $vProductID;
+                echo ' $vUploadedBy: ' . $vUploadedBy;
+                echo json_encode($stmt);
+
+
                 $stmt->execute();
 
-                // Fetch the result (if needed)
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
                 if ($result) {
+                    /*foreach ($result as $row) {
+                        print_r($row); // or var_dump($row);
+                    }*/  
                     echo json_encode(array('message' => 'data retrived successfully'));
                     return $result;
                 } else {

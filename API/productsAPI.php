@@ -13,8 +13,47 @@ if (isset($_GET['action'])) {
         case 'insert':
             $product->createProduct();
             break;
+        // para que se muestren los productos filtrados por categoria
         case 'show':
-            /*$product->showProducts();*/
+            if(isset($_POST['selectedOption'])){
+                $cat = $_POST['selectedOption'];
+                $result = $product->showProducts(4, null, true, $cat);
+
+                    // Output the HTML directly
+                foreach ($result as $row) {
+                    $imageBlob = $row['file'];
+                    $image = base64_encode($imageBlob);
+                    $imageExt = $row['fileName'];
+
+                    echo "<tr>
+                        <td>
+                          <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain td-img' alt='...''>
+                        </td>
+                        <td>
+                          <div class='row'>
+                            <h5 class='td-title'>" . $row['name'] . "</h5>
+                          </div>
+                          <div class='row'>
+                            <h6>" . $row['description'] . "</h6>
+                          </div>
+                        </td>
+                        <td>
+                          <h5>En Stock:</h5>
+                          <h4 class='td-price'>" . $row['stock'] . "</h4>
+                        </td>
+                        <td>
+                          <a class='btn btn-primary closeBtn' href='nuevoProducto.php?editID=".$row['productID']."'>
+                            <i class='icon ion-md-create'></i>
+                          </a>
+                        </td>
+                        <td>
+                          <button class='btn btn-primary closeBtn'>
+                            <i class='icon ion-md-close'></i>
+                          </button>
+                        </td>
+                      </tr>";
+                }
+            }
             break;
     }
 }
@@ -83,13 +122,13 @@ class productsAPI {
                 if (isset($_FILES['file'])) {
                     foreach ($_FILES['file']['tmp_name'] as $key => $tempFilePath) {
                         $fileName = $_FILES['file']['name'][$key];
-
-                        // Read the binary content of the file into a variable
                         $fileContent = file_get_contents($tempFilePath);
 
-                        // Store the file content in the array
+                        $fileInfo = pathinfo($fileName);
+                        $fileExtension = $fileInfo['extension'];
+
                         $uploadedFiles[] = array(
-                            'fileName' => $fileName,
+                            'fileName' => $fileExtension,
                             'file' => $fileContent,
                             'product' => $iID
                         );
@@ -116,7 +155,7 @@ class productsAPI {
 
     }
 
-    function showProducts($prodID,$myProducts) {
+    function showProducts($option,$prodID,$myProducts, $category) {
         $Product = new Product();
 
         if ($prodID != null){
@@ -130,41 +169,13 @@ class productsAPI {
             $productID = null; 
         }
 
-        $resultado = $Product->showProducts($productID, $uploadedBy);
+        $resultado = $Product->showProducts($option,$productID, $uploadedBy, $category);
+
+        /*if($category != null){
+            echo '<script>window.location.href = "../index.php";</script>';
+        }*/
 
         return $resultado; 
-
-        /*if ($resultado != null) { 
-                // output data of each row
-            return $resultado;
-            $rowCount = $resultado->rowCount();
-            if($rowCount == 1){
-                $row = $resultado->fetch(PDO::FETCH_ASSOC);
-                $arrdatos = array(
-                        "productID" => $row['productID'],
-                        "name" => $row['name'],
-                        "pricingType" => $row['pricingType'],
-                        "price" => $row['price'],
-                        "stock" => $row['stock'],
-                        "prodDesc" => $row['prodDesc'];
-                );
-                $_SESSION['productAPI'] = $arrdatos;
-                    //echo "<script language='JavaScript'>
-                    //alert('Exito: " . $_SESSION['usersAPI']['username'] . $_SESSION['usersAPI']['userID'] . $_SESSION['usersAPI']['password'] ."');
-                    //location.assign('../dashboard.php')
-                    //</script>";
-                echo '<script>window.location.href = "../dashboard.php";</script>';
-            }
-            else {
-                    echo " <script language='JavaScript'>
-                    alert('No se encontró ningun producto');
-                    </script>";echo "No se encontró ningun producto";
-            }
-                
-        }
-        else {
-            echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
-        }*/
 
     }
 

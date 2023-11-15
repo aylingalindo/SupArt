@@ -1,4 +1,5 @@
 <?php 
+
   session_start();
   $userID =  $_SESSION['usersAPI']['userID']; 
   $username = $_SESSION['usersAPI']['username'];
@@ -16,7 +17,7 @@
     session_start();
     $edit = $_GET['editID']; 
 
-    $resultado = $product->showProducts($edit, false);
+    $resultado = $product->showProducts(1,$edit, false, false);
 
         //if(count($result) === 1){
     $name =  $resultado[0]['name']; 
@@ -147,7 +148,7 @@
     </div>
 
 			<!--<div class="d-flex align-items-center">-->
-
+º
 				<div class="container" style="padding-top: 6rem;">
 
             <h4><?php echo $edit == '0' ? 'Nuevo Producto' : 'Editar Producto' ?></h4>

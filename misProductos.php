@@ -4,9 +4,17 @@
   $username = $_SESSION['usersAPI']['username'];
   $rol = $_SESSION['usersAPI']['rol'];
 
+  include_once 'API/categoryAPI.php';
+  $cat = new categoryAPI();
+  $categorias = $cat->show();
+
   include_once 'API/productsAPI.php';
   $product = new productsAPI();
-  $result = $product->showProducts(null, true);
+  $result = $product->showProducts(4,null, true, null);
+
+  if($rol == '4'){
+    $resultAdmin = $product->showProducts(5,null, true, null);
+  }
 
 ?>
 <!DOCTYPE html>
@@ -76,28 +84,14 @@
         </div>
       </div>
       <div class="container-fluid d-flex justify-content-end filter-container">
-        <div class="row filter-menu" style="display:flex">
-          
-        </select>
-        <div class="dates" style="display: flex; align-items: center;">
-            <h6>Filtrar fecha:</h6>
-            <div class="form-group" style="display:flex; align-items:center; padding-top:1rem; margin-left: 5rem">
-              <label for="date">Date:</label>
-              <input type="date" class="form-control" id="startDate">
-        </div>
-        <div class="form-group" style="display:flex; align-items:center; padding-top:1rem">
-              <label for="date">Date:</label>
-              <input type="date" class="form-control" id="endDate">
-        </div>
-        </div>
-        </div>
         <div class="row filter-menu">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Todas las Categorias </option>
-            <option value="1">Plumones</option>
-            <option value="2">Lienzos y Bastidores</option>
-            <option value="3">Papel</option>
-            <option value="4">Pintura</option>
+          <select id="Cat" name="cat" class="form-select" aria-label="Default select example" onchange="selectCategory()">
+            <option value="0" selected>Todas las Categorias </option>
+            <?php
+              foreach($categorias as $cat){
+                echo "<option " . ($cat['categoryID'] == $category ? 'selected' : '') . " value=". $cat['categoryID'] . " name='cat'>" . $cat['name'] . "</option>";
+              }
+            ?>
           </select>
         </div>
       </div>
@@ -121,16 +115,19 @@
               </div>
             </div>
             </br>
-            <table class="table table-hover">
+            <table id="misProductos" class="table table-hover">
               <tbody>
 
                 <?php 
 
                   foreach($result as $row){
 
+                  $imageBlob = $row['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $row['fileName'];
                   echo "<tr>
                     <td>
-                      <img src='Img/libreta2.jpg' class='object-fit-contain td-img' alt='...''>
+                      <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain td-img' alt='...''>
                     </td>
                     <td>
                       <div class='row'>
@@ -177,32 +174,40 @@
             
             <table class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <img src="Img/plumas.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
-                    </div>
-                    <div class="row">
-                      <p>Publicado por: Michelle Saenz</p>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-close"></i>
-                    </button>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-checkmark"></i>
-                    </button>
-                  </td>
-                </tr>
+
+                <?php 
+
+                foreach($resultAdmin as $rowA){
+                  $imageBlob = $rowA['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $rowA['fileName'];
+
+                  echo
+                  "<tr>
+                    <td>
+                      <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain td-img' alt='...''>
+                    </td>
+                    <td>
+                      <div class='row'>
+                        <h5 class='td-title'>". $rowA['name'] ."</h5>
+                      </div>
+                      <div class='row'>
+                        <h6>". $rowA['description'] ."</h6>
+                      </div>
+                      <div class='row'>
+                        <p>Publicado por:".$rowA['uploadedName']."</p>
+                      </div>
+                    </td>
+                    <td>
+                      <button class='btn btn-primary closeBtn'>
+                        <i class='icon ion-md-checkmark'></i>
+                      </button>
+                    </td>
+                  </tr>";
+                }
+
+                ?>
+
               </tbody>
             </table>
           </div>

@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+
 (function () {
   'use strict'
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -190,6 +191,18 @@ function mostrarImagenProd() {
             })(imageElement);
         }
     }
+}
+
+function selectCategory(){
+    var selectedOption = document.getElementById('Cat').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=show", // Replace with your PHP script URL
+        data: { selectedOption: selectedOption },
+        success: function(response) {
+            $("#misProductos tbody").html(response);
+        }
+    });
 }
 
 /*
