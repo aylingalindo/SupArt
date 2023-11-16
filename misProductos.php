@@ -10,10 +10,10 @@
 
   include_once 'API/productsAPI.php';
   $product = new productsAPI();
-  $result = $product->showProducts(4,null, true, null);
+  $result = $product->showProducts(4,null, true, null, null);
 
   if($rol == '4'){
-    $resultAdmin = $product->showProducts(5,null, true, null);
+    $resultAdmin = $product->showProducts(5,null, true, null, null);
   }
 
 ?>

@@ -196,7 +196,8 @@ CREATE PROCEDURE productManagement(
 	vReview			DECIMAL(2,2),
 	vApprovedBy		INT,
 	vUploadedBy		INT,
-	vCategory		INT
+	vCategory		INT,
+	vText			varchar(200)
 )
 BEGIN
 	-- Get info from products from one user or one product
@@ -259,12 +260,21 @@ BEGIN
  	WHERE productID = vProductID;
 	END IF;
 	
-	-- overview of products
-  	IF vOption = 4  then
-    Select * from vProductOverview
-    WHERE uploadedBy = coalesce(vUploadedBy, uploadedBy)
-    AND category = coalesce(vCategory, category);
-    end if;
+	-- general overview of products
+  	IF vOption = 4 THEN
+    SELECT *
+    FROM vProductOverview
+    WHERE uploadedBy = COALESCE(vUploadedBy, uploadedBy)
+      AND category = COALESCE(vCategory, category)
+      AND (vText IS NULL 
+        OR name LIKE CONCAT('%', vText, '%')
+        OR description LIKE CONCAT('%', vText, '%'))
+    ORDER BY 
+      CASE 
+        WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        ELSE 2 END;
+  END IF;
 
     -- pending of approval products
   	IF vOption = 5  then
@@ -272,7 +282,7 @@ BEGIN
     WHERE approvedBy is null;
     end if;
 
-    -- dashboard populares
+    -- populares/mas vendidos DASHBOARD
     IF vOption = 6  then
 	    Select 
 	    	a.*,
@@ -284,7 +294,7 @@ BEGIN
 	    limit 15;
     END IF;
 
-    -- dashboard mejor calificados
+    -- mejor calificados DASHBOARD
     IF vOption = 7  then
 	    Select *
 	    From vProductOverview
@@ -292,12 +302,58 @@ BEGIN
 	    limit 15;
     END IF;
 
-    -- dashboard nuevos
+    -- nuevos DASHBOARD
     IF vOption = 8  then
     	Select *
     	From vProductOverview
     	order by productID desc 
 	    limit 15;
+    END IF;
+
+    -- mas baratos SEARCH
+    IF vOption = 9  then
+    	Select *
+    	From vProductOverview
+    	where (vText IS NULL 
+        	OR name LIKE CONCAT('%', vText, '%')
+        	OR description LIKE CONCAT('%', vText, '%'))
+    	order by price,
+	    	CASE 
+        		WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        		WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        		ELSE 2 END;
+    END IF;
+
+    -- populares/mas vendidos SEARCH
+    IF vOption = 10 then
+	    Select 
+	    	a.*,
+	        SUM(b.numItems) AS totalItemsSold
+	    From vProductOverview a
+	    Left Join purchaseInfo b on a.productID = b.product
+	    where (vText IS NULL 
+        	OR name LIKE CONCAT('%', vText, '%')
+        	OR description LIKE CONCAT('%', vText, '%'))
+	    group by a.productID
+	    order by totalItemsSold DESC,
+	    	CASE 
+        		WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        		WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        		ELSE 2 END;
+    END IF;
+
+    -- mejor calificados SEARCH
+    IF vOption = 11  then
+	    Select *
+	    From vProductOverview
+	    where (vText IS NULL 
+        	OR name LIKE CONCAT('%', vText, '%')
+        	OR description LIKE CONCAT('%', vText, '%'))
+	    order by review desc,
+	    	CASE 
+        		WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        		WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        		ELSE 2 END;
     END IF;
 
 END//

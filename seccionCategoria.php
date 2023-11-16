@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+include_once 'API/productsAPI.php';
+$product = new productsAPI();
+
+$text = 0;
+if (isset($_GET['search'])) {
+  $text = $_GET['search'];
+}
+$result = $product->showProducts(4,null, null, null, $text);
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +24,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
@@ -33,7 +47,7 @@
             <span class="input-group-text pt-0 pb-0" id="search-icon" >
               <i class="icon ion-md-search"></i>
             </span>
-            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" oninput="search()">
           </form>
           <ul class="navbar-nav d-flex">
             <li class="nav-item">
@@ -69,8 +83,8 @@
       </div>
         <div class="container-fluid d-flex justify-content-end filter-container">
         <div class="row filter-menu">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Ordenar por: </option>
+          <select id="filter" class="form-select" aria-label="Default select example" onchange="selectFilter()">
+            <option value="0" selected>Ordenar por: </option>
             <option value="1">Menor/Mayor Precio</option>
             <option value="2">Mejor Calificado</option>
             <option value="3">Más/Menos Vendidos</option>
@@ -82,66 +96,49 @@
 
     <!-- CONTENT -->
     <div id="content" style="padding-top: 7rem;">
+
+      <input id="searchText" name="searchText" value="<?php echo $text;?>" hidden>
+
       <!-- FEED -->
       <section>
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
 
-          <h4>Libretas</h4>
+          <h4>Busqueda</h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
             
-            <table class="table table-hover">
+            <table id="sectionTable" class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h4 class="td-price">$350.00 MXN</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h4 class="td-price">$240.00 MXN</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta3.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Strathmore - Cuaderno de bocetos de la serie 200</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Almohadilla de alambre, 8.5 x 11 pulgadas, 100 hojas (50 lb/74 g) - Papel de artista para adultos y estudiantes - Grafito, carbón, lápiz, lápiz de colores</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h4 class="td-price">$235.50 MXN</h4>
-                  </td>
-                </tr>
+                
+                <?php
+                foreach($result as $row){
+                    $imageBlob = $row['file'];
+                    $image = base64_encode($imageBlob);
+                    $imageExt = $row['fileName'];
+
+                    echo "<tr>
+                      <td>
+                        <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain td-img' alt='...''>
+                      </td>
+                      <td>
+                        <a href='producto.php' title='". $row['name'] ."' class='card-link-product'>
+                            <div class='row'>
+                            <h5 class='td-title'>".$row['name']."</h5>
+                            </div>
+                            <div class='row'>
+                            <h6>".$row['description']."</h6>
+                            </div>
+                        </a>
+                      </td>
+                      <td>
+                        <h4 class='td-price'>$".$row['price']." MXN</h4>
+                      </td>
+                    </tr>";
+                }
+                ?>
+                
               </tbody>
             </table>
            

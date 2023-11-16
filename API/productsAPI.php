@@ -7,17 +7,70 @@
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     $product = new productsAPI();
-    echo($action);
 
     switch ($action) {
         case 'insert':
             $product->createProduct();
             break;
+
+        // para la barra de busqueda
+        case 'search':
+            $text = null; 
+            $filter = 0;
+
+            if(isset($_POST['text']) ){
+                $text = $_POST['text'];
+            }
+            if(isset($_POST['filter'])){
+                $filter = $_POST['filter'];
+            }
+
+            echo "texto:" . $text;
+            echo "filtro:" . $filter;
+
+            if($filter == 1){
+                $result = $product->showProducts(9,null,null,null, $text);
+            }else if ($filter == 2){
+                $result = $product->showProducts(11,null,null,null, $text);
+            }else if ($filter == 3){
+                $result = $product->showProducts(10,null,null,null, $text);
+            }else{
+                $result = $product->showProducts(4,null,null,null, $text);
+            }
+
+            //echo json_encode($result);
+
+            foreach($result as $row){
+                $imageBlob = $row['file'];
+                $image = base64_encode($imageBlob);
+                $imageExt = $row['fileName'];
+                echo "<tr>
+                  <td>
+                    <img src='". ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain td-img' alt='...''>
+                  </td>
+                  <td>
+                    <a href='producto.php' title='". $row['name'] ."' class='card-link-product'>
+                        <div class='row'>
+                        <h5 class='td-title'>".$row['name']."</h5>
+                        </div>
+                        <div class='row'>
+                        <h6>".$row['description']."</h6>
+                        </div>
+                    </a>
+                  </td>
+                  <td>
+                    <h4 class='td-price'>$".$row['price']." MXN</h4>
+                  </td>
+                </tr>";
+            }
+
+            break;
+
         // para que se muestren los productos filtrados por categoria
         case 'show':
             if(isset($_POST['selectedOption'])){
                 $cat = $_POST['selectedOption'];
-                $result = $product->showProducts(4, null, true, $cat);
+                $result = $product->showProducts(4, null, true, $cat, null);
 
                     // Output the HTML directly
                 foreach ($result as $row) {
@@ -70,7 +123,6 @@ class productsAPI {
         if (isset($_POST['name']) && isset($_POST['pricingType']) && isset($_POST['price']) && isset($_POST['stock']) && isset($_POST['prodDesc']) && isset($_POST['productID']) && isset($_POST['cat'])) 
         {
             
-            echo ' dentro del if';
 
                 $name = $_POST['name'];   
                 $pricingType = $_POST['pricingType'];
@@ -113,9 +165,7 @@ class productsAPI {
                 echo '--- antes de archivos ---->' . json_encode($resultado) . '<----- es este x2';
 
                 $ID = json_encode($resultado);
-                echo 'encode:'.$ID;
                 $iID = json_decode($ID, true);
-                echo 'decode:'.$iID;
 
                 $files = array();
 
@@ -138,7 +188,6 @@ class productsAPI {
 
                 if (($iID != 0) && (count($uploadedFiles) > 0)){
 
-                    echo 'insert product files'; 
                     $resultado = $newProduct->productFilesManagement($uploadedFiles);
 
                 }
@@ -155,7 +204,7 @@ class productsAPI {
 
     }
 
-    function showProducts($option,$prodID,$myProducts, $category) {
+    function showProducts($option,$prodID,$myProducts, $category, $text) {
         $Product = new Product();
 
         if ($prodID != null){
@@ -169,7 +218,7 @@ class productsAPI {
             $productID = null; 
         }
 
-        $resultado = $Product->showProducts($option,$productID, $uploadedBy, $category);
+        $resultado = $Product->showProducts($option,$productID, $uploadedBy, $category, $text);
 
         /*if($category != null){
             echo '<script>window.location.href = "../index.php";</script>';

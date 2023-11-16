@@ -7,9 +7,9 @@ session_start();
 include_once 'API/productsAPI.php';
 $product = new productsAPI();
 
-$populares = $product->showProducts(6,null, null, null);
-$calificados = $product->showProducts(7,null, null, null);
-$nuevos = $product->showProducts(8,null, null, null);
+$populares = $product->showProducts(6,null, null, null, null);
+$calificados = $product->showProducts(7,null, null, null, null);
+$nuevos = $product->showProducts(8,null, null, null, null);
 
 ?>
 <!DOCTYPE html>
@@ -25,6 +25,7 @@ $nuevos = $product->showProducts(8,null, null, null);
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
@@ -45,7 +46,7 @@ $nuevos = $product->showProducts(8,null, null, null);
             <span class="input-group-text pt-0 pb-0" id="search-icon" >
               <i class="icon ion-md-search"></i>
             </span>
-            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" oninput="dashboardSearch()">
           </form>
           <ul class="navbar-nav d-flex">
             <li class="nav-item">

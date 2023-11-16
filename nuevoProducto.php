@@ -17,7 +17,7 @@
     session_start();
     $edit = $_GET['editID']; 
 
-    $resultado = $product->showProducts(1,$edit, false, false);
+    $resultado = $product->showProducts(1,$edit, false, null, null);
 
         //if(count($result) === 1){
     $name =  $resultado[0]['name']; 

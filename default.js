@@ -168,18 +168,14 @@ function mostrarImagen() {
 function mostrarImagenProd() {
     var input = document.getElementById('file');
 
-    // Ensure that files are selected and there's at least one file
     if (input.files && input.files.length > 0) {
         var files = input.files;
 
-        // Array of image element IDs
         var imageElementIds = ['file-mini1', 'file-mini2', 'file-mini3', 'file-mini4'];
 
-        // Loop through the first four files or less if there are fewer than four
         for (var i = 0; i < Math.min(files.length, imageElementIds.length); i++) {
             var imageElement = document.getElementById(imageElementIds[i]);
 
-            // Use a closure to capture the correct imageElement
             (function (currentImageElement) {
                 var reader = new FileReader();
 
@@ -197,10 +193,49 @@ function selectCategory(){
     var selectedOption = document.getElementById('Cat').value;
     $.ajax({
         method: "POST",
-        url: "./API/productsAPI.php?action=show", // Replace with your PHP script URL
+        url: "./API/productsAPI.php?action=show",
         data: { selectedOption: selectedOption },
         success: function(response) {
             $("#misProductos tbody").html(response);
+        }
+    });
+}
+
+function search(){
+    var text = document.getElementById('search-bar').value;
+    var filter = document.getElementById('filter').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=search",
+        data: { text: text, filter: filter}, 
+        success: function(response) {
+            //alert(response);
+            $("#sectionTable tbody").html(response);
+        }
+    });
+}
+
+function selectFilter(){
+    var text = document.getElementById('search-bar').value;
+    var filter = document.getElementById('filter').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=search",
+        data: { text: text, filter: filter}, 
+        success: function(response) {
+            //alert(response);
+            $("#sectionTable tbody").html(response);
+        }
+    });
+}
+
+function dashboardSearch(){
+    var text = document.getElementById('search-bar').value;
+    $.ajax({
+        method: "POST",
+        url: "seccionCategoria.php?search="+text, 
+        success: function(response) {
+            window.location.href = 'seccionCategoria.php?search='+text;
         }
     });
 }

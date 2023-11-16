@@ -9,7 +9,9 @@ include_once 'connectionPDO.php';
             if ($conn) {
                 try {
 
-                    $sql = "CALL productManagement(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    $vText = null;
+
+                    $sql = "CALL productManagement(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
 
                     echo ' opcion:' . ($vOption);
@@ -33,6 +35,7 @@ include_once 'connectionPDO.php';
                     $stmt->bindValue(9, $vApprovedBy, PDO::PARAM_INT);
                     $stmt->bindValue(10, $vUploadedBy, PDO::PARAM_INT);
                     $stmt->bindValue(11, $vCategory, PDO::PARAM_INT);
+                    $stmt->bindValue(12, $vText, PDO::PARAM_STR);
 
                     $stmt->execute();
 
@@ -99,13 +102,13 @@ include_once 'connectionPDO.php';
             }
         }
 
-        function showProducts($vOption,$vProductID, $vUploadedBy, $vCategory){
+        function showProducts($vOption,$vProductID, $vUploadedBy, $vCategory, $vText){
             
             $conn = $this->connect();
 
             try{
 
-                $sql = "CALL productManagement(:vOption, :vProductID, null, null, null, null, null, null, null, :vUploadedBy, :vCategory)";
+                $sql = "CALL productManagement(:vOption, :vProductID, null, null, null, null, null, null, null, :vUploadedBy, :vCategory, :vText)";
                 $stmt = $conn->prepare($sql);
 
                 // Bind the parameters
@@ -113,12 +116,15 @@ include_once 'connectionPDO.php';
                 $stmt->bindValue(':vProductID', $vProductID, PDO::PARAM_INT);
                 $stmt->bindValue(':vUploadedBy', $vUploadedBy, PDO::PARAM_INT);
                 $stmt->bindValue(':vCategory', $vCategory, PDO::PARAM_INT);
+                $stmt->bindValue(':vText', $vText, PDO::PARAM_STR);
 
-                echo '$vOption: ' . $vOption;
-                echo ' $vProductID: ' . $vProductID;
-                echo ' $vUploadedBy: ' . $vUploadedBy;
                 echo json_encode($stmt);
 
+                echo ' vOption:' . ($vOption);
+                echo ' vProductID:' . ($vProductID);
+                echo ' vUploadedBy:' . ($vUploadedBy);
+                echo ' vCategory:' . ($vCategory);
+                echo ' vText:' . ($vText);
 
                 $stmt->execute();
 
@@ -127,7 +133,7 @@ include_once 'connectionPDO.php';
                 if ($result) {
                     /*foreach ($result as $row) {
                         print_r($row); // or var_dump($row);
-                    }*/  
+                    }*/
                     echo json_encode(array('message' => 'data retrived successfully'));
                     return $result;
                 } else {
