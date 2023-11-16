@@ -146,5 +146,38 @@ include_once 'connectionPDO.php';
 
         }
 
+        function showProductFiles($vOption,$vProductID){
+            
+            $conn = $this->connect();
+
+            try{
+
+                $sql = "CALL productFilesManagement(:vOption, null, null, :vProductID)";
+                $stmt = $conn->prepare($sql);
+
+                // Bind the parameters
+                $stmt->bindValue(':vOption', $vOption, PDO::PARAM_INT);
+                $stmt->bindValue(':vProductID', $vProductID, PDO::PARAM_INT);
+
+                $stmt->execute();
+
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                if ($result) {
+                    /*foreach ($result as $row) {
+                        print_r($row); // or var_dump($row);
+                    }*/
+                    echo json_encode(array('message' => 'data retrived successfully'));
+                    return $result;
+                } else {
+                    echo json_encode(array('error' => 'Failed to retrieve data'));
+                }
+            } catch (PDOException $e) {
+                echo "Error en la base de datos: " . $e->getMessage();
+                return false;
+            }
+
+        }
+
     }
 ?>

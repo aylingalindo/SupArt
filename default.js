@@ -240,6 +240,18 @@ function dashboardSearch(){
     });
 }
 
+function productDetails(productID){
+    var selectedOption = document.getElementById('Cat').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=details",
+        data: { productID: productID },
+        success: function(response) {
+            //$("#misProductos tbody").html(response);
+        }
+    });
+}
+
 /*
 //#region Registro
 $("#btnSignUp").click(function (event) {

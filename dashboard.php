@@ -112,7 +112,7 @@ $nuevos = $product->showProducts(8,null, null, null, null);
                    "<div class='card' >
                       <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain card-img' alt='...''>
                       <div class='card-body'>
-                        <a href='producto.php' title='". $row['name'] ."' class='card-link-product'>
+                        <button title='". $row['name'] ."' class='card-link-product' onclick='productDetails(".$row['productID'].")'>
                           <h5 class='card-title card-title-product'><b>". $row['name'] ."</b></h5>
                           <h6 class='card-title card-price-product'> $". $row['price'] ." MXN </h6>
                         </a>
@@ -147,7 +147,7 @@ $nuevos = $product->showProducts(8,null, null, null, null);
                    "<div class='card' >
                       <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain card-img' alt='...''>
                       <div class='card-body'>
-                        <a href='producto.php' title='". $row['name'] ."' class='card-link-product'>
+                        <a href='producto.php?productID=".$row['productID']."' title='". $row['name'] ."' class='card-link-product'>
                           <h5 class='card-title card-title-product'><b>". $row['name'] ."</b></h5>
                           <h6 class='card-title card-price-product'> $". $row['price'] ." MXN </h6>
                         </a>

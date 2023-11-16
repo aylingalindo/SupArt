@@ -203,19 +203,24 @@ BEGIN
 	-- Get info from products from one user or one product
     IF vOption = 1 THEN
 		SELECT
-			productID
-			,stock
-			,name
-			,description
-			,pricingType
-			,price
-			,review
-			,approvedBy
-			,uploadedBy
-			,category
-		FROM products 
+			a.productID
+			,a.stock
+			,a.name
+			,a.description
+			,a.pricingType
+			,a.price
+			,a.review
+			,a.approvedBy
+			,a.uploadedBy
+			,a.category
+			,b.name as categoryName
+            ,CONCAT(c.name,' ',c.lastnameP) as uploadedByName
+		FROM products a
+		Left Join category b on  a.category = b.categoryID
+        Left Join users c on a.uploadedBy = c.userID
 		WHERE (uploadedBy = coalesce(vUploadedBy, uploadedBy)) and (productID = COALESCE(vProductID,productID));
 	END IF;
+
 
 	-- Insert product
     IF vOption = 2 THEN
@@ -419,5 +424,47 @@ BEGIN
 			,vFileName
 		);
 	END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE listManagement(
+	vOption int,
+	vListID int,
+	vName VARCHAR(50),
+	vDescription VARCHAR(200),
+	vUserID int
+)
+BEGIN
+	-- Get all wishlists from one user 
+    IF vOption = 1 THEN
+		SELECT
+			name,
+			description,
+			user
+		FROM lists
+		where user = vUserID;
+	END IF;
+
+	-- Insert 
+    IF vOption = 2 THEN
+		INSERT INTO lists(
+			name
+			,description
+			,user
+		)
+		VALUES(
+			vName
+			,vDescription
+			,vUserID
+		);
+	END IF;
+
+	-- delete
+	IF vOption = 3 THEN
+		DELETE a FROM lists a
+		WHERE listID = vListID
+	END IF;
+
 END //
 DELIMITER ;

@@ -228,6 +228,20 @@ class productsAPI {
 
     }
 
+    function showProductFiles($option,$prodID) {
+        $Product = new Product();
+
+
+        $resultado = $Product->showProducts($option,$productID);
+
+        /*if($category != null){
+            echo '<script>window.location.href = "../index.php";</script>';
+        }*/
+
+        return $resultado; 
+
+    }
+
 }
 ?>
 

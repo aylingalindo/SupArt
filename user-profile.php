@@ -8,6 +8,10 @@
   $rol = $_SESSION['usersAPI']['rol'];
   $imageBlob = $_SESSION['usersAPI']['image'];
   $image = base64_encode($imageBlob);
+
+  include_once 'API/productsAPI.php';
+  $product = new productsAPI();
+  $result = $product->showProducts(4,null, true, null, null);
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +27,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
@@ -47,7 +52,7 @@
             <span class="input-group-text pt-0 pb-0" id="search-icon" >
               <i class="icon ion-md-search"></i>
             </span>
-            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" oninput="dashboardSearch()">
           </form>
           <ul class="navbar-nav d-flex">
             <li class="nav-item">
@@ -135,43 +140,48 @@
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
             
-            <table class="table table-hover">
+            <table <?php echo $rol == '1' ? 'hidden': ''?> class="table table-hover">
               <tbody>
-                <tr <?php echo $rol == '1' ? 'hidden': ''?> >
+
+                <?php
+
+                foreach($result as $row){
+                  $imageBlob = $row['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $row['fileName'];
+
+                  echo
+                  "<tr>
+                    <td>
+                      <img src='".($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image)."' class='object-fit-contain td-img' alt='...''>
+                    </td>
+                    <td>
+                      <div class='row'>
+                        <h5 class='td-title'>". $row['name'] ."</h5>
+                      </div>
+                      <div class='row'>
+                        <h6>" . $row['description'] . "</h6>
+                      </div>
+                    </td>
+                    <td>
+                      <h4 class='td-price'>$". $row['price'] ." MXN</h4>
+                    </td>
+                  </tr>"; 
+
+                }
+
+                ?>
+
+              </tbody>
+            </table>
+
+            <table <?php echo $rol == '2' ? 'hidden': ''?> class="table table-hover">
+              <tbody>
+                
+                <tr>
                   <td>
-                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
                   </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h4 class="td-price">$350.00 MXN</h4>
-                  </td>
-                </tr>
-                <tr <?php echo $rol == '1' ? 'hidden': ''?> >
-                  <td>
-                    <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h4 class="td-price">$240.00 MXN</h4>
-                  </td>
-                </tr>
-                <tr <?php echo $rol == '2' ? 'hidden': ''?> >
-                  <td>
-                  </td>
+
                   <td>
                     <div class="row">
                       <h5 class="td-title">Lista 1</h5>
@@ -180,21 +190,10 @@
                       <h6>Mi primera lista de compras</h6>
                     </div>
                   </td>
+
                   <td>
                   </td>
-                  <tr <?php echo $rol == '2' ? 'hidden': ''?> >
-                  <td>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Lista 2</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Lista de reglos de navidad para mis hijas que amo mucho</h6>
-                    </div>
-                  </td>
-                  <td>
-                  </td>
+                  
                 </tr>
               </tbody>
             </table>

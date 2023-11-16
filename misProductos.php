@@ -54,7 +54,7 @@
             <span class="input-group-text pt-0 pb-0" id="search-icon" >
               <i class="icon ion-md-search"></i>
             </span>
-            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" oninput="dashboardSearch()">
           </form>
           <ul class="navbar-nav d-flex">
             <li class="nav-item">
