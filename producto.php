@@ -1,3 +1,28 @@
+<?php 
+  ini_set('display_errors', 1);
+  error_reporting(E_ALL);
+  session_start();
+
+  $username = $_SESSION['usersAPI']['username'];
+
+  include_once 'API/productsAPI.php';
+  $productAPI = new productsAPI();
+  if(isset($_GET['productID'])){
+    $productID = $_GET['productID']; 
+    $producto = $productAPI->showProducts(1,$productID,null, null, null);
+
+    $name = $producto[0]['name'];
+    $cat = $producto[0]['categoryName'];
+    $stock = $producto[0]['stock'];
+    $desc = $producto[0]['description'];
+    $pricingType = $producto[0]['pricingType'];
+    $price = $producto[0]['price'];
+    $review = $producto[0]['pricingType'];
+    $user = $producto[0]['uploadedByName'];
+    $userID = $producto[0]['uploadedBy'];
+  }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +62,7 @@
             <span class="input-group-text pt-0 pb-0" id="search-icon" >
               <i class="icon ion-md-search"></i>
             </span>
-            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" oninput="dashboardSearch()">
           </form>
           <ul class="navbar-nav d-flex">
             <li class="nav-item">
@@ -62,6 +87,11 @@
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                Log out
+              </a>
             </li>
           </ul>
         </div>
@@ -126,23 +156,15 @@
             </div>
             <div class="col" style="min-width: 221px;">
               <div class="row product-div">
-                <h3 style="color: var(--text)"><b>Hojas de maquina</b></h3>
-                <p>Papeles</p>
-                
+                <h3 style="color: var(--text)"><b><?php echo $name; ?></b></h3>
+                <h6><?php echo $cat; ?>></h6>
+                <p>Publicado por: <?php echo $user; ?></p>
               </div>
               <div class="row product-div">
-                <h6>Descripción</h6>
+                <h6><?php echo $desc; ?></h6>
               </div>
               <div class="row product-div">
-                  <div style="flex:1">
-                    <div id="calif" class="row d-flex justify-content-end">
-                        <input type=text class="idProducto" product-name:"" value=5 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del producto con php-->
-                        <h6 id="product-message" class="underlineAction" >¡ Negociar precio !</h6>
-                        <input type=text class="idVendedor" value=5 style="height:0px; visibility: hidden;"> <!--TO-DO: En value poner dinamicamente el id del vendedor con php-->
-                    </div>
-                  </div>
-                  <div style="flex:1">
-                    <h4 class="text-end">$20.00 MXN</h4>
+                    <h4 class="text-end">$<?php $price; ?> MXN</h4>
                     <div id="calif" class="row d-flex justify-content-end">
                           <div class="col-1">
                             <i class="icon ion-md-brush"></i>
@@ -160,7 +182,6 @@
                             <i class="icon ion-md-brush no"></i>
                           </div>
                     </div>
-                  </div>
               </div>
               <div id="product-btns" class="row">
                 <div class="row d-flex justify-content-center" >

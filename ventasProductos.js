@@ -15,5 +15,8 @@ function validateDate() {
     }
 }
 
-//#endregion
+$(document).ready(function() {
+    $("#Cat").change(function() 
 
+ 
+//#endregion

@@ -1,3 +1,22 @@
+<?php 
+  session_start();
+  $userID =  $_SESSION['usersAPI']['userID']; 
+  $username = $_SESSION['usersAPI']['username'];
+  $rol = $_SESSION['usersAPI']['rol'];
+
+  include_once 'API/categoryAPI.php';
+  $cat = new categoryAPI();
+  $categorias = $cat->show();
+
+  include_once 'API/productsAPI.php';
+  $product = new productsAPI();
+  $result = $product->showProducts(4,null, true, null, null);
+
+  if($rol == '4'){
+    $resultAdmin = $product->showProducts(5,null, true, null, null);
+  }
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,7 +54,7 @@
             <span class="input-group-text pt-0 pb-0" id="search-icon" >
               <i class="icon ion-md-search"></i>
             </span>
-            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" oninput="dashboardSearch()">
           </form>
           <ul class="navbar-nav d-flex">
             <li class="nav-item">
@@ -61,32 +80,23 @@
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                Log out
+              </a>
+            </li>
           </ul>
         </div>
       </div>
       <div class="container-fluid d-flex justify-content-end filter-container">
-        <div class="row filter-menu" style="display:flex">
-          
-        </select>
-        <div class="dates" style="display: flex; align-items: center;">
-            <h6>Filtrar fecha:</h6>
-            <div class="form-group" style="display:flex; align-items:center; padding-top:1rem; margin-left: 5rem">
-              <label for="date">Date:</label>
-              <input type="date" class="form-control" id="startDate">
-        </div>
-        <div class="form-group" style="display:flex; align-items:center; padding-top:1rem">
-              <label for="date">Date:</label>
-              <input type="date" class="form-control" id="endDate">
-        </div>
-        </div>
-        </div>
         <div class="row filter-menu">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Todas las Categorias </option>
-            <option value="1">Plumones</option>
-            <option value="2">Lienzos y Bastidores</option>
-            <option value="3">Papel</option>
-            <option value="4">Pintura</option>
+          <select id="Cat" name="cat" class="form-select" aria-label="Default select example" onchange="selectCategory()">
+            <option value="0" selected>Todas las Categorias </option>
+            <?php
+              foreach($categorias as $cat){
+                echo "<option " . ($cat['categoryID'] == $category ? 'selected' : '') . " value=". $cat['categoryID'] . " name='cat'>" . $cat['name'] . "</option>";
+              }
+            ?>
           </select>
         </div>
       </div>
@@ -109,59 +119,49 @@
               <a href="nuevoProducto.php" class="btn btn-primary signUpBtn">Nuevo Producto</a>
               </div>
             </div>
-            <table class="table table-hover">
+            </br>
+            <table id="misProductos" class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>En Stock:</h5>
-                    <h4 class="td-price">20</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>En Stock:</h5>
-                    <h4 class="td-price">132</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta3.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Strathmore - Cuaderno de bocetos de la serie 200</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Almohadilla de alambre, 8.5 x 11 pulgadas, 100 hojas (50 lb/74 g) - Papel de artista para adultos y estudiantes - Grafito, carbón, lápiz, lápiz de colores</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>En Stock:</h5>
-                    <h4 class="td-price">34</h4>
-                  </td>
-                </tr>
+
+                <?php 
+
+                  foreach($result as $row){
+
+                  $imageBlob = $row['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $row['fileName'];
+                  echo "<tr>
+                    <td>
+                      <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain td-img' alt='...''>
+                    </td>
+                    <td>
+                      <div class='row'>
+                        <h5 class='td-title'>" . $row['name'] . "</h5>
+                      </div>
+                      <div class='row'>
+                        <h6>" . $row['description'] . "</h6>
+                      </div>
+                    </td>
+                    <td>
+                      <h5>En Stock:</h5>
+                      <h4 class='td-price'>" . $row['stock'] . "</h4>
+                    </td>
+                    <td>
+                      <a class='btn btn-primary closeBtn' href='nuevoProducto.php?editID=".$row['productID']."'>
+                        <i class='icon ion-md-create'></i>
+                      </a>
+                    </td>
+                    <td>
+                      <button class='btn btn-primary closeBtn'>
+                        <i class='icon ion-md-close'></i>
+                      </button>
+                    </td>
+                  </tr>";
+
+                  }
+
+                ?>
+
               </tbody>
             </table>
            
@@ -170,7 +170,7 @@
 
         </div>
 
-        <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+        <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;" <?php echo $rol != '4' ? 'hidden': '' ?> >
 
           <h4>Pendientes de Aprobación</h4>
           
@@ -179,65 +179,48 @@
             
             <table class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <img src="Img/gises.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Este block excelente para bocetos, estudios y prácticas. Utilízalo con cualquier técnica seca: lápices de grafito, colores, carboncillo, lápices para boceto, pasteles secos o pasteles de aceite.</h6>
-                    </div>
-                    <div class="row">
-                      <p>Publicado por: Edson Arguello</p>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-close"></i>
-                    </button>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-checkmark"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/plumas.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libreta de Dibujo de Pasta Dura - 10.2 x 15.2cm, Color Negro</h6>
-                    </div>
-                    <div class="row">
-                      <p>Publicado por: Michelle Saenz</p>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-close"></i>
-                    </button>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-checkmark"></i>
-                    </button>
-                  </td>
-                </tr>
+
+                <?php 
+
+                foreach($resultAdmin as $rowA){
+                  $imageBlob = $rowA['file'];
+                  $image = base64_encode($imageBlob);
+                  $imageExt = $rowA['fileName'];
+
+                  echo
+                  "<tr>
+                    <td>
+                      <img src='" . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . "' class='object-fit-contain td-img' alt='...''>
+                    </td>
+                    <td>
+                      <div class='row'>
+                        <h5 class='td-title'>". $rowA['name'] ."</h5>
+                      </div>
+                      <div class='row'>
+                        <h6>". $rowA['description'] ."</h6>
+                      </div>
+                      <div class='row'>
+                        <p>Publicado por:".$rowA['uploadedName']."</p>
+                      </div>
+                    </td>
+                    <td>
+                      <button class='btn btn-primary closeBtn'>
+                        <i class='icon ion-md-checkmark'></i>
+                      </button>
+                    </td>
+                  </tr>";
+                }
+
+                ?>
+
               </tbody>
             </table>
           </div>
         </div>
 
-      </section>
-    
+      </br>
+      </br>
+
       </section>
       
       <footer>

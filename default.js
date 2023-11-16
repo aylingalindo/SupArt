@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+
 (function () {
   'use strict'
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -149,6 +150,107 @@ product_imgThmb.forEach(img => {
     })
 
 })
+
+
+
+function mostrarImagen() {
+    var input = document.getElementById('file');
+    var imagenPreview = document.getElementById('file-preview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            imagenPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function mostrarImagenProd() {
+    var input = document.getElementById('file');
+
+    if (input.files && input.files.length > 0) {
+        var files = input.files;
+
+        var imageElementIds = ['file-mini1', 'file-mini2', 'file-mini3', 'file-mini4'];
+
+        for (var i = 0; i < Math.min(files.length, imageElementIds.length); i++) {
+            var imageElement = document.getElementById(imageElementIds[i]);
+
+            (function (currentImageElement) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    currentImageElement.src = e.target.result;
+                };
+
+                reader.readAsDataURL(files[i]);
+            })(imageElement);
+        }
+    }
+}
+
+function selectCategory(){
+    var selectedOption = document.getElementById('Cat').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=show",
+        data: { selectedOption: selectedOption },
+        success: function(response) {
+            $("#misProductos tbody").html(response);
+        }
+    });
+}
+
+function search(){
+    var text = document.getElementById('search-bar').value;
+    var filter = document.getElementById('filter').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=search",
+        data: { text: text, filter: filter}, 
+        success: function(response) {
+            //alert(response);
+            $("#sectionTable tbody").html(response);
+        }
+    });
+}
+
+function selectFilter(){
+    var text = document.getElementById('search-bar').value;
+    var filter = document.getElementById('filter').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=search",
+        data: { text: text, filter: filter}, 
+        success: function(response) {
+            //alert(response);
+            $("#sectionTable tbody").html(response);
+        }
+    });
+}
+
+function dashboardSearch(){
+    var text = document.getElementById('search-bar').value;
+    $.ajax({
+        method: "POST",
+        url: "seccionCategoria.php?search="+text, 
+        success: function(response) {
+            window.location.href = 'seccionCategoria.php?search='+text;
+        }
+    });
+}
+
+function productDetails(productID){
+    var selectedOption = document.getElementById('Cat').value;
+    $.ajax({
+        method: "POST",
+        url: "./API/productsAPI.php?action=details",
+        data: { productID: productID },
+        success: function(response) {
+            //$("#misProductos tbody").html(response);
+        }
+    });
+}
 
 /*
 //#region Registro

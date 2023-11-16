@@ -204,7 +204,7 @@ h4 {
     transition: 200ms ease-in-out;
     z-index: 10; /* su capa, para que se muestre sobre lo demás*/
     width:45%;
-    height:30%;
+    height:35%;
 }
 
 #popupNewCat.active {
@@ -703,10 +703,12 @@ h1{
 }
 
 .product-imgMain {
-    height: 25rem;
+    height: 10rem;
+    width: 10rem;
     margin-left: 0.3rem;
     margin-right: 0.3rem;
     box-shadow: 0 5px 5px rgba(1, 23, 46, 0.6);
+    padding: 0;
 }
 
 .productBtn{
@@ -721,12 +723,14 @@ h1{
 }
 
 .product-imgThmb {
-    height: 5rem;
+    width: 2rem;
     background-color: #FFFFFF;
     margin: 0.3rem;
     cursor: pointer;
     transition: 0.3s;
     opacity: 0.7;
+    padding: 0;
+    display: inline-grid;
 }
 
 .product-imgThmb:hover {
@@ -745,6 +749,7 @@ h1{
     margin-left: 0.3rem;
     margin-right: 0.3rem;
     box-shadow: 0 5px 5px rgba(1, 23, 46, 0.6);
+    padding: 0;
 }
 
 .new-imgThmb {
@@ -754,6 +759,7 @@ h1{
     cursor: pointer;
     transition: 0.3s;
     opacity: 0.7;
+    padding:0;
 }
 
 

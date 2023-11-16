@@ -1,19 +1,19 @@
 ﻿--- store procedure ---------------------------
 DELIMITER //
 CREATE PROCEDURE userManagement(
-    vOption     INT,
-    vUserID     INT,
-    vEmail      VARCHAR(100),
-    vUsername   VARCHAR(50),
-    vPassword   VARCHAR(50),
-    vRol        INT,
-    vImage      VARCHAR(255),
-    vName       VARCHAR(50),
-    vLastnameP  VARCHAR(50),
-    vLastnameM  VARCHAR(50),
-    vBirthday   DATE,
-    vGender     CHAR(1),
-    vVisibility BOOLEAN
+	vOption	INT,
+	vUserID	INT,
+	vEmail	VARCHAR(100),
+	vUsername	VARCHAR(50),
+	vPassword	VARCHAR(50),
+	vRol	INT,
+	vImage	BLOB,
+	vName	VARCHAR(50),
+	vLastnameP	VARCHAR(50),
+	vLastnameM	VARCHAR(50),
+	vBirthday	DATE,
+	vGender	VARCHAR(30),
+	vVisibility	BOOLEAN
 )
 BEGIN
     -- Insert
@@ -85,7 +85,6 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
-
 
 DELIMITER //
 CREATE PROCEDURE cartManagement(
@@ -227,3 +226,287 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE productManagement(
+	vOption			INT,
+    vProductID		INT,
+    vStock 			VARCHAR(50),
+	vName			VARCHAR(200),
+	vDescription	TEXT,
+	vPricingType    ENUM('Sell', 'Negotiable'), 
+	vPrice          DECIMAL(10,2), 
+	vReview			DECIMAL(2,2),
+	vApprovedBy		INT,
+	vUploadedBy		INT,
+	vCategory		INT,
+	vText			varchar(200)
+)
+BEGIN
+	-- Get info from products from one user or one product
+    IF vOption = 1 THEN
+		SELECT
+			a.productID
+			,a.stock
+			,a.name
+			,a.description
+			,a.pricingType
+			,a.price
+			,a.review
+			,a.approvedBy
+			,a.uploadedBy
+			,a.category
+			,b.name as categoryName
+            ,CONCAT(c.name,' ',c.lastnameP) as uploadedByName
+		FROM products a
+		Left Join category b on  a.category = b.categoryID
+        Left Join users c on a.uploadedBy = c.userID
+		WHERE (uploadedBy = coalesce(vUploadedBy, uploadedBy)) and (productID = COALESCE(vProductID,productID));
+	END IF;
+
+
+	-- Insert product
+    IF vOption = 2 THEN
+		INSERT INTO products(
+			stock
+			,name
+			,description
+			,pricingType
+			,price
+			,review
+			,approvedBy
+			,uploadedBy
+			,category
+		)
+		VALUES(
+			vStock
+			,vName
+			,vDescription
+			,vPricingType
+			,vPrice
+			,vReview
+			,vApprovedBy
+			,vUploadedBy
+			,vCategory
+		);
+    SELECT last_insert_id() AS last_insert_id;
+	END IF;
+    
+	-- edit product
+    IF vOption = 3 THEN
+	UPDATE products
+    	    SET
+            stock = vStock,
+            name = vName,
+            description = vDescription,
+            pricingType = vPricingType,
+            price = vPrice,
+            review = vReview,
+            approvedBy = vApprovedBy,
+            uploadedBy = vUploadedBy,
+			category = vCategory
+ 	WHERE productID = vProductID;
+	END IF;
+	
+	-- general overview of products
+  	IF vOption = 4 THEN
+    SELECT *
+    FROM vProductOverview
+    WHERE uploadedBy = COALESCE(vUploadedBy, uploadedBy)
+      AND category = COALESCE(vCategory, category)
+      AND (vText IS NULL 
+        OR name LIKE CONCAT('%', vText, '%')
+        OR description LIKE CONCAT('%', vText, '%'))
+    ORDER BY 
+      CASE 
+        WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        ELSE 2 END;
+  END IF;
+
+    -- pending of approval products
+  	IF vOption = 5  then
+    Select * from vProductOverview
+    WHERE approvedBy is null;
+    end if;
+
+    -- populares/mas vendidos DASHBOARD
+    IF vOption = 6  then
+	    Select 
+	    	a.*,
+	        SUM(b.numItems) AS totalItemsSold
+	    From vProductOverview a
+	    Left Join purchaseInfo b on a.productID = b.product
+	    group by a.productID
+	    order by totalItemsSold DESC
+	    limit 15;
+    END IF;
+
+    -- mejor calificados DASHBOARD
+    IF vOption = 7  then
+	    Select *
+	    From vProductOverview
+	    order by review desc 
+	    limit 15;
+    END IF;
+
+    -- nuevos DASHBOARD
+    IF vOption = 8  then
+    	Select *
+    	From vProductOverview
+    	order by productID desc 
+	    limit 15;
+    END IF;
+
+    -- mas baratos SEARCH
+    IF vOption = 9  then
+    	Select *
+    	From vProductOverview
+    	where (vText IS NULL 
+        	OR name LIKE CONCAT('%', vText, '%')
+        	OR description LIKE CONCAT('%', vText, '%'))
+    	order by price,
+	    	CASE 
+        		WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        		WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        		ELSE 2 END;
+    END IF;
+
+    -- populares/mas vendidos SEARCH
+    IF vOption = 10 then
+	    Select 
+	    	a.*,
+	        SUM(b.numItems) AS totalItemsSold
+	    From vProductOverview a
+	    Left Join purchaseInfo b on a.productID = b.product
+	    where (vText IS NULL 
+        	OR name LIKE CONCAT('%', vText, '%')
+        	OR description LIKE CONCAT('%', vText, '%'))
+	    group by a.productID
+	    order by totalItemsSold DESC,
+	    	CASE 
+        		WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        		WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        		ELSE 2 END;
+    END IF;
+
+    -- mejor calificados SEARCH
+    IF vOption = 11  then
+	    Select *
+	    From vProductOverview
+	    where (vText IS NULL 
+        	OR name LIKE CONCAT('%', vText, '%')
+        	OR description LIKE CONCAT('%', vText, '%'))
+	    order by review desc,
+	    	CASE 
+        		WHEN name LIKE CONCAT('%', vText, '%') THEN 0 
+        		WHEN description LIKE CONCAT('%', vText, '%') THEN 1 
+        		ELSE 2 END;
+    END IF;
+
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE categoryManagement(
+	vOption int,
+	vName VARCHAR(50),
+	vUserID int
+)
+BEGIN
+	-- Get all user conversations
+    IF vOption = 1 THEN
+		SELECT
+			categoryID,
+			name,
+			user
+		FROM category;
+	END IF;
+
+	-- Insert message to conversation
+    IF vOption = 2 THEN
+		INSERT INTO category(
+			name
+			,user
+		)
+		VALUES(
+			vName
+			,vUserID
+		);
+	END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE productFilesManagement(
+	vOption			int,
+	vFileName 		varchar(100),
+	vFileContent 	BLOB,
+	vProduct 		int
+)
+BEGIN
+	-- Get all user conversations
+    IF vOption = 1 THEN
+		SELECT
+			product,
+			file,
+			fileName
+		FROM mediaFilesProduct;
+	END IF;
+
+	-- Insert message to conversation
+    IF vOption = 2 THEN
+		INSERT INTO mediaFilesProduct(
+			product
+			,file
+			,fileName
+		)
+		VALUES(
+			vProduct
+			,vFileContent
+			,vFileName
+		);
+	END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE listManagement(
+	vOption int,
+	vListID int,
+	vName VARCHAR(50),
+	vDescription VARCHAR(200),
+	vUserID int
+)
+BEGIN
+	-- Get all wishlists from one user 
+    IF vOption = 1 THEN
+		SELECT
+			name,
+			description,
+			user
+		FROM lists
+		where user = vUserID;
+	END IF;
+
+	-- Insert 
+    IF vOption = 2 THEN
+		INSERT INTO lists(
+			name
+			,description
+			,user
+		)
+		VALUES(
+			vName
+			,vDescription
+			,vUserID
+		);
+	END IF;
+
+	-- delete
+	IF vOption = 3 THEN
+		DELETE a FROM lists a
+		WHERE listID = vListID
+	END IF;
+
+END //
+DELIMITER ;

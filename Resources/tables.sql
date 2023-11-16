@@ -16,7 +16,7 @@ CREATE TABLE users(
 	,lastnameP	VARCHAR(50)
 	,lastnameM	VARCHAR(50)
 	,birthday	TIMESTAMP NULL
-	,gender		char(1)
+	,gender		VARCHAR(30) 
 	,joinedDate	TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	,visibility	Boolean
 	,FOREIGN KEY (rol) REFERENCES Rol(rolID)

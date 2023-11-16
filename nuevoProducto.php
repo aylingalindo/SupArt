@@ -1,3 +1,52 @@
+<?php 
+
+  session_start();
+  $userID =  $_SESSION['usersAPI']['userID']; 
+  $username = $_SESSION['usersAPI']['username'];
+
+  include_once 'API/productsAPI.php';
+  $product = new productsAPI();
+
+  include_once 'API/categoryAPI.php';
+  $cat = new categoryAPI();
+  $categorias = $cat->show();
+
+  $edit = '0';
+
+  if (isset($_GET['editID']) && $_GET['editID'] != '0') {
+    session_start();
+    $edit = $_GET['editID']; 
+
+    $resultado = $product->showProducts(1,$edit, false, null, null);
+
+        //if(count($result) === 1){
+    $name =  $resultado[0]['name']; 
+    $price = $resultado[0]['price'];
+    $stock = $resultado[0]['stock']; 
+    $description = $resultado[0]['description'];
+    $category = $resultado[0]['category'];
+    $type = $resultado[0]['pricingType'];
+
+    echo " <script language='JavaScript'>
+          alert('name:".$name.", price:".$price." stock:".$stock." desc:".$description." ');
+          </script>";
+
+  }else {
+    clearFields();
+  }
+
+  function clearFields(){
+    $edit = '0'; 
+
+    $name = '';
+    $price = '';
+    $stock = '';
+    $description = '';
+    $category = '0';
+    $type = 'Sell';
+  }
+?>
+
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -53,14 +102,17 @@
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                Log out
+              </a>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
 
 		<div id="signupPage">
-
-			<h6><?php echo "This message is from server side." ?></h6>
 
       <!-- POP UP NUEVOA CATEGORIA -->
 
@@ -69,7 +121,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-10 ms-5 me-auto mt-3">
-            <h4>Añadir a wishlist</h4>
+            <h4>Nueva categoría</h4>
           </div>
           <div class="col pt-3">
             <button data-close-button type="button" class="closeBtn" style="color: var(--light)"><i class="icon ion-md-close"></i></button>
@@ -78,12 +130,19 @@
       </div>
 
       <div class="card-body" style="padding-left: 3rem; padding-right: 3rem;">
-        <form class="needs-validation" novalidate method="POST" action="wishlist.php">
+        <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="./API/categoryAPI.php">
+        <input id="productID" name="editID" value="<?php echo $edit;?>" hidden>
         <div class="row">
-            <input type="text" class="form-control mb-3" id="wishlistName" name="wishlistName" placeholder="Nombre" required>
-            <div class="invalid-feedback">
-              Favor de llenar todos los campos.
-            </div>
+          <input type="text" class="form-control mb-3" id="catName" name="catName" placeholder="Nombre" required>
+          <div class="invalid-feedback">
+            Campo vacio.
+          </div>
+        </div>
+        <div class="row">
+          <textarea rows="3" type="text" class="form-control mb-3" id="catDesc" name="catDesc" placeholder="Descripción" required></textarea>
+          <div class="invalid-feedback">
+            Campo vacio.
+          </div>
         </div>
         <div class="row">
           <button type="submit" class="btn btn-primary">Crear</button>
@@ -94,28 +153,30 @@
     </div>
 
 			<!--<div class="d-flex align-items-center">-->
-
+º
 				<div class="container" style="padding-top: 6rem;">
 
-            <h4>Nuevo Producto</h4>
+            <h4><?php echo $edit == '0' ? 'Nuevo Producto' : 'Editar Producto' ?></h4>
         		
-      			<form class="container d-flex flex-column needs-validation" novalidate method="POST" action="misProductos.php">
+      			<form class="container d-flex flex-column needs-validation" novalidate method="POST" enctype="multipart/form-data"      action="./API/productsAPI.php?action=insert">
+              <input id="productID" name="productID" value="<?php echo $edit;?>" hidden>
 		        	<div class="row p-5 d-flex justify-content-center">
                   <div class="col-3 form-group">
-                    <label for="validationName" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="validationName" name="nameSignup" value="" required>
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $name ?>" required>
                     <div class="invalid-feedback">
                       Completar con letras. 
                     </div>
                   </div>
                   <div class="col-4 form-group">
                     <label for="Cat" class="form-label">Categoria</label>
-                    <select class="form-select" aria-label="Default select example" id="Cat" required>
-                      <option selected>Seleccione la Categoria </option>
-                      <option value="1">Plumones</option>
-                      <option value="2">Lienzos y Bastidores</option>
-                      <option value="3">Papel</option>
-                      <option value="4">Pintura</option>
+                    <select name="cat" class="form-select" aria-label="Default select example" id="Cat" required>
+                      <option value="0" selected>Seleccione la Categoria </option>
+                      <?php
+                      foreach($categorias as $cat){
+                        echo "<option " . ($cat['categoryID'] == $category ? 'selected' : '') . " value=". $cat['categoryID'] . " name='cat'>" . $cat['name'] . "</option>";
+                      }
+                      ?> 
                     </select>
                     <div class="invalid-feedback">
                       Favor de seleccionar una categoria. 
@@ -126,56 +187,56 @@
                   </div>
                    <div class="col-4 form-group" style="padding-top: 2rem;">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                      <label class="form-check-label" for="flexRadioDefault1">
+                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="1" <?php echo $type != 'Negotiable' ? 'checked' : '' ?>>
+                      <label class="form-check-label" for="pricingType1">
                         Venta
                       </label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                      <label class="form-check-label" for="flexRadioDefault2">
+                      <input class="form-check-input" type="radio" name="pricingType" id="pricingType" value="0" <?php echo $type == 'Negotiable' ? 'checked' : '' ?> >
+                      <label class="form-check-label" for="pricingType2">
                         Cotización
                       </label>
                     </div>
                   </div>
                   <div class="col-2 form-group">
-                    <label for="validationSecondLN" class="form-label">Precio</label>
-                    <input type="number" class="form-control" id="validationSecondLN" name="mLastnameSignup" value="" required>
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="price" name="price" value="<?php echo $price ?>" required>
                     <div class="invalid-feedback">
                         Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-2 form-group">
-                    <label for="validationSecondLN" class="form-label">Cantidad Disponible</label>
-                    <input type="number" class="form-control" id="validationSecondLN" name="mLastnameSignup" value="" required>
+                    <label for="stock" class="form-label">Cantidad Disponible</label>
+                    <input type="number" class="form-control" id="stock" name="stock" value="<?php echo $stock ?>" required>
                     <div class="invalid-feedback">
                         Favor de ingresar un número 
                     </div>
                   </div>
                   <div class="col-4 form-group">
                     <label for="prodDesc" class="form-label">Descripción</label>
-                    <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="wishlistDesc" required></textarea>
+                    <textarea rows="3" type="text" class="form-control mb-3" id="prodDesc" name="prodDesc" required> <?php echo $description ?> </textarea>
                   </div>
-                  <div class="col-4 form-group flex-column">
-                    <div class="row">
-                      <div class="col-8">
-                        <div class="col-8">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgMain">
-                        </div>
-                        <div class="col-4 d-flex">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb activo" alt="...">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
-                          <img src="Img/addImg.png" class="object-fit-contain new-imgThmb" alt="...">
-                        </div>
-                      </div>
-                      <div class="col-2 d-flex">
-                        <button type="button" class="btn btn-primary align-self-center">+</button>
-                      </div>
+
+                  <div class="col-4 form-group flex-column align-items-center" <?php echo $edit != '0' ? 'hidden' : ''?> >
+                    <div class="row d-flex" style="padding-bottom: 1rem;">
+                      <label id="file-label" class="form-label" for="file"> Selecciona una imagen: </label>
+                      <input id="file" name="file[]" class="form-control" type="file" onchange="mostrarImagenProd()" multiple></input>
+                    </div>
+                    <div class="row d-flex align-items-center justify-content-center" style="padding:0;">
+                      <img id="file-preview" src="Img/addImg.png" class="object-fit-contain product-imgMain">
+                    </div>
+                    <div class="row d-flex align-items-center justify-content-center" style="height:2rem; padding:0;">
+                          <img id="file-mini1" src="Img/addImg.png" class="object-fit-contain product-imgThmb activo" alt="...">
+                          <img id="file-mini2" src="Img/addImg.png" class="object-fit-contain product-imgThmb" alt="...">
+                          <img id="file-mini3" src="Img/addImg.png" class="object-fit-contain product-imgThmb" alt="...">
+                          <img id="file-mini4" src="Img/addImg.png" class="object-fit-contain product-imgThmb" alt="...">
                     </div>
                   </div>
+
+
                   <div class="col-12 form-group">
-                    <button type="submit" class="btn btn-primary signInBtn">Crear</button>
+                    <button type="submit" class="btn btn-primary signInBtn"><?php echo $edit == '0' ? 'Crear' : 'Editar' ?></button>
                   </div>
                 </div>
 				    </form>

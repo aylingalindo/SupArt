@@ -9,11 +9,9 @@ if (isset($_GET['action'])) {
 
     switch ($action) {
         case 'insert':
-            echo 'hola';
             $user->createUser();
             break;
         case 'login':
-            echo 'Hola';
             $user->loginUser();
             break;
         case 'fillProfile':
@@ -33,21 +31,22 @@ class usersAPI {
     //INSERT USER
     function createUser() {
         $userito = new User();
-        echo "validate email: " . (isset($_POST['email']) ? ' true ' : ' false ');
-        echo "username: " . (isset($_POST['username']) ? ' true ' : ' false ');
-        echo "password: " . (isset($_POST['password']) ? ' true ' : ' false ');
-        echo "name: " . (isset($_POST['name']) ? ' true ' : ' false ');
-        echo "lastnameP: " . (isset($_POST['pLastname']) ? ' true ' : ' false ');
-        echo "lastnamem: " . (isset($_POST['mLastname']) ? ' true ' : ' false ');
-        echo "birthday: " . (isset($_POST['fecha']) ? ' true ' : ' false ');
-        echo "gender: " . (isset($_POST['gender']) ? ' true ' : ' false ');
-        echo "rol: " . (isset($_POST['rbtnRol']) ? ' true ' : ' false ');
-        echo "visibility: " . (isset($_POST['rbtnPrivacidad']) ? ' true ' : ' false ');
 
-        echo 'Create user';
-        if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name']) && isset($_POST['pLastname']) && isset($_POST['mLastname']) && isset($_POST['fecha']) && isset($_POST['gender'])) // && isset($_POST['joinedDate'])&& isset($_POST['visibility'])) && isset($_POST['rol']) && isset($_POST['image']) 
+        if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['name']) && isset($_POST['pLastname']) && isset($_POST['mLastname']) && isset($_POST['fecha']) && isset($_POST['gender'])) 
         {
-                echo 'inside if user';
+
+                $image = null;
+                
+                if (isset($_FILES['file'])) {
+                    if ($_FILES['file']['error'] === UPLOAD_ERR_OK){
+                        $image = file_get_contents($_FILES['file']['tmp_name']);
+                    }else {
+                        echo json_encode(array('mensaje' => 'Error al cargar la imagen'));
+                    }
+                }else {
+                    $image = null;
+                }
+
                 $email = $_POST['email'];   
                 $username = $_POST['username'];
                 $password = $_POST['password'];
@@ -66,9 +65,9 @@ class usersAPI {
                     $option = 1;
                     $userID = 0;
                 }
-                echo($option);
 
-                $resultado = $userito->userManagement("'$option'", "'$userID'", "'$email'", "'$username'", "'$password'", "'$rol'", 'null', "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", "'$visibility'");
+                $resultado = $userito->userManagement($option, $userID, $email, $username, $password, $rol, $image, $name, $lastnameP, $lastnameM, $birthday, $gender, $visibility);
+                //$resultado = $userito->userManagement("'$option'", "'$userID'", "'$email'", "'$username'", "'$password'", "'$rol'", "'$image'", "'$name'", "'$lastnameP'", "'$lastnameM'", "'$birthday'", "'$gender'", "'$visibility'");
                 echo json_encode($resultado) . '<----- es este';
                 echo ($resultado) . '<----- es este x2';
 
@@ -84,7 +83,7 @@ class usersAPI {
                         "username" => $username,
                         "password" => $password,
                         "rol" => $rol,
-                        "image" => $row['image'],
+                        "image" => $image,
                         "name" => $name,
                         "lastnameP" => $lastnameP,
                         "lastnameM" => $lastnameM,
@@ -121,11 +120,9 @@ class usersAPI {
             $username = $_POST['nameLogin'];
             $password = $_POST['passLogin'];
             $resultado = $userito->login("'$username'", "'$password'");
-            echo json_encode($resultado);
 
             if ($resultado != null) { 
                 // output data of each row
-                echo ' entraaaaaa ';
                 $rowCount = $resultado->rowCount();
                 if($rowCount == 1){
                     $row = $resultado->fetch(PDO::FETCH_ASSOC);
@@ -144,12 +141,12 @@ class usersAPI {
                         "joinedDate" => $row['joinedDate'],
                         "visibility" => $row['visibility']
                     );
-                    echo ' si coincide uno ';
                     $_SESSION['usersAPI'] = $arrdatos;
-                    echo "<script language='JavaScript'>
-                    alert('Exito: " . $_SESSION['usersAPI']['username'] . $_SESSION['usersAPI']['userID'] . $_SESSION['usersAPI']['password'] ."');
-                    location.assign('../dashboard.php')
-                    </script>";
+                    //echo "<script language='JavaScript'>
+                    //alert('Exito: " . $_SESSION['usersAPI']['username'] . $_SESSION['usersAPI']['userID'] . $_SESSION['usersAPI']['password'] ."');
+                    //location.assign('../dashboard.php')
+                    //</script>";
+                    echo '<script>window.location.href = "../dashboard.php";</script>';
                 }
                 else {
                     echo " <script language='JavaScript'>

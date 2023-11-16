@@ -1,3 +1,16 @@
+<?php 
+  ini_set('display_errors', 1);
+  error_reporting(E_ALL);
+  session_start();
+  $userID =  $_SESSION['usersAPI']['userID']; 
+  $username = $_SESSION['usersAPI']['username'];
+  $rol = $_SESSION['usersAPI']['rol'];
+
+  include_once 'API/listAPI.php';
+  $listAPI = new listAPI();
+  $result = $listAPI->show();
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +24,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
@@ -33,7 +47,7 @@
             <span class="input-group-text pt-0 pb-0" id="search-icon" >
               <i class="icon ion-md-search"></i>
             </span>
-            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <input id="search-bar" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" oninput="dashboardSearch()">
           </form>
           <ul class="navbar-nav d-flex">
             <li class="nav-item">
@@ -59,6 +73,11 @@
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                Log out
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -71,7 +90,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-10 ms-5 me-auto mt-3">
-            <h4>Añadir a wishlist</h4>
+            <h4>Nueva wishlist</h4>
           </div>
           <div class="col pt-3">
             <button data-close-button type="button" class="closeBtn"><i class="icon ion-md-close"></i></button>
@@ -80,7 +99,7 @@
       </div>
 
       <div class="card-body" style="padding-left: 3rem; padding-right: 3rem;">
-        <form class="needs-validation" novalidate method="POST" action="wishlist.php">
+        <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="./API/listAPI.php?action=insert">
         <div class="row">
             <input type="text" class="form-control mb-3" id="wishlistName" name="wishlistName" placeholder="Nombre" required>
             <textarea rows="3" type="text" class="form-control mb-3" id="wishlistDesc" name="wishlistDesc" placeholder="Descripción" required></textarea>
@@ -109,10 +128,10 @@
             <div id="wishlistList" class="col-4" style="min-width: 300px;">
               <ul class="list-box list-group justify-content-center">
                 <button class="btnList" data-modal-target="#popupNewWishlist" type="button">
-                <li class="list-group-item">
-                  <i class="icon ion-md-add"></i>
-                  <h5><b>Crear</b></h5>
-                </li>
+                  <li class="list-group-item">
+                    <i class="icon ion-md-add"></i>
+                    <h5><b>Crear</b></h5>
+                  </li>
                 </button>
                 <button class="btnList">
                 <li class="list-group-item active">
@@ -120,18 +139,21 @@
                   <h5>Lista 1</h5>
                 </li>
                 </button>
-                <button class="btnList">
-                <li class="list-group-item">
-                  <i class="icon ion-md-lock"></i>
-                  <h5>Lista 2</h5>
-                </li>
-                </button>
-                <button class="btnList">
-                <li class="list-group-item">
-                  <i class="icon ion-md-globe"></i>
-                  <h5>Lista 3</h5>
-                </li>
-                </button>
+
+                <?php
+
+                  foreach($result as $list)
+                  {
+                    echo 
+                    "<button class='btnList'>
+                      <li class='list-group-item'>
+                        <i class='icon ion-md-lock'></i>
+                        <h5>".$list['name']."</h5>
+                      </li>
+                    </button>";
+                  }
+                ?>
+
               </ul>
             </div>
 
