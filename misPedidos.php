@@ -56,7 +56,8 @@
                 <li><a class="dropdown-item" href="wishlist.php">Mis Wishlist</a></li>
                 <li><a class="dropdown-item" href="msjCotizacion.php">Mis Mensajes</a></li>
                 <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
-                <li><a class="dropdown-item" href="misPedidosVentas.php">Mis Pedidos/Ventas</a></li>
+                <li><a class="dropdown-item" href="misPedidos.php">Mis Pedidos</a></li>
+                <li><a class="dropdown-item" href="misVentas.php">Mis Ventas</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
@@ -74,7 +75,7 @@
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
 
-          <h4>Mis Pedidos / Mis Ventas</h4>
+          <h4>Mis Pedidos</h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 

@@ -9,7 +9,7 @@ $product = new productsAPI();
 
 $populares = $product->showProducts(6,null, null, null, null);
 $calificados = $product->showProducts(7,null, null, null, null);
-$nuevos = $product->showProducts(8,null, null, null, null);
+$nuevos = $product->showProducts(8,3, null, null, null);
 
 ?>
 <!DOCTYPE html>
@@ -67,7 +67,8 @@ $nuevos = $product->showProducts(8,null, null, null, null);
                 <li><a class="dropdown-item" href="wishlist.php">Mis Wishlist</a></li>
                 <li><a class="dropdown-item" href="msjCotizacion.php">Mis Mensajes</a></li>
                 <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
-                <li><a class="dropdown-item" href="misPedidosVentas.php">Mis Pedidos/Ventas</a></li>
+                <li><a class="dropdown-item" href="misPedidos.php">Mis Pedidos</a></li>
+                <li><a class="dropdown-item" href="misVentas.php">Mis Ventas</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>

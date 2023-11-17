@@ -510,3 +510,29 @@ BEGIN
 
 END //
 DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE SalesManagement(
+    vOption int,
+	vUser int
+)
+BEGIN
+    -- Seller Sales
+    IF vOption = 1 THEN
+        SELECT
+            productName,
+            productDescription,
+            purchaseDate,
+            sellerUserID AS SellerID,
+            buyerUserID AS BuyerID,
+            total,
+            numItems
+        FROM SoldProducts
+        WHERE sellerUserID = vUser;
+	END IF;
+
+END //
+
+DELIMITER ;
