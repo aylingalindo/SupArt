@@ -157,14 +157,14 @@
             <div class="col" style="min-width: 221px;">
               <div class="row product-div">
                 <h3 style="color: var(--text)"><b><?php echo $name; ?></b></h3>
-                <h6><?php echo $cat; ?>></h6>
+                <h6 style="color: var(--primary)"><b><?php echo $cat; ?></b></h6>
                 <p>Publicado por: <?php echo $user; ?></p>
               </div>
               <div class="row product-div">
                 <h6><?php echo $desc; ?></h6>
               </div>
               <div class="row product-div">
-                    <h4 class="text-end">$<?php $price; ?> MXN</h4>
+                    <h4 class="text-end">$<?php echo $price; ?> MXN</h4>
                     <div id="calif" class="row d-flex justify-content-end">
                           <div class="col-1">
                             <i class="icon ion-md-brush"></i>
@@ -189,6 +189,9 @@
                 </div>
                 <div class="row d-flex justify-content-center">
                   <a href="..." class="btn btn-primary signUpBtn">Comprar</a>
+                </div>
+                <div class="row d-flex justify-content-center">
+                  <a href="..." class="btn btn-primary signUpBtn">Cotizar</a>
                 </div>
                 <div class="row d-flex justify-content-center">
                   <button data-modal-target="#popupAddToWishlist" type="button" class="btn btn-primary productBtn">Agregar a Wishlist</button>
