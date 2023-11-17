@@ -35,6 +35,12 @@ CREATE TABLE products(
 	,FOREIGN KEY(approvedBy) REFERENCES users(userID)
 	,FOREIGN KEY(uploadedBy) REFERENCES users(userID)	
 );
+ALTER TABLE products ADD COLUMN category int;
+
+ALTER TABLE products
+ADD CONSTRAINT fk_category
+FOREIGN KEY (category)
+REFERENCES category(categoryID);
 
 CREATE TABLE mediaFilesProducts(
 	 mediaProductsID	INT AUTO_INCREMENT PRIMARY KEY

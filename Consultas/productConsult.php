@@ -1,6 +1,7 @@
 <?php
-include_once '../connectionPDO.php';
-include_once 'connectionPDO.php';
+include_once './connectionPDO.php';
+//include_once '../connectionPDO.php';
+//include_once 'connectionPDO.php';
 
     class Product extends DB {
 
