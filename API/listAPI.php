@@ -11,7 +11,14 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
     $listAPI = new listAPI();
 
-    $listAPI->new();
+    switch($action){
+        case 'insert': 
+            $listAPI->new();
+            break;
+        case 'insertItem':
+            $listAPI->newItem();
+            break;
+    } 
 }
 
 class listAPI {
@@ -45,6 +52,27 @@ class listAPI {
 
     }
 
+    function newItem() {
+        echo 'en new item';
+        $list = new Wishlist();
+
+        if (isset($_POST['wishlist']) && isset($_POST['product']) ) 
+        {
+            $wishlist = $_POST['wishlist'];   
+            $product = $_POST['product'];   
+
+            $resultado = $list->listItemsManagement($wishlist, $product, 0);
+
+            echo " <script language='JavaScript'>
+                    alert('Se agregó el producto a la wishlist');
+                    location.assign('../producto.php?productID=".$product."')
+                    </script>";
+
+        } else {
+            echo json_encode(array('mensaje' => 'No se han proporcionado los datos necesarios.'));
+        }
+
+    }
 
     /*function delete($listID) {
         $list = new List();

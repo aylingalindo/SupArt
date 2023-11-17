@@ -24,12 +24,18 @@
     echo ($pricingType);
     $price = $producto[0]['price'];
     $review = intval($producto[0]['review']);
-    $user = $producto[0]['uploadedByName'];
-    $userID = $producto[0]['uploadedBy'];
+    $uploadedByName = $producto[0]['uploadedByName'];
+    $uploadedBy = $producto[0]['uploadedBy'];
 
     $files = $productAPI->showProductFiles($productID);
 
   }
+
+  include_once 'API/listAPI.php';
+  $listAPI = new listAPI();
+  $listas = $listAPI->show();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -124,17 +130,25 @@
       </div>
 
       <div class="card-body">
-        <div class="row filter-menu">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Seleccione una lista</option>
-            <option value="1">Lista 1</option>
-            <option value="2">Lista 2</option>
-            <option value="3">Lista 3</option>
-          </select>
-        </div>
-        <div class="row">
-          <button class="btn btn-primary">Añadir</button>
-        </div>
+        <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="./API/listAPI.php?action=insertItem">
+          <input id="product" name="product" value="<?php echo $productID;?>" hidden>
+          <div class="row filter-menu d-flex m-0">
+            <select name="wishlist" class="form-select d-flex" aria-label="Default select example">
+              <option value="0" selected>Seleccione una lista</option>
+              <?php
+
+              foreach($listas as $lista){
+                echo
+                "<option value=".$lista['listID'].">".$lista['name']."</option>";
+              }
+
+              ?>
+            </select>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary">Añadir</button>
+          </div>
+        </form>
       </div>
 
     </div>
@@ -205,7 +219,7 @@
               <div class="row product-div">
                 <h3 style="color: var(--text)"><b><?php echo $name; ?></b></h3>
                 <h6 style="color: var(--primary)"><b><?php echo $cat; ?></b></h6>
-                <p>Publicado por: <?php echo $user; ?></p>
+                <p>Publicado por: <?php echo $uploadedByName; ?></p>
               </div>
               <div class="row product-div">
                 <h6><?php echo $desc; ?></h6>

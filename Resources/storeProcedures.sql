@@ -510,3 +510,40 @@ BEGIN
 
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE listItemsManagement(
+    vOption int,
+    vList int,
+    vProduct int,
+    vListItemID int
+)
+BEGIN
+    -- Get all wishlists from one user 
+    IF vOption = 1 THEN
+        SELECT
+            product
+        FROM listItems
+        where list = vList;
+    END IF;
+
+    -- Insert 
+    IF vOption = 2 THEN
+        INSERT INTO listItems(
+            list
+            ,product
+        )
+        VALUES(
+            vList
+            ,vProduct
+        );
+    END IF;
+
+    -- delete
+    IF vOption = 3 THEN
+        DELETE a FROM listItems a
+        WHERE listItemID = vListItemID;
+    END IF;
+
+END //
+DELIMITER ;

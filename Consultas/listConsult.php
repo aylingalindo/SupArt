@@ -35,6 +35,37 @@ include_once 'connectionPDO.php';
             }
         }
 
+        function listItemsManagement($vList, $vProduct, $vListItem) {
+            $conn = $this->connect(); 
+            if ($conn) {
+                try {
+
+                    $vOption = 2;
+
+                    $sql = "CALL listItemsManagement(?, ?, ?, ?)";
+                    $stmt = $conn->prepare($sql);
+
+                    $stmt->bindValue(1, $vOption, PDO::PARAM_INT);
+                    $stmt->bindValue(2, $vList, PDO::PARAM_INT);
+                    $stmt->bindValue(3, $vProduct, PDO::PARAM_INT);
+                    $stmt->bindValue(4, $vListItem, PDO::PARAM_INT);
+                    $stmt->execute();
+
+                    if ($stmt->errorInfo()[0] != '00000') {
+                        echo ($stmt->errorInfo());
+                    }
+
+                    echo json_encode(array('message' => 'Data inserted successfully'));
+                } catch (PDOException $e) {
+                    echo "Error en la base de datos: " . $e->getMessage();
+                    return false;
+                }
+            } else {
+              return false;
+            }
+        }
+
+
         function showList($vUserID){
             
             $conn = $this->connect();
