@@ -1,6 +1,6 @@
 <?php
 session_start();
- include_once '../Consultas/cartConsult.php';
+ include_once '../Consultas/pedidosventasConsult.php';
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
@@ -22,26 +22,33 @@ class salesAPI {
     //SELECT ALL PRODUCTS
     function getAll() {
         $option = 1;
-        $mySales = new Cart();
+        $mySales = new Pedidos();
         
         $arrSales = array();
 		$arrSales["sales"] = array();
         $_SESSION['salesAPI'] = array();	
 
-        $resultado = $sales->salesManagement($option, $seller);
+        $seller = $_SESSION['usersAPI']['userID']; 
+        $resultado = $mySales->salesManagement($option, $seller);
 
         if(isset($resultado))
 		{
 			while($row = $resultado->fetch(PDO::FETCH_ASSOC))	
 			{
+                foreach ($row as $key => $value) {
+                    echo "Key: $key, Value: $value\n";
+                }
 				$sale = array(
                     "productName" => $row['productName'],
-                    "productDescription" => $row['productDescription'],
+                    "category" => $row['category'],
+                    "image" => $row['image'],
                     "purchaseDate" => $row['purchaseDate'],
                     "sellerUserID" => $row['sellerUserID'],
                     "buyerUserID" => $row['buyerUserID'],
                     "total" => $row['total'],
-                    "numItems" => $row['numItems']
+                    "numItems" => $row['numItems'],
+                    "folio" => $row['folio'],
+                    "review" => $row['review']
 				);
 
 				array_push($arrSales["sales"], $sale);

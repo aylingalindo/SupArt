@@ -523,16 +523,35 @@ BEGIN
     IF vOption = 1 THEN
         SELECT
             productName,
-            productDescription,
+            category,
+            image,
+            folio,
             purchaseDate,
-            sellerUserID AS SellerID,
-            buyerUserID AS BuyerID,
+            review,
+            numItems,
             total,
-            numItems
+            sellerUserID AS SellerID,
+            buyerUserID AS BuyerID
         FROM SoldProducts
         WHERE sellerUserID = vUser;
 	END IF;
 
+    -- Buyer products
+    IF vOption = 2 THEN
+        SELECT
+            productName,
+            category,
+            image,
+            folio,
+            purchaseDate,
+            review,
+            numItems,
+            total,
+            sellerUserID AS SellerID,
+            buyerUserID AS BuyerID
+        FROM SoldProducts
+        WHERE buyerUserID = vUser;
+	END IF;
 END //
 
 DELIMITER ;

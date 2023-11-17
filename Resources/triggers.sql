@@ -10,3 +10,24 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER generate_folio
+BEFORE INSERT ON purchaseinfo
+FOR EACH ROW
+BEGIN
+    DECLARE newFolio INT;
+    SET newFolio = 10000 + NEW.purchaseID; 
+
+    -- Check if the generated folio already exists, and increment if it does
+    WHILE EXISTS (SELECT * FROM purchaseinfo WHERE folio = newFolio) DO
+        SET newFolio = newFolio + 1;
+    END WHILE;
+
+    SET NEW.folio = newFolio;
+END;
+//
+
+DELIMITER ;

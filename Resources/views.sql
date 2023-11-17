@@ -17,12 +17,17 @@ JOIN
 CREATE VIEW SoldProducts AS
 SELECT
     p.name AS productName,
-    p.description AS productDescription,
-    pu.purchaseDate,
+    c.name AS category,
     p.uploadedBy AS sellerUserID,
     pu.user AS buyerUserID,
-    pu.total,
-    pu.numItems
+    m.file AS image,
+    pu.folio,
+    pu.purchaseDate,
+    r.score AS review,
+    pu.numItems,
+    pu.total
 FROM products p
-JOIN purchaseinfo pu ON p.productID = pu.product;
-
+JOIN purchaseinfo pu ON p.productID = pu.product
+JOIN category c ON p.category = c.categoryID
+LEFT JOIN mediafilesproducts m ON p.productID = m.product
+LEFT JOIN reviews r ON pu.purchaseID = r.purchaseID;

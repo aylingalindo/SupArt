@@ -59,6 +59,12 @@ CREATE TABLE reviews(
 	,FOREIGN KEY(user) REFERENCES users(userID)
 );
 
+ALTER TABLE reviews
+ADD COLUMN purchaseID INT,
+ADD CONSTRAINT fk_purchaseID
+    FOREIGN KEY (purchaseID)
+    REFERENCES purchaseinfo(purchaseID);
+
 
 CREATE TABLE cart(
 	 cartID			INT AUTO_INCREMENT PRIMARY KEY
@@ -79,6 +85,8 @@ CREATE TABLE purchaseInfo(
 	,FOREIGN KEY (product) REFERENCES products(productID)
 	,FOREIGN KEY(user) REFERENCES users(userID)
 );
+
+ALTER TABLE purchaseinfo ADD COLUMN folio INT;
 
 CREATE TABLE pricing(
 	 pricingID		INT AUTO_INCREMENT PRIMARY KEY
