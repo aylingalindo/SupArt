@@ -21,8 +21,8 @@ class salesAPI {
 
     //SELECT ALL PRODUCTS
     function getAll() {
-        $option = 1;
-        $mySales = new Pedidos();
+        $mySales = new Ventas();
+        $this->isSeller() ? $option = 1 : $option = 2;
         
         $arrSales = array();
 		$arrSales["sales"] = array();
@@ -43,8 +43,8 @@ class salesAPI {
                     "category" => $row['category'],
                     "image" => $row['image'],
                     "purchaseDate" => $row['purchaseDate'],
-                    "sellerUserID" => $row['sellerUserID'],
-                    "buyerUserID" => $row['buyerUserID'],
+                    "sellerUserID" => $row['SellerID'],
+                    "buyerUserID" => $row['BuyerID'],
                     "total" => $row['total'],
                     "numItems" => $row['numItems'],
                     "folio" => $row['folio'],
@@ -58,6 +58,14 @@ class salesAPI {
             echo 'this is the result--->' . $resultado . '<---';
 			echo json_encode(array('mensaje' => 'No hay elementos'));
 		}
+    }
+
+    function isSeller(){
+        $seller = $_SESSION['usersAPI']['userID']; 
+        $rol = $_SESSION['usersAPI']['rol'];
+
+        $isSeller = $rol == '2' ? true: false;
+        return $isSeller;
     }
 
 }

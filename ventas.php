@@ -1,3 +1,6 @@
+<?php session_start(); 
+$rol = $_SESSION['usersAPI']['rol'];
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
     <script defer src="ventasProductos.js"></script>
+    <script defer src="misventas.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -55,9 +59,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="wishlist.php">Mis Wishlist</a></li>
                 <li><a class="dropdown-item" href="msjCotizacion.php">Mis Mensajes</a></li>
-                <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
-                <li><a class="dropdown-item" href="misPedidos.php">Mis Pedidos</a></li>
-                <li><a class="dropdown-item" href="misVentas.php">Mis Ventas</a></li>
+                <li><a class="dropdown-item" href="ventas.php"><?php echo $rol == '2' ? 'Mis Ventas' : 'Mis Pedidos'; ?></a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
@@ -75,53 +77,72 @@
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
 
-          <h4>Mis Pedidos</h4>
+        <h4><?php echo $rol == '2' ? 'Mis Ventas' : 'Mis Pedidos'; ?></h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
 
             
             <table class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libretas</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h6>Folio: 12345</h6>
-                      <p>15/11/23 15:00</p>
-                    </div>
-                    <div id="calif" class="row">
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush"></i>
-                      </div>
-                      <div class="col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>Cantidad: 1</h5>
-                    <h4 class="td-price">$200.00 MXN</h4>
-                  </td>
-                </tr>
+
+<?php
+                if(isset($_SESSION['salesAPI'])){
+                    foreach ($_SESSION['salesAPI'] as $sale) {
+                        $productName = $sale['productName'];
+                        $category = $sale['category'];
+                        $purchaseDate = $sale['purchaseDate'];
+                        $sellerUserID = $sale['sellerUserID'];
+                        $buyerUserID = $sale['buyerUserID'];
+                        $total = $sale['total'];
+                        $numItems = $sale['numItems'];
+                        $folio = $sale['folio'];
+                        $review = $sale['review'];
+                        $imageBlob = $sale['image'];
+                        $imageBlob = null; //quitar cuando funcione productos
+
+                        echo '<tr>';
+                        echo '  <td>';
+                        echo '    <img src="' . ($imageBlob == null ? "Img/prodImg.jpeg" : "data:image/".$imageExt.";base64," . $image) . '" class="object-fit-contain td-img" alt="...">';
+                        echo '  </td>';
+                        echo '  <td>';
+                        echo '    <div class="row">';
+                        echo '      <h5 class="td-title">'.$productName.'</h5>';
+                        echo '    </div>';
+                        echo '    <div class="row">';
+                        echo '      <h6>'.$category.'</h6>';
+                        echo '    </div>';
+                        echo '  </td>';
+                        echo '  <td>';
+                        echo '    <div class="row">';
+                        echo '      <h6>Folio: '.$folio.'</h6>';
+                        echo '      <p>'.$folio.'</p>';
+                        echo '    </div>';
+                        echo '    <div id="calif" class="row">';
+                        echo '      <div class="col-1">';
+                        echo '        <i class="icon ion-md-brush"></i>';
+                        echo '      </div>';
+                        echo '      <div class="col-1">';
+                        echo '        <i class="icon ion-md-brush"></i>';
+                        echo '      </div>';
+                        echo '      <div class="col-1">';
+                        echo '        <i class="icon ion-md-brush"></i>';
+                        echo '      </div>';
+                        echo '      <div class="col-1">';
+                        echo '        <i class="icon ion-md-brush"></i>';
+                        echo '      </div>';
+                        echo '      <div class="col-1">';
+                        echo '        <i class="icon ion-md-brush no"></i>';
+                        echo '      </div>';
+                        echo '    </div>';
+                        echo '  </td>';
+                        echo '  <td>';
+                        echo '    <h5>Cantidad: '.$numItems.'</h5>';
+                        echo '    <h4 class="td-price">'.$total.'</h4>';
+                        echo '  </td>';
+                        echo '</tr>';
+                    }
+                }
+?>
                 <tr>
                   <td>
                     <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">

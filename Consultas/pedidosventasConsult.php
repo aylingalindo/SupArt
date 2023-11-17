@@ -1,7 +1,7 @@
 <?php
 include_once '../connectionPDO.php';
 
-    class Pedidos extends DB {
+    class Ventas extends DB {
         //SALES MANAGEMENT - CALL PROCEDURE
         function salesManagement($vOption, $vUserID) {
             $conn = $this->connect(); 

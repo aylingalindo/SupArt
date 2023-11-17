@@ -73,7 +73,7 @@
                 <li><a class="dropdown-item" href="wishlist.php">Mis Wishlist</a></li>
                 <li><a class="dropdown-item" href="msjCotizacion.php">Mis Mensajes</a></li>
                 <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
-                <li><a class="dropdown-item" href="misPedidosVentas.php">Mis Pedidos/Ventas</a></li>
+                <li><a class="dropdown-item" href="ventas.php"><?php echo $rol == '2' ? 'Mis Ventas' : 'Mis Pedidos'; ?></a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Categorías</a></li>
               </ul>
