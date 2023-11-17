@@ -4,9 +4,14 @@
   session_start();
 
   $username = $_SESSION['usersAPI']['username'];
+  $userID =  $_SESSION['usersAPI']['userID']; 
+  $rol = $_SESSION['usersAPI']['rol'];
 
   include_once 'API/productsAPI.php';
   $productAPI = new productsAPI();
+
+  $review = 0;
+
   if(isset($_GET['productID'])){
     $productID = $_GET['productID']; 
     $producto = $productAPI->showProducts(1,$productID,null, null, null);
@@ -16,10 +21,14 @@
     $stock = $producto[0]['stock'];
     $desc = $producto[0]['description'];
     $pricingType = $producto[0]['pricingType'];
+    echo ($pricingType);
     $price = $producto[0]['price'];
-    $review = $producto[0]['pricingType'];
+    $review = intval($producto[0]['review']);
     $user = $producto[0]['uploadedByName'];
     $userID = $producto[0]['uploadedBy'];
+
+    $files = $productAPI->showProductFiles($productID);
+
   }
 ?>
 
@@ -140,19 +149,57 @@
       <section>
 
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
+
+          <?php 
+        
+
+          ?>
           
           <!-- PRODUCTO -->
           <div class="col-12 d-flex" style="padding-right: 5rem; padding-left: 5rem; padding-bottom: 1rem; padding-top: 1rem;">
             <div class="col d-flex">
               <div class="col-2 imgThmb d-flex flex-column">
-                <img src="Img/hojas.jpg" class="object-fit-contain product-imgThmb activo" alt="...">
-                <img src="Img/hojas2.jpeg" class="object-fit-contain product-imgThmb" alt="...">
-                <img src="Img/hojas3.jpeg" class="object-fit-contain product-imgThmb" alt="...">
-                <img src="Img/hojas.jpg" class="object-fit-contain product-imgThmb" alt="...">
+
+                <?php
+                $defaultImage = 'Img/prodImg.jpeg';
+                $maxItems = 4;
+
+                for ($i = 0; $i < $maxItems; $i++) {
+
+                  if($i == 0){
+                    $class = "object-fit-contain product-imgThmb activo";
+                  }else {
+                    $class = "object-fit-contain product-imgThmb";
+                  }
+
+                  if (isset($files[$i])) {
+                    $file = $files[$i];
+
+                    if ($file['fileName'] == 'mp4') {
+                      // Video
+                      $video = $file['file'];
+                      $videoExt = $file['fileName'];
+                      echo '
+                      <video controls class="'.$class.'" alt="Video">
+                        <source src="data:video/' . $videoExt . ';base64,' . base64_encode($video) . '" type="video/' . $videoExt . '">
+                          Your browser does not support the video tag.
+                      </video>';
+                    }else {
+                    // Image
+                    $image = $file['file'];
+                    $imageExt = $file['fileName'];
+                    echo '<img src="data:image/' . $imageExt . ';base64,' . base64_encode($image) . '" class="'.$class.'" alt="Image">';
+                    }
+                  } else {
+                    echo '<img src="' . $defaultImage . '" class="'.$class.'" alt="Default Image">';
+                  }
+                }
+                ?>
               </div>
               <div class="col-8 imgMain">
-                <img src="Img/hojas.jpg" class="object-fit-contain product-imgMain" alt="...">
+                <img src="<?php echo (isset($files[0]['fileName']) ? 'Img/prodImg.jpeg' : 'data:image/' . $files[0]['fileName'] . ';base64,' . $files[0]['file']); ?>" class="object-fit-contain product-imgMain" style="height: 15rem; width: 15rem;" alt="...">
               </div>
+
             </div>
             <div class="col" style="min-width: 221px;">
               <div class="row product-div">
@@ -167,30 +214,30 @@
                     <h4 class="text-end">$<?php echo $price; ?> MXN</h4>
                     <div id="calif" class="row d-flex justify-content-end">
                           <div class="col-1">
-                            <i class="icon ion-md-brush"></i>
+                            <i class="icon ion-md-brush <?php echo $review >= 1 ? '' : 'no' ?>"></i>
                           </div>
                           <div class="col-1">
-                            <i class="icon ion-md-brush"></i>
+                            <i class="icon ion-md-brush <?php echo $review >= 2 ? '' : 'no'?>"></i>
                           </div>
                           <div class="col-1">
-                            <i class="icon ion-md-brush"></i>
+                            <i class="icon ion-md-brush <?php echo $review >= 3 ? '' : 'no'?>"></i>
                           </div>
                           <div class="col-1">
-                            <i class="icon ion-md-brush"></i>
+                            <i class="icon ion-md-brush <?php echo $review >= 4 ? '' : 'no'?>"></i>
                           </div>
                           <div class="col-1">
-                            <i class="icon ion-md-brush no"></i>
+                            <i class="icon ion-md-brush <?php echo $review >= 5 ? '' : 'no'?>"></i>
                           </div>
                     </div>
               </div>
-              <div id="product-btns" class="row">
+              <div id="product-btns" class="row" <?php echo $rol == 2 ? 'hidden' : '' ?> >
                 <div class="row d-flex justify-content-center" >
                   <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="btn btn-primary productBtn">Agregar al carrito</a>
                 </div>
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center" style="<?php echo $pricingType == 'Negotiable' ? 'display: none!important;' : ''; ?>">
                   <a href="..." class="btn btn-primary signUpBtn">Comprar</a>
                 </div>
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center" style="<?php echo $pricingType == 'Sell' ? 'display: none!important;' : ''; ?>">
                   <a href="..." class="btn btn-primary signUpBtn">Cotizar</a>
                 </div>
                 <div class="row d-flex justify-content-center">

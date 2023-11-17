@@ -228,11 +228,11 @@ class productsAPI {
 
     }
 
-    function showProductFiles($option,$prodID) {
+    function showProductFiles($prodID) {
         $Product = new Product();
 
 
-        $resultado = $Product->showProducts($option,$productID);
+        $resultado = $Product->showProductFiles(1,$prodID);
 
         /*if($category != null){
             echo '<script>window.location.href = "../index.php";</script>';

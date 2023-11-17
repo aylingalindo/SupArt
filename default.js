@@ -141,15 +141,30 @@ const cat = document.querySelector('.cat');
 const product_imgMain = document.querySelector('.product-imgMain')
 const product_imgThmb = document.querySelectorAll('.product-imgThmb')
 
-product_imgThmb.forEach(img => {
-    img.addEventListener('click', function(){
-      const activo = document.querySelector('.activo')
-      activo.classList.remove('activo')
-      this.classList.add('activo')
-      product_imgMain.src = this.src
-    })
+product_imgThmb.forEach(media => {
+    media.addEventListener('click', function() {
+        const activo = document.querySelector('.activo');
+        activo.classList.remove('activo');
+        this.classList.add('activo');
 
-})
+        // Check if the clicked media is an image or video
+        const isVideo = this.tagName.toLowerCase() === 'video';
+
+        // Update product_imgMain based on the media type
+        if (isVideo) {
+            const videoSourceElement = this.querySelector('source');
+            const videoSource = videoSourceElement.getAttribute('src');
+            
+            product_imgMain.src = videoSource;
+            product_imgMain.style.display = 'block'; // Show the video element
+            product_imgMain.type = videoSourceElement.getAttribute('type'); // Set the video type
+        } else {
+            product_imgMain.src = this.src;
+            product_imgMain.style.display = 'block'; // Show the image element
+            product_imgMain.type = ''; // Reset the type for images
+        }
+    });
+});
 
 
 
