@@ -10,6 +10,7 @@ if (isset($_GET['action'])) {
     switch ($action) {
         case 'getAll':
             $sales->getAll();
+            $sales->getGroupedSales();
             break;
     }
 }
@@ -48,7 +49,8 @@ class salesAPI {
                     "total" => $row['total'],
                     "numItems" => $row['numItems'],
                     "folio" => $row['folio'],
-                    "review" => $row['review']
+                    "review" => $row['review'],
+                    "stock" => $row['stock']
 				);
 
 				array_push($arrSales["sales"], $sale);
@@ -60,6 +62,7 @@ class salesAPI {
 		}
     }
 
+    //validate the user rol
     function isSeller(){
         $seller = $_SESSION['usersAPI']['userID']; 
         $rol = $_SESSION['usersAPI']['rol'];
@@ -68,5 +71,40 @@ class salesAPI {
         return $isSeller;
     }
 
+    //get grouped sales by month and year, by category
+    function getGroupedSales() {
+        $mySales = new Ventas();
+        $option = 3;
+        
+        $arrSales = array();
+		$arrSales["sales"] = array();
+        $_SESSION['gr_salesAPI'] = array();	
+
+        $seller = $_SESSION['usersAPI']['userID']; 
+        $resultado = $mySales->salesManagement($option, $seller);
+
+            echo json_encode($resultado);
+        if(isset($resultado))
+		{
+			while($row = $resultado->fetch(PDO::FETCH_ASSOC))	
+			{
+                foreach ($row as $key => $value) {
+                    echo "+++ grouped +++  ";
+                    echo "Key: $key, Value: $value\n";
+                }
+				$sale = array(
+                    "Category" => $row['Category'],
+                    "Date" => $row['Date'],
+                    "Sales" => $row['Sales']
+				);
+
+				array_push($arrSales["sales"], $sale);
+			}
+            $_SESSION['gr_salesAPI'] = $arrSales["sales"];
+		} else {
+            echo 'this is the result--->' . $resultado . '<---';
+			echo json_encode(array('mensaje' => 'No hay elementos'));
+		}
+    }
 }
 ?>

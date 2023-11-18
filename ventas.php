@@ -1,5 +1,9 @@
 <?php session_start(); 
 $rol = $_SESSION['usersAPI']['rol'];
+
+include_once 'API/categoryAPI.php';
+  $cat = new categoryAPI();
+  $categorias = $cat->show();
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,6 +71,38 @@ $rol = $_SESSION['usersAPI']['rol'];
           </ul>
         </div>
       </div>
+      <div class="container-fluid d-flex justify-content-end filter-container">
+  <div class="row filter-menu">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="startDate" class="form-label">Start Date:</label>
+          <input type="date" class="form-control" id="startDate">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="endDate" class="form-label">End Date:</label>
+          <input type="date" class="form-control" id="endDate">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="Cat" class="form-label">Category:</label>
+          <select id="Cat" name="cat" class="form-select" aria-label="Category select" onchange="selectCategory()">
+            <option value="0" selected>Todas las Categorias</option>
+            <?php
+              foreach ($categorias as $cat) {
+                echo "<option " . ($cat['categoryID'] == $category ? 'selected' : '') . " value=" . $cat['categoryID'] . " name='cat'>" . $cat['name'] . "</option>";
+              }
+            ?>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     </nav>
 
 
@@ -97,6 +133,7 @@ $rol = $_SESSION['usersAPI']['rol'];
                         $numItems = $sale['numItems'];
                         $folio = $sale['folio'];
                         $review = $sale['review'];
+                        $stock = $sale['stock'];
                         $imageBlob = $sale['image'];
                         $imageBlob = null; //quitar cuando funcione productos
 
@@ -115,7 +152,10 @@ $rol = $_SESSION['usersAPI']['rol'];
                         echo '  <td>';
                         echo '    <div class="row">';
                         echo '      <h6>Folio: '.$folio.'</h6>';
-                        echo '      <p>'.$folio.'</p>';
+                        echo '      <p>' . htmlspecialchars($purchaseDate) . '</p>';
+                        echo '      <div id="stock_sales"class="row">';
+                        echo '          <h6 style="display: ' . ($rol == '2' ? 'block' : 'none') . '">Existencia actual: ' . $stock . '</h6>';
+                        echo '      </div>';
                         echo '    </div>';
                         echo '    <div id="calif" class="row">';
                         echo '      <div class="col-1">';
@@ -137,7 +177,7 @@ $rol = $_SESSION['usersAPI']['rol'];
                         echo '  </td>';
                         echo '  <td>';
                         echo '    <h5>Cantidad: '.$numItems.'</h5>';
-                        echo '    <h4 class="td-price">'.$total.'</h4>';
+                        echo '    <h4 class="td-price">$'.$total.' MXN</h4>';
                         echo '  </td>';
                         echo '</tr>';
                     }
@@ -231,8 +271,7 @@ $rol = $_SESSION['usersAPI']['rol'];
 
         </div>
 
-        <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
-
+        <div id="grouped_sales" class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px; display: <?php echo $rol == '2' ? 'block' : 'none'; ?>">
           <h4>Resumen</h4>
           
           <div class="col-12" style="padding-left: 40px; padding-right: 40px;">
@@ -240,17 +279,28 @@ $rol = $_SESSION['usersAPI']['rol'];
             
             <table class="table table-hover">
               <tbody>
-                <tr>
-                  <td>
-                    <h4 class="td-price">Libretas</h4>
-                  </td>
-                  <td>
-                    <h5>Agosto 2023</h5>
-                  </td>
-                  <td>
-                    <h5>Ventas: 10</h5>
-                  </td>
-                </tr>
+                <?php
+                    if(isset($_SESSION['gr_salesAPI'])){
+                    foreach ($_SESSION['gr_salesAPI'] as $sale) {
+                        $gr_category = $sale['Category'];
+                        $gr_date = $sale['Date'];
+                        $gr_sales = $sale['Sales'];
+
+                        echo '<tr>';
+                        echo '  <td>';
+                        echo '    <h4 class="td-price">'. $gr_category.'</h4>';
+                        echo '  </td>';
+                        echo '  <td>';
+                        echo '    <h5>'. $gr_date.'</h5>';
+                        echo '  </td>';
+                        echo '  <td>';
+                        echo '    <h5>Ventas:'. $gr_sales.'</h5>';
+                        echo '  </td>';
+                        echo '</tr>';
+                        }
+                    }
+                ?>
+
                 <tr>
                   <td>
                     <h4 class="td-price">Plumas</h4>

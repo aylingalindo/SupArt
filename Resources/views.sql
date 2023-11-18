@@ -25,9 +25,21 @@ SELECT
     pu.purchaseDate,
     r.score AS review,
     pu.numItems,
-    pu.total
+    pu.total,
+    p.stock 
 FROM products p
 JOIN purchaseinfo pu ON p.productID = pu.product
 JOIN category c ON p.category = c.categoryID
 LEFT JOIN mediafilesproducts m ON p.productID = m.product
 LEFT JOIN reviews r ON pu.purchaseID = r.purchaseID;
+
+
+CREATE VIEW GroupedSales AS
+SELECT 
+    p.category AS Category,
+    p.sellerUserID AS SellerID,
+    DATE_FORMAT(p.purchaseDate, '%M %Y') AS Date,
+    COUNT(*) AS Sales
+FROM SoldProducts p
+GROUP BY Category, SellerID, YEAR(p.purchaseDate), MONTH(p.purchaseDate)
+ORDER BY YEAR(p.purchaseDate), MONTH(p.purchaseDate);

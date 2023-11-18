@@ -530,6 +530,7 @@ BEGIN
             review,
             numItems,
             total,
+            stock,
             sellerUserID AS SellerID,
             buyerUserID AS BuyerID
         FROM SoldProducts
@@ -547,10 +548,17 @@ BEGIN
             review,
             numItems,
             total,
+            stock,
             sellerUserID AS SellerID,
             buyerUserID AS BuyerID
         FROM SoldProducts
         WHERE buyerUserID = vUser;
+	END IF;
+
+    IF vOption = 3 THEN
+        SELECT Category, SellerID, Date, Sales
+        FROM GroupedSales
+        WHERE SellerID = vUser;
 	END IF;
 END //
 

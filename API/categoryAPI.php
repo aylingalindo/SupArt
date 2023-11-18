@@ -1,5 +1,5 @@
 <?php
- include_once '../Consultas/categoryConsult.php';
+ include_once './Consultas/categoryConsult.php';
  include_once 'Consultas/categoryConsult.php';
 
  session_start();
