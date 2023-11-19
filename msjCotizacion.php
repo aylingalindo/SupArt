@@ -90,15 +90,17 @@
                 $productName = $chat['productName'];
                 $dinamicID = $chat['productID'];
                 $recieverUser = $chat['recieverUser'];
-                $receiverID = $chat['receiverID'];
                 $sellerID = $chat['sellerID'];
 
-                echo '<li class="list-group-item ' . (($dinamicID == $currentProduct) ? 'active' : '') . '" onclick="currentChat('. $receiverID .'' . $dinamicID . ', this)">';
+                echo '<li class="list-group-item ' . (($dinamicID == $currentProduct) ? 'active' : '') . '" onclick="currentChat(' . $dinamicID . ', this)">';
                 echo '  <div class="row">';
                 echo '    <img class="msjImg" src="Img/pfpImg.png">';
                 echo '    <h5>'. $productName .'</h5>';
                 echo '    <h6>'. $recieverUser .'</h6>';
                 echo '  </div>';
+                echo '  <input type="hidden" class="productID" value="' . $dinamicID . '">';
+                echo '  <input type="hidden" class="sellerID" value="' . $sellerID . '">';
+
                 echo '</li>';
             }
 ?>

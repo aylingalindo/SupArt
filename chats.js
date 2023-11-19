@@ -21,7 +21,7 @@ $("#product-message").on('click', function () {
 
     var data = {
         idProducto: productoID,
-        idReciever: vendedorID,
+        idVendedor: vendedorID,
         message: "Me gustaria cotizar el precio del producto:"
     };
 
@@ -76,16 +76,15 @@ function loadChats() {
 //#endregion
 
 //#region === Change current chat ===
-function currentChat(recieverID, productID, listItem) {
+function currentChat(productID, listItem) {
     $('.list-group-item').removeClass('active');
     $(listItem).addClass('active');
 
     alert("this is the " + productID);
-    var _receiverID = recieverID
-    alert("this is the " + _receiverID);
+    var vendedorID = $(".sellerID").val();
     var data = {
         idProducto: productID,
-        idReciever: _receiverID,
+        idVendedor: vendedorID,
         message: "Me gustaria cotizar el precio del producto:"
     };
     setChat(data);
@@ -132,6 +131,10 @@ function initialSet() {
         }
     });
     
+}
+
+function initialChats(product) {
+    currentChat(product);
 }
 
 

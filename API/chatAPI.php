@@ -13,7 +13,7 @@ if (isset($_GET['action'])) {
             $message->setCurrentChat();
         case 'startChat':
             $sender = $_SESSION['chatAPI']['current']['senderID'];
-            $_reciever = $_SESSION['chatAPI']['current']['receiverID'];
+            $reciever = $_SESSION['chatAPI']['current']['receiverID'];
             $product = $_SESSION['chatAPI']['current']['productID'];
 
             $message->startChat($sender, $reciever, $product);
@@ -24,12 +24,6 @@ if (isset($_GET['action'])) {
             $reciever = $_SESSION['chatAPI']['current']['receiverID'];
             $product = $_SESSION['chatAPI']['current']['productID'];
 
-            if ($sender === $receiver) {
-                // If sender and receiver are the same, set a default receiver
-                $receiver = $_SESSION['allchatsAPI'][]; // Replace with the desired default receiver ID
-                // Notify the user about the change in receiver or display a warning message
-                // For example: echo "You cannot start a chat with yourself.";
-            }
             $message->sendMessage($sender, $reciever, $product);
             $message->getChatMessages($sender, $reciever, $product);
             break;
@@ -48,12 +42,9 @@ if (isset($_GET['action'])) {
         case 'clearchats':
             $message->clearChat();
             break;
-        case 'initialSet':
-
-            break;
     }
 }
-//if sender and reciever are equal then the reciever is the recieverID from the chat is clicking
+
 class chatAPI {
     public function __construct() {
         
@@ -75,9 +66,9 @@ class chatAPI {
         // Data into variables
         $option = 5; 
         $chat = new Message();
-        $product = $_POST['idProducto']; //5
-        $sender = $_SESSION['usersAPI']['userID']; //8
-        $receiver = $_POST['receiverID'];
+        $product = $_POST['idProducto'];
+        $sender = $_SESSION['usersAPI']['userID'];
+        $receiver = $_POST['idVendedor'];
 
         // Call to Consult
         $resultado = $chat->chatManagement($option, $product, 'null', 'null', 'null');
@@ -196,24 +187,22 @@ class chatAPI {
 		$resultado = $chat->chatManagement($option, 'null', $sender, 'null', 'null');
 		echo json_encode($resultado);
         
-		    if(isset($resultado)) {
-			    while($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
-				    $_chat = array(
-					    "productID" => $row['productID'],
-					    "productName" => $row['name'],
-					    "recieverUser" => $row['recieverUser'],
-					    "receiverID" => $row['receiverID'],
-					    "sellerID" => $row['sellerID'],
-				    );
+		if(isset($resultado)) {
+			while($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
+				$_chat = array(
+					"productID" => $row['productID'],
+					"productName" => $row['name'],
+					"recieverUser" => $row['recieverUser'],
+					"receiverID" => $row['receiverID'],
+					"sellerID" => $row['sellerID'],
+				);
 
-				    array_push($_SESSION['allchatsAPI'], $_chat);
-			    }
-		    echo json_encode($_SESSION['allchatsAPI']);
-
-		    } else {
-			    echo 'this is the result--->' . $resultado . '<---';
-			    echo json_encode(array('mensaje' => 'No hay elementos'));
-		    }
+				array_push($_SESSION['allchatsAPI'], $_chat);
+			}
+		} else {
+			echo 'this is the result--->' . $resultado . '<---';
+			echo json_encode(array('mensaje' => 'No hay elementos'));
+		}
 	}	
 }
 
