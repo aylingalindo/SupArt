@@ -25,7 +25,7 @@
     $price = $producto[0]['price'];
     $review = intval($producto[0]['review']);
     $user = $producto[0]['uploadedByName'];
-    $userID = $producto[0]['uploadedBy'];
+    $sellerID = $producto[0]['uploadedBy'];
 
     $files = $productAPI->showProductFiles($productID);
 
@@ -52,7 +52,7 @@
     <script defer src="default.js"></script>
     <script defer src="cart.js"></script>
     <script defer src="ventasProductos.js"></script>
-    <script defer src="chat.js"></script>
+    <script defer src="chats.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -237,9 +237,11 @@
                 <div class="row d-flex justify-content-center" style="<?php echo $pricingType == 'Negotiable' ? 'display: none!important;' : ''; ?>">
                   <a href="..." class="btn btn-primary signUpBtn">Comprar</a>
                 </div>
-                <div class="row d-flex justify-content-center" style="<?php echo $pricingType == 'Sell' ? 'display: none!important;' : ''; ?>">
-                  <a href="..." class="btn btn-primary signUpBtn">Cotizar</a>
+                <!-- TO-DO: QUITAR SI YA FUNCIONA EL CODIGO --> <input type="text" class="idProducto" product-name="" value="<?php echo isset($productID) ? $productID : 5; ?>" style="height: 0px; visibility: hidden;">
+                <div id="product-message" class="row d-flex justify-content-center" style="<?php echo $pricingType == 'Sell' ? 'display: none!important;' : ''; ?>">
+                  <l style="width: 40%; margin: 0.3rem;" class="btn btn-primary signUpBtn">Cotizar</p>
                 </div>
+                <!-- TO-DO: QUITAR SI YA FUNCIONA EL CODIGO --> <input type="text" class="idVendedor" product-name="" value="<?php echo isset($sellerID) ? $sellerID : 8; ?>" style="height: 0px; visibility: hidden;">
                 <div class="row d-flex justify-content-center">
                   <button data-modal-target="#popupAddToWishlist" type="button" class="btn btn-primary productBtn">Agregar a Wishlist</button>
                 </div>

@@ -3,9 +3,8 @@ $(document).ready(function () {
 
 //#region === Nueva conversacion ===
 $("#product-message").on('click', function () {
-    var msgButton = $(this);
-    var productoID = msgButton.closest('div').find(".idProducto").val();
-    var vendedorID = msgButton.closest('div').find(".idVendedor").val();
+    var productoID = $(".idProducto").val();
+    var vendedorID = $(".idVendedor").val();
     alert(productoID + " " + vendedorID)
     var data = {
         idProducto: productoID,
@@ -28,11 +27,11 @@ $("#product-message").on('click', function () {
 });
 
 function sendFirstMessage() {
-    var msgButton = $("#product-message");
-    var productoID = msgButton.closest('div').find(".idProducto").val();
+    var productoID = $(".idProducto").val();
     var data = {
         message: "Me gustaria cotizar el precio del producto:",
     };
+    alert("here")
     $.ajax({
         url: './API/msgAPI.php?action=startChat',
         method: 'POST',

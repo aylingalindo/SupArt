@@ -563,3 +563,106 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE chatManagement(
+    vOption     INT,
+    vProduct    INT,
+    vSender     INT,
+    vReceiver   INT,
+    vMessage    TEXT
+)
+BEGIN
+    DECLARE chatExist INT;
+    DECLARE isSeller INT;
+
+    SELECT COUNT(*) INTO chatExist
+    FROM chat
+    WHERE (receiverID = vReceiver AND senderID = vSender AND productID = vProduct)
+    LIMIT 1;
+
+    SELECT COUNT(*) INTO isSeller
+    FROM products
+    WHERE productID = vProduct AND uploadedBy = vSender;
+
+    -- INSERT FIRST MESSAGE // CREATE NEW CHAT
+    IF vOption = 1 THEN
+        IF chatExist = 0 AND isSeller = 0 THEN
+            INSERT INTO usermessages(
+                senderID, 
+                receiverID,
+                message, 
+                product)
+            VALUES(
+                vSender, 
+                vReceiver, 
+                vMessage, 
+                vProduct
+            );
+        END IF;
+    END IF;
+
+    -- Insert message to existing chat
+    IF vOption = 2 THEN
+        IF chatExist > 0 THEN
+            INSERT INTO usermessages(
+                senderID, 
+                receiverID, 
+                message, 
+                product
+            )
+            VALUES(
+                vSender, 
+                vReceiver, 
+                vMessage, 
+                vProduct
+            );
+        END IF;
+    END IF;
+
+    -- Get current chat messages
+    IF vOption = 3 THEN
+        SELECT
+            messageID,
+            senderID,
+            receiverID,
+            message,
+            productID,
+            name
+        FROM chat
+        WHERE (receiverID = vReceiver AND senderID = vSender OR receiverID = vSender AND senderID = vReceiver) AND productID = vProduct;
+    END IF;
+
+    -- Get all the user chats
+    IF vOption = 4 THEN
+        SELECT DISTINCT 
+            c.productID, 
+            c.name,
+            CASE
+                WHEN c.receiverID = vSender THEN c.senderID
+                ELSE c.receiverID
+            END AS receiverID,
+            CASE
+                WHEN c.receiverID = vSender THEN u1.username
+                ELSE u2.username
+            END AS recieverUser,
+            p.uploadedBy AS sellerID
+        FROM chat c
+        LEFT JOIN users u1 ON c.senderID = u1.userID
+        LEFT JOIN users u2 ON c.receiverID = u2.userID
+        LEFT JOIN products p ON c.productID = p.productID
+        WHERE c.receiverID = vSender OR c.senderID = vSender;
+    END IF;
+
+    -- Get current product name
+    IF vOption = 5 THEN
+		SELECT
+            name
+		FROM products 
+        WHERE productID = vProduct;
+    END IF;
+END //
+
+DELIMITER ;

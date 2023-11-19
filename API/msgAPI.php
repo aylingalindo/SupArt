@@ -83,7 +83,9 @@ class msgAPI {
 			//Set variables from product page
 			if(($_POST['idProducto'] != -1) && ($_POST['idVendedor'] != -1)){
 				$producto = $_POST['idProducto'];
-			}else{
+			}
+			//set variables from selected chat
+			else{
 				$producto = $_POST['dinamicID'];
 			}
 			$vendedor = $_POST['idVendedor'];
@@ -195,6 +197,7 @@ class msgAPI {
         if (isset($currentUser) && isset($product) && isset($message)) 
         {
             $resultado = $chat->msgManagement($option, $currentUser, 'null', 'null', $message, $product);
+
             echo json_encode($resultado);
 			echo 'succesfully added message';
         } else {
@@ -206,44 +209,44 @@ class msgAPI {
 		===== Function get all different chat for side bar =====
 	    ======================================================== */
 	function getChats() {
-    if (isset($_SESSION['usersAPI']['userID'])) {
-        // initialize arrays    
-        $arrChat = array();
-        $arrChat["chats"] = array();
-        $_SESSION['allchatAPI'] = array();
+		if (isset($_SESSION['usersAPI']['userID'])) {
+			// initialize arrays    
+			$arrChat = array();
+			$arrChat["chats"] = array();
+			$_SESSION['allchatAPI'] = array();
 
-        // Set variables from product page
-        $userID = $_SESSION['usersAPI']['userID'];
+			// Set variables from product page
+			$userID = $_SESSION['usersAPI']['userID'];
 
-        // get the product name
-        $option = 6;
-        $chat = new Message();
-        $resultado = $chat->msgManagement($option, $userID, 'null', 'null', 'null', 'null');
-        echo json_encode($resultado);
+			// get the product name
+			$option = 6;
+			$chat = new Message();
+			$resultado = $chat->msgManagement($option, $userID, 'null', 'null', 'null', 'null');
+			echo json_encode($resultado);
         
-        if(isset($resultado)) {
-            // set current chat info into session variable
-            while($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                foreach ($row as $key => $value) {
-                    echo "Key: $key, Value: $value\n";
-                }
-                $_chat = array(
-                    "producto" => $row['productID'],
-                    "nombreProducto" => $row['name']
-                );
+			if(isset($resultado)) {
+				// set current chat info into session variable
+				while($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
+					foreach ($row as $key => $value) {
+						echo "Key: $key, Value: $value\n";
+					}
+					$_chat = array(
+						"producto" => $row['productID'],
+						"nombreProducto" => $row['name']
+					);
 
-                array_push($arrChat["chats"], $_chat);
-            }
+					array_push($arrChat["chats"], $_chat);
+				}
 
-            $_SESSION['allchatAPI'] = $arrChat["chats"];
-        } else {
-            echo 'this is the result--->' . $resultado . '<---';
-            echo json_encode(array('mensaje' => 'No hay elementos'));
-        }
-    } else {
-        echo "no se proporcionan todos los datos necesarios";
-    }
-}
+				$_SESSION['allchatAPI'] = $arrChat["chats"];
+			} else {
+				echo 'this is the result--->' . $resultado . '<---';
+				echo json_encode(array('mensaje' => 'No hay elementos'));
+			}
+		} else {
+			echo "no se proporcionan todos los datos necesarios";
+		}
+	}	
 
 }
 ?>

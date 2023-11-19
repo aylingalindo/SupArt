@@ -1,7 +1,6 @@
 <?php session_start();
   $rol = $_SESSION['usersAPI']['rol'];
-
-?>
+  ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +20,7 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
-    <script defer src="chat.js"></script>
+    <script defer src="chats.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -59,7 +58,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="wishlist.php">Mis Wishlist</a></li>
-                <li><a class="dropdown-item" href="msjCotizacion.php">Mis Mensajes</a></li>
+                <li><a class="dropdown-item" href="msjCotizacion.php">Mis Mensajes</a></li> 
                 <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
                 <li><a class="dropdown-item" href="ventas.php"><?php echo $rol == '2' ? 'Mis Ventas' : 'Mis Pedidos'; ?></a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -85,26 +84,24 @@
             <div id="wishlistList" class="col-4">
               <ul class="list-box list-group justify-content-center">
 <?php
-            $senderID = $_SESSION['chatAPI'][0]['senderID'];
-            $receiverID = $_SESSION['chatAPI'][0]['receiverID'];
-            $currentProduct = $_SESSION['chatAPI'][0]['producto'];
 
-            foreach ($_SESSION['allchatAPI'] as $chat) {
-                $productName = $chat['nombreProducto'];
-                $dinamicID = $chat['producto'];
+            foreach ($_SESSION['allchatsAPI'] as $chat) {
+                $currentProduct = $_SESSION['chatAPI']['current']['productID'] ? $_SESSION['chatAPI']['current']['productID'] : $_SESSION['allchatsAPI'][0]['productID'];
+                $productName = $chat['productName'];
+                $dinamicID = $chat['productID'];
+                $recieverUser = $chat['recieverUser'];
+                $receiverID = $chat['receiverID'];
+                $sellerID = $chat['sellerID'];
 
-                echo '<li class="list-group-item ' . (($dinamicID == $currentProduct) ? 'active' : '') . '" onclick="currentChat(' . $dinamicID . ', this)">';
+                echo '<li class="list-group-item ' . (($dinamicID == $currentProduct) ? 'active' : '') . '" onclick="currentChat('. $receiverID .'' . $dinamicID . ', this)">';
                 echo '  <div class="row">';
                 echo '    <img class="msjImg" src="Img/pfpImg.png">';
                 echo '    <h5>'. $productName .'</h5>';
+                echo '    <h6>'. $recieverUser .'</h6>';
                 echo '  </div>';
-                echo '  <input type="hidden" class="productID" value="' . $dinamicID . '">';
-
                 echo '</li>';
             }
 ?>
-
-
               </ul>
             </div>
 
@@ -151,23 +148,20 @@
                           echo'</td>';
                           echo'</tr>';
                       }
-                      if(isset($_SESSION['chatAPI'][0]['messages'])){
-                        $currentUser = $_SESSION['chatAPI'][0]['senderID'];
-		                $seller = $_SESSION['chatAPI'][0]['receiverID'];
-		                $product = $_SESSION['chatAPI'][0]['producto'];
-		                $productName = $_SESSION['chatAPI'][0]['nombreProducto'];
+                      if(isset($_SESSION['chatAPI']['current']['messages'])){
+                        $currentUser = $_SESSION['usersAPI']['userID'];
+		                $reciever = $_SESSION['chatAPI']['current']['receiverID'];
+		                $sender = $_SESSION['chatAPI']['current']['senderID'];
+		                $product = $_SESSION['chatAPI']['current']['productID'];
+		                $productName = $_SESSION['chatAPI']['current']['productName'];
 
-                        foreach ($_SESSION['chatAPI'][0]['messages'] as $message) {
+                        foreach ($_SESSION['chatAPI']['current']['messages'] as $message) {
                             $content = $message['message'];
                             $sender = $message['senderID'];
 
                             $msg = $sender == $currentUser ? sender($content, $product, $productName) : reciever($content, $product, $productName);
                         }
-                      }else{
-
                       }
-
-
 ?>
                     </tbody>
                   </table>

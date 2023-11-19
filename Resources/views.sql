@@ -5,9 +5,8 @@ SELECT
     chat.senderID,
     chat.receiverID,
     chat.message,
-    chat.product,
     product.productID,
-    product.name,
+    product.name
 FROM
     usermessages chat
 JOIN
