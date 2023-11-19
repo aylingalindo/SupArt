@@ -1,6 +1,47 @@
+var totalPrice;
 $(document).ready(function () {
+    renderPaypalBtn();
     loadCartItems();
+    $('.cartDetPr[data-amount]').each(function () {
+        const $element = $(this);
+        const amount = parseFloat($element.data('amount'));
+        if (!isNaN(amount)) {
+            const formattedAmount = formatPrices(amount);
+            $element.text('Total: ' + formattedAmount);
+        }
+    });
 })
+
+//#region === PAYPAL ===
+
+function renderPaypalBtn() {
+    paypal.Buttons({
+        style: {
+            color: 'black'
+        },
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalPrice
+                    }
+                }]
+            })
+        },
+        onApprove: function (data, actions) {
+            actions.order.capture().then(function (detalles) {
+                console.log(detalles)
+            });
+        },
+        onCancel: function (data) {
+            alert("Pago cancelado");
+            console.log(data);
+        }
+    }).render('#paypal-btn-container');   
+
+}
+
+//#endregion
 
 //#region === MODALES ===
 
@@ -16,6 +57,7 @@ $("#addCart").on('click', function () {
         method: 'POST',
         data: data,
         success: function (result) {
+            alert(result)
             window.location.href = "producto.php";
         },
         error: function (xhr, status, error) {
@@ -27,11 +69,15 @@ $("#addCart").on('click', function () {
 
 /* MODAL pagar producto*/
 $("#btnBuy").on('click', function () {
-    $("#payModal").modal('show');
+    var buttonValue = $(this).val();
+    console.log(buttonValue);
+    totalPrice = buttonValue;
+
+    $("#payModalito").modal('show');
 })
 
 $(".btnClose").on('click', function () {
-    $("#payModal").modal('hide');
+    $("#payModalito").modal('hide');
 
 })
 //#endregion
@@ -75,6 +121,26 @@ $('.cartPricePr[data-amount]').each(function () {
         const formattedAmount = formatPrices(amount);
         $element.text('Total: ' + formattedAmount);
     }
+});
+
+$('#payModalito').on('shown.bs.modal', function () {
+    $('.cartDetPr').each(function () {
+        const amount = parseFloat($(this).attr('data-amount'));
+        if (!isNaN(amount)) {
+            const formattedAmount = formatPrices(amount);
+            $(this).text('Total: ' + formattedAmount);
+        }
+    });
+});
+
+$('#payModalito').on('shown.bs.modal', function () {
+    $('.cartDetPr').each(function () {
+        const amount = parseFloat($(this).attr('data-amount'));
+        if (!isNaN(amount)) {
+            const formattedAmount = formatAsCurrency(amount);
+            $(this).text('Total: ' + formattedAmount);
+        }
+    });
 });
 
 function formatPrices(amount) {

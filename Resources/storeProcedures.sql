@@ -95,7 +95,8 @@ CREATE PROCEDURE cartManagement(
 )
 BEGIN
     -- Insert
-    SET @currentItems = (SELECT numItems FROM cart WHERE product = vID);
+    DECLARE userTotal DECIMAL(10, 2);
+    SET @currentItems = (SELECT numItems FROM cart WHERE product = vID AND user = vUser);
     SET @totalItems = @currentItems + vNumItems;
 
     IF vOption = 1 THEN
@@ -120,22 +121,11 @@ BEGIN
 
     -- Select
     IF vOption = 2 THEN
-        SELECT 
-            cart.cartID, 
-            cart.product, 
-            cart.numItems, 
-            cart.user,
-            products.name,
-            products.description,
-            products.pricingType,
-            products.price,
-            products.review,
-            category.name AS `category`,
-            products.stock AS `totalStock`
-        FROM cart
-        JOIN products ON cart.product = products.productID
-        JOIN product_category ON cart.product = product_category.product
-        JOIN category ON product_category.category = category.categoryID;
+        SET userTotal = CalculateUserCartTotal(vUser);
+        SELECT *,
+           userTotal AS 'TotalToPay'
+    FROM UserCart
+    WHERE user = vUser;
     END IF;
 
 	--	Update numItems
@@ -144,6 +134,21 @@ BEGIN
 			numItems = vNumItems
         WHERE cartID = vID;
 	END IF;
+
+    -- Delete specific product form cart
+    IF vOption = 4 THEN
+        DELETE FROM cart WHERE cartID = vCartID;
+    END IF;
+
+    -- Delete specific product form cart
+    IF vOption = 4 THEN
+        DELETE FROM cart WHERE cartID = vCartID;
+    END IF;
+
+    -- Clear cart given user
+    IF vOption = 5 THEN
+        DELETE FROM cart WHERE user = vUser;
+    END IF;
 END //
 DELIMITER ;
 

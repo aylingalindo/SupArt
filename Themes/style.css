@@ -802,6 +802,13 @@ h1{
 
 }
 
+.table-detail td {
+    padding: 0.5rem 0.5rem;
+    color: var(--bs-table-color-state,var(--bs-table-color-type,var(--bs-table-color)));
+    border-bottom-width: var(--bs-border-width);
+}
+
+
 .td-title{
     font-weight: bold;
 }

@@ -10,6 +10,49 @@
 	$review = $_SESSION['cartProducts'][i]['review'];*/
   $rol = $_SESSION['usersAPI']['rol'];
 
+  function displayCartProducts($cartProducts) {
+    foreach ($cartProducts as $product) {
+        if(isset($_SESSION['cartProducts'])){
+                        foreach ($_SESSION['cartProducts'] as $product) {
+                            $cartID = $product['cartID'];
+                            $name = $product['name'];
+                            $description = $product['description'];
+                            $numItems = $product['numItems'];
+                            $price = $product['price'];
+                            $category = $product['category'];
+                            $totalStock = $product['totalStock'];
+                    
+                            echo'<tr>';
+                            echo  '<td>';
+                            echo   '<img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">';
+                            echo  '</td>';
+                            echo  '<td>';
+                            echo   '<div class="row">';
+                            echo     '<h5 class="td-title">'. $name . '</h5>';
+                            echo    '</div>';
+                            echo   '<div class="row">';
+                            echo      '<h6>'. $category. '</h6>';
+                            echo    '</div>';
+                            echo  '</td>';
+                            echo  '<td>';
+                            echo    '<h5>Cantidad:</h5>';
+                            echo    '<input type="number" id="cantidad" class="cantidad form-control" name="cantidad" value="'.$numItems .'" max="' . $totalStock . '" min="1">';
+                            echo      '<h6 class="cart-saveItems underlineAction">Guardar</h6>';
+                            echo    '<h6 class="td-price"> Precio: $' . $price . '</h6>';
+                            echo    '<h6 class="td-price cartPricePr" data-amount="' . $price * $numItems . '"> Total: $' . $price * $numItems . '</h6>';
+                            echo     '<input type=text class="cartProduct" value="'. $cartID .'" style="height:0px; visibility: hidden;">';
+                            echo     '<input type=text class="cartPrice" value="'. $price .'" style="height:0px; visibility: hidden;">';
+                            echo  '</td>';
+                            echo  '<td>';
+                            echo    '<button class="btn btn-primary closeBtn">';
+                            echo      '<i class="icon ion-md-close"></i>';
+                            echo   '</button>';
+                            echo  '</td>';
+                            echo'</tr>';
+                        }
+                    }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,6 +68,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AQWBoozbj7tl8mZ-LPKo3-xMzUP--aQHzqOgts6apDpNsBXpyO3hS50fjqVomELSafZkU4_hia55kXzf"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
@@ -211,20 +255,37 @@
           </div>
 
           <!--TOTAL SECTION-->
-          <div class="col-2 cart-total d-flex align-items-center" style="padding-left: 40px; padding-right: 40px;">
-            <div class="border">
-                <div class="row d-flex justify-content-center" style="padding-left: 5rem;">  
-                  <h3>TOTAL</h3>
-                </div>
-                <div class="row">
-                  <h2><b>$445.99</b></h2>
-                </div>
-                <div class="row" style="padding-right: 1rem; padding-left: 1rem;"> 
-                  <button id="btnBuy" type="button" class="btn btn-primary my-3 signUpBtn">Proceder a pago</button>
-                </div>
-            </div>
-          </div>
+          <div class="col-md-2 col-sm-12 cart-total d-flex align-items-center">
+    <div class="border p-3">
+        <div class="text-center mb-3">
+            <h3>TOTAL</h3>
         </div>
+        <div class="text-center mb-3">
+            <h2>
+                <b>
+                    <?php 
+                        $totalPrice = null;
+
+                        if (!empty($_SESSION['cartProducts']) && isset($_SESSION['cartProducts'][0]['totalPrice'])) {
+                            $totalPrice = $_SESSION['cartProducts'][0]['totalPrice'];
+                        }
+
+                        // Format the total price as currency in PHP
+                        if ($totalPrice !== null) {
+                            echo '$' . number_format($totalPrice, 2) . ' MXN'; // Currency format with 2 decimal places
+                        } else {
+                            echo 'N/A'; // Or any default value you want to show if $totalPrice is null
+                        }
+                    ?>
+                </b>
+            </h2>
+        </div>
+        <div class="text-center"> 
+            <button id="btnBuy" type="button" class="btn btn-primary signUpBtn" value='<?php echo $totalPrice; ?>'>Proceder a pago</button>
+        </div>
+    </div>
+</div>
+
 
 
     <!-- MODAL PAGO -->
@@ -271,6 +332,82 @@
                     <input type="text" class="form-control" id="recipient-name">
                   </div>
                 </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnClose productBtn" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary signUpBtn">Comprar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+<!-- MODAL DETALLES DE PAGO -->
+        <div class="modal fade" id="payModalito" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="payModalLabel">Detalles de pago</h5>
+                <button type="button" class="close btnClose" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                    <table class="table-detail">
+                        <tbody>
+                        <?php
+                            if(isset($_SESSION['cartProducts'])){
+                                foreach ($_SESSION['cartProducts'] as $product) {
+                                    $cartID = $product['cartID'];
+                                    $name = $product['name'];
+                                    $description = $product['description'];
+                                    $numItems = $product['numItems'];
+                                    $price = $product['price'];
+                                    $category = $product['category'];
+                                    $totalStock = $product['totalStock'];
+                                    
+                    
+                                    echo'<tr>';
+                                    echo  '<td class="col-9" style="vertical-align: top;>';
+                                    echo   '<div class="row">';
+                                    echo     '<h5 class="td-title">'. $name . ' x' . $numItems . '</h5>';
+                                    echo    '</div>';
+                                    echo  '</td>';
+                                    echo  '<td class="col-3" style="vertical-align: top;>';
+                                    echo    '<h5>Cantidad: '.$numItems .'</h5>';
+                                    echo    '<h6 class="td-price cartDetPr" data-amount="<?php echo $price * $numItems; ?>">
+                                              Total: $' . number_format($price * $numItems, 2) . 
+                                            '</h6>';
+                                    echo     '<input type=text class="cartProduct" value="'. $cartID .'" style="height:0px; visibility: hidden;">';
+                                    echo     '<input type=text class="cartPrice" value="'. $price .'" style="height:0px; visibility: hidden;">';
+                                    echo  '</td>';
+
+                                    echo'</tr>';
+                                    
+                                }
+                                    echo'</hr>';
+                            }
+                        ?>
+                        </tbody>
+                    </table>
+                <h5 class="modal-title" style="TEXT-ALIGN: RIGHT; MARGIN-RIGHT: 3.2rem;" id="payModalLabel"><?php 
+                        $totalPrice = null;
+
+                        if (!empty($_SESSION['cartProducts']) && isset($_SESSION['cartProducts'][0]['totalPrice'])) {
+                            $totalPrice = $_SESSION['cartProducts'][0]['totalPrice'];
+                        }
+
+                        if ($totalPrice !== null) {
+                            echo 'TOTAL: $' . number_format($totalPrice, 2) . ' MXN';
+                        } else {
+                            echo 'N/A';
+                        }
+                    ?>
+                </h5>
+                    
+                <div id="paypal-btn-container"> 
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btnClose productBtn" data-dismiss="modal">Cerrar</button>

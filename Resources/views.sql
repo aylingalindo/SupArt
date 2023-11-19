@@ -42,3 +42,21 @@ SELECT
 FROM SoldProducts p
 GROUP BY Category, SellerID, YEAR(p.purchaseDate), MONTH(p.purchaseDate)
 ORDER BY YEAR(p.purchaseDate), MONTH(p.purchaseDate);
+
+CREATE VIEW UserCart AS
+SELECT 
+    cart.cartID, 
+    cart.product, 
+    cart.numItems, 
+    cart.user,
+    products.name,
+    products.description,
+    products.pricingType,
+    products.price,
+    products.review,
+    category.name AS `category`,
+    products.stock AS `totalStock`
+FROM cart
+JOIN products ON cart.product = products.productID
+JOIN product_category ON cart.product = product_category.product
+JOIN category ON product_category.category = category.categoryID;

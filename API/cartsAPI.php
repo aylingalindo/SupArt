@@ -54,11 +54,10 @@ class cartsAPI {
 
     //SELECT ALL PRODUCTS
     function getAll() {
-        $myCart = new Cart();
-        
         echo 'get all to cart';
         $option = 2;
         $myCart = new Cart();
+        $userID = $_SESSION['usersAPI']['userID'];
 
         $arrProducts = array();
 		$arrProducts["cart"] = array();
@@ -68,7 +67,7 @@ class cartsAPI {
         echo json_encode($arrProducts["cart"]);
         echo ".....";
 
-        $resultado = $myCart->cartManagement($option, 'null', 'null', 'null');
+        $resultado = $myCart->cartManagement($option, 'null', 'null', $userID);
                 echo json_encode($resultado);
         if(isset($resultado))
 		{
@@ -76,6 +75,7 @@ class cartsAPI {
 			while($row = $resultado->fetch(PDO::FETCH_ASSOC))	
 			{
 				$product = array(
+					"totalPrice" => $row['TotalToPay'],
 					"cartID" => $row['cartID'],
 					"product" => $row['product'],
 					"numItems" => $row['numItems'],
@@ -87,6 +87,7 @@ class cartsAPI {
 					"review" => $row['review'],
 					"category" => $row['category'],
 					"totalStock" => $row['totalStock']
+                
 				);
 
 				array_push($arrProducts["cart"], $product);
