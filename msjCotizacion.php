@@ -1,5 +1,6 @@
 <?php session_start();
   $rol = $_SESSION['usersAPI']['rol'];
+
   ?>
 <!DOCTYPE html>
 <html>
@@ -84,11 +85,11 @@
             <div id="wishlistList" class="col-4">
               <ul class="list-box list-group justify-content-center">
 <?php
-
             foreach ($_SESSION['allchatsAPI'] as $chat) {
                 $currentProduct = $_SESSION['chatAPI']['current']['productID'] ? $_SESSION['chatAPI']['current']['productID'] : $_SESSION['allchatsAPI'][0]['productID'];
                 $productName = $chat['productName'];
                 $dinamicID = $chat['productID'];
+                $recieverID = $chat['receiverID'];
                 $recieverUser = $chat['recieverUser'];
                 $sellerID = $chat['sellerID'];
 
@@ -99,7 +100,7 @@
                 echo '    <h6>'. $recieverUser .'</h6>';
                 echo '  </div>';
                 echo '  <input type="hidden" class="productID" value="' . $dinamicID . '">';
-                echo '  <input type="hidden" class="sellerID" value="' . $sellerID . '">';
+                echo '  <input type="hidden" class="sellerID" value="' . $recieverID . '">';
 
                 echo '</li>';
             }

@@ -29,11 +29,8 @@ if (isset($_GET['action'])) {
             break;
         case 'getChat':
             $sender = $_SESSION['chatAPI']['current']['senderID'];
-            echo 'sender' . $sender;
             $reciever = $_SESSION['chatAPI']['current']['receiverID'];
-            echo 'reciever' . $reciever;
             $product = $_SESSION['chatAPI']['current']['productID'];
-            echo '$product' . $product;
             $message->getChatMessages($sender, $reciever, $product);
             break;
         case 'getAllChats':
@@ -131,6 +128,7 @@ class chatAPI {
         }
 
         //Call to consult
+        $_SESSION['chatAPI']['current']['receiverID'] = $sender == $reciever ? $recieverID : $reciever;
         $resultado = $chat->chatManagement($option, $product, $sender, $reciever, 'null');
 		echo json_encode($resultado);
 

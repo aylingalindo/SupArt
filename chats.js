@@ -141,6 +141,7 @@ function initialChats(product) {
 $(document).ready(function () {
     // Function to load chats on sidebar when the page loads
     function loadChatsOnSidebar() {
+        $_SESSION['chatAPI']['current']['messages'] = array();
         $.ajax({
             url: './API/chatAPI.php?action=getAllChats', // Adjust URL as per your file structure
             method: 'POST',
