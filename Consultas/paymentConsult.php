@@ -38,12 +38,12 @@ if(is_array($datos)){
                         $sql_insert->execute([$productID, $fechaFormato, $userID, $price, $numItems, $id]);
                 }
         }
-        /*
+        
         $sql_upd = $conn->prepare("UPDATE products SET stock = stock - ? WHERE productID = ?;");
         $sql_upd->execute([$numItems, $productID]);
 
         $sql_del = $conn->prepare("DELETE FROM cart WHERE user = ?;");
-        $sql_del->execute([$userID]);*/
+        $sql_del->execute([$userID]);
         unset($_SESSION['cartProducts']);
     }
 }

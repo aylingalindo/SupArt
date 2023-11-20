@@ -100,7 +100,8 @@ BEGIN
     SET @totalItems = @currentItems + vNumItems;
 
     IF vOption = 1 THEN
-        IF @currentItems = 0 THEN
+
+        IF @currentItems IS NULL THEN
             INSERT INTO cart(
                 product,
                 numItems,
@@ -108,7 +109,7 @@ BEGIN
             )
             VALUES(
                 vID,
-                @totalItems,
+                vNumItems,
                 vUser
             );
         ELSEIF @currentItems <> 0 THEN

@@ -39,7 +39,7 @@ function renderPaypalBtn() {
                         detalles: detalles
                     }),
                     success: function (result) {
-                        alert(result)
+                        window.location.href = "calificarProductos.php";
                     },
                     error: function (xhr, status, error) {
                         // Handle errors here

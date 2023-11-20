@@ -11,10 +11,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
+    <script defer src="review.js"></script>
 </head>
 <body>
   <div class="d-flex"> 
@@ -34,6 +36,57 @@
             
             <table class="table table-hover">
               <tbody>
+              <?php
+                    if(isset($_SESSION['cartProducts'])){
+                        foreach ($_SESSION['cartProducts'] as $product) {
+                            $cartID = $product['cartID'];
+                            $name = $product['name'];
+                            $category = $product['category'];
+                    
+                            echo '<tr>';
+                            echo '  <td>';
+                            echo '    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">';
+                            echo '  </td>';
+                            echo '  <td>';
+                            echo '    <div class="row">';
+                            echo '      <h5 class="td-title">'. $name . '</h5>';
+                            echo '    </div>';
+                            echo '    <div class="row">';
+                            echo '      <h6>'. $category. '</h6>';
+                            echo '    </div>';
+                            echo '  </td>';
+                            echo '  <td>';
+                            echo '    <div class="row">';
+                            echo '      <h5>Calificacion:</h5>';
+                            echo '    </div>';
+                            echo '    <div id="califInput" class="row">';
+                            echo '      <div class="col-1">';
+                            echo '        <i class="icon ion-md-brush no"></i>';
+                            echo '      </div>';
+                            echo '      <div class="col-1">';
+                            echo '        <i class="icon ion-md-brush no"></i>';
+                            echo '      </div>';
+                            echo '      <div class="col-1">';
+                            echo '        <i class="icon ion-md-brush no"></i>';
+                            echo '      </div>';
+                            echo '      <div class="col-1">';
+                            echo '        <i class="icon ion-md-brush no"></i>';
+                            echo '      </div>';
+                            echo '      <div class="col-1">';
+                            echo '        <i class="icon ion-md-brush no"></i>';
+                            echo '      </div>';
+                            echo '    </div>';
+                            echo '  </td>';
+                            echo '  <td>';
+                            echo '    <div class="form-group">';
+                            echo '        <h5>Comentario:</h5>';
+                            echo '        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>';
+                            echo '    </div>';
+                            echo '  </td>';
+                            echo '</tr>';
+                        }
+                    }
+    ?>
                 <tr>
                   <td>
                     <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
@@ -47,23 +100,20 @@
                     </div>
                   </td>
                   <td>
-                    <div class="row">
-                      <h5>Calificacion:</h5>
-                    </div>
                     <div id="califInput" class="row">
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
                     </div>
@@ -88,23 +138,20 @@
                     </div>
                   </td>
                   <td>
-                    <div class="row">
-                      <h5>Calificacion:</h5>
-                    </div>
                     <div id="califInput" class="row">
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
                     </div>
@@ -129,23 +176,20 @@
                     </div>
                   </td>
                   <td>
-                    <div class="row">
-                      <h5>Calificacion:</h5>
-                    </div>
                     <div id="califInput" class="row">
-                      <div class="col-1">
-                        <i class="icon ion-md-brush no" ></i>
-                      </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
-                      <div class="col-1">
+                      <div class="calif col-1">
+                        <i class="icon ion-md-brush no"></i>
+                      </div>
+                      <div class="calif col-1">
                         <i class="icon ion-md-brush no"></i>
                       </div>
                     </div>
