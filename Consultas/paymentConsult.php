@@ -15,12 +15,11 @@ if(is_array($datos)){
     $status = $datos['detalles']['status'];
     $fecha = $datos['detalles']['update_time'];
     $fechaFormato = date('Y-m-d H:i:s', strtotime($fecha));
-    $email = $datos['detalles']['payer']['email_address'];
-    $id_cliente = $datos['detalles']['payer']['payer_id'];
+    $userID = $_SESSION['usersAPI']['userID'];
 
-    $sql = $conn->prepare("INSERT INTO purchase(id_transaction, purchaseDate, status, email, id_cliente, total) VALUES (?, ?, ?, ?, ?, ?)");
-    $sql->execute([$id_transaccion, $fechaFormato, $status, $email, $id_cliente, $monto]);
-    echo $sql;
+    $sql = $conn->prepare("INSERT INTO purchase(id_transaction, purchaseDate, status, id_cliente, total) VALUES (?, ?, ?, ?, ?)");
+    $sql->execute([$id_transaccion, $fechaFormato, $status, $userID, $monto]);
+
     $id = $conn->lastInsertId();
 
     if($id > 0){
@@ -30,7 +29,6 @@ if(is_array($datos)){
                 foreach($productos as $clave){
                     echo json_encode($clave);
                     $productID = $clave['product'];
-                    $userID = $clave['user'];
                     $price = $clave['price'];
 
                     $numItems = $clave['numItems'];
@@ -46,7 +44,7 @@ if(is_array($datos)){
 
         $sql_del = $conn->prepare("DELETE FROM cart WHERE user = ?;");
         $sql_del->execute([$userID]);*/
-        unset($_SESSION['cartProducts']));
+        unset($_SESSION['cartProducts']);
     }
 }
 ?>

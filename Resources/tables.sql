@@ -159,7 +159,6 @@ CREATE TABLE purchase (
 	id_transaction	VARCHAR(20),
 	purchaseDate	DATETIME,
 	status			VARCHAR(20),
-	email			VARCHAR(50),
 	id_cliente		INT,
 	total			DECIMAL(10,2)
 );
