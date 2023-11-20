@@ -29,8 +29,23 @@ function renderPaypalBtn() {
             })
         },
         onApprove: function (data, actions) {
+            let url = './Consultas/paymentConsult.php'
             actions.order.capture().then(function (detalles) {
-                console.log(detalles)
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: JSON.stringify({
+                        detalles: detalles
+                    }),
+                    success: function (result) {
+                        alert(result)
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors here
+                        console.log('Error:', error);
+                    }
+                });
             });
         },
         onCancel: function (data) {

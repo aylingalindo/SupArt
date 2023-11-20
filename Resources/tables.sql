@@ -87,6 +87,12 @@ CREATE TABLE purchaseInfo(
 );
 
 ALTER TABLE purchaseinfo ADD COLUMN folio INT;
+ALTER TABLE purchaseinfo ADD COLUMN purchID INT;
+
+ALTER TABLE purchaseinfo
+ADD CONSTRAINT fk_purchs
+FOREIGN KEY (purchID)
+REFERENCES purchase(purchaseID);
 
 CREATE TABLE pricing(
 	 pricingID		INT AUTO_INCREMENT PRIMARY KEY
@@ -146,4 +152,14 @@ CREATE TABLE userMessages (
     FOREIGN KEY (senderID) REFERENCES users(userID),
     FOREIGN KEY (receiverID) REFERENCES users(userID),
     FOREIGN KEY (product) REFERENCES products(productID)
+);
+
+CREATE TABLE purchase (
+	purchaseID		INT AUTO_INCREMENT PRIMARY KEY,
+	id_transaction	VARCHAR(20),
+	purchaseDate	DATETIME,
+	status			VARCHAR(20),
+	email			VARCHAR(50),
+	id_cliente		INT,
+	total			DECIMAL(10,2)
 );

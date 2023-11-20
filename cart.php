@@ -68,7 +68,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script type="text/javascript" src="Themes/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=AQWBoozbj7tl8mZ-LPKo3-xMzUP--aQHzqOgts6apDpNsBXpyO3hS50fjqVomELSafZkU4_hia55kXzf"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AQWBoozbj7tl8mZ-LPKo3-xMzUP--aQHzqOgts6apDpNsBXpyO3hS50fjqVomELSafZkU4_hia55kXzf&currency=MXN"></script>
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="Themes/style.css">

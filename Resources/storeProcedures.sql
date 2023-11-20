@@ -139,16 +139,6 @@ BEGIN
     IF vOption = 4 THEN
         DELETE FROM cart WHERE cartID = vCartID;
     END IF;
-
-    -- Delete specific product form cart
-    IF vOption = 4 THEN
-        DELETE FROM cart WHERE cartID = vCartID;
-    END IF;
-
-    -- Clear cart given user
-    IF vOption = 5 THEN
-        DELETE FROM cart WHERE user = vUser;
-    END IF;
 END //
 DELIMITER ;
 
@@ -560,6 +550,7 @@ BEGIN
         WHERE buyerUserID = vUser;
 	END IF;
 
+    -- grouped sales
     IF vOption = 3 THEN
         SELECT Category, SellerID, Date, Sales
         FROM GroupedSales
@@ -671,3 +662,39 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE purchaseManagement(
+    vOption INT, 
+    vUser INT, 
+    vProduct INT, 
+    vQuantity INT, 
+    vPurchaseDate DATETIME, 
+    vTotal DECIMAL(10, 2), 
+    vPurchID INT)
+BEGIN
+    -- insert into purchaseInfo table
+    IF vOption = 1 THEN
+        INSERT INTO purchaseinfo(
+            product, 
+            purchaseDate, 
+            user, 
+            total, 
+            numItems, 
+            purchID
+        ) 
+        VALUES (
+            vProduct, 
+            vPurchaseDate, 
+            vUser, 
+            vTotal, 
+            vQuantity, 
+            vPurchID
+        );
+        
+        UPDATE products SET stock = stock - vQuantity WHERE productID = vProduct;
+        
+        DELETE FROM cart WHERE user = vUser;
+    END IF;
+END;
