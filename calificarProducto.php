@@ -126,5 +126,6 @@ $rol = $_SESSION['usersAPI']['rol'];
     </div>
   </div>
 
+  <script src="Middleware.js"></script>
 </body>
 </html>

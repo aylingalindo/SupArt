@@ -117,7 +117,7 @@ error_reporting(E_ALL);
                 <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
                 <li><a class="dropdown-item" href="ventas.php"><?php echo $rol == '2' ? 'Mis Ventas' : 'Mis Pedidos'; ?></a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Categorías</a></li>
+                <li><a class="dropdown-item" href="#">Categorï¿½as</a></li>
               </ul>
             </li>
           </ul>
@@ -327,7 +327,7 @@ error_reporting(E_ALL);
                     <div style="display: flex;">
                             <label for="message-text" class=".col-md-4">Mes:</label>
                             <input type="text" class="form-control" id="recipient-name" style="margin:0px 10px;">
-                            <label for="message-text" class=".col-md-4">Año:</label>
+                            <label for="message-text" class=".col-md-4">Aï¿½o:</label>
                             <input type="text" class="form-control" id="recipient-name" style="margin:0px 10px">
                     </div>
                   </div>
@@ -426,12 +426,31 @@ error_reporting(E_ALL);
       <footer>
       <div class="row text-center">
         <div class="col-4">
-          <p>Copyright © 2023 wm.In</p>
+          <p>Copyright ï¿½ 2023 wm.In</p>
         </div>
       </div>
     </footer>
     </div>
   </div>
+  <script>
+
+$(document).ready(checkAuthentication())
+  function checkAuthentication() {
+    $.get('API/middleware.php', function(data) {
+        if(!data.authenticated){
+          window.location.href="index.php"
+        }
+        if (data.authenticated) {
+            if(data.rol==2)
+            window.location.href="dashboard.php";
+        }
+    }).fail(function(error) {
+        console.error('Error al verificar la autenticaciÃ³n:', error);
+    });
+} 
+
+  </script>
+
 
 </body>
 </html>

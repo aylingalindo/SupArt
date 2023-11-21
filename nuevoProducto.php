@@ -61,6 +61,7 @@
 
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="Themes/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<script defer src="default.js"></script>
 	</head>
 	<body>
@@ -105,7 +106,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.php">
+              <a class="nav-link" onclick="logout()">
                 Log out
               </a>
             </li>
@@ -246,5 +247,6 @@
 			</div>
 
 			
+<script src="Middleware.js"></script>
 	</body>
 </html>

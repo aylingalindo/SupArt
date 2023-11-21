@@ -251,5 +251,6 @@ include_once 'API/categoryAPI.php';
     </div>
   </div>
 
+  <script src="Middleware.js"></script>
 </body>
 </html>

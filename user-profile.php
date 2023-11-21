@@ -75,11 +75,11 @@
                 <li><a class="dropdown-item" href="misProductos.php">Mis Productos</a></li>
                 <li><a class="dropdown-item" href="ventas.php"><?php echo $rol == '2' ? 'Mis Ventas' : 'Mis Pedidos'; ?></a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Categorías</a></li>
+                <li><a class="dropdown-item" href="#">Categorï¿½as</a></li>
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.php">
+              <a class="nav-link" onclick="logout()">
                 Log out
               </a>
             </li>
@@ -205,11 +205,14 @@
       <footer>
       <div class="row text-center">
         <div class="col-4">
-          <p>Copyright © 2023 wm.In</p>
+          <p>Copyright ï¿½ 2023 wm.In</p>
         </div>
       </div>
     </footer>
     </div>
   </div>
+
+  
+<script src="Middleware.js"></script>
 </body>
 </html>
