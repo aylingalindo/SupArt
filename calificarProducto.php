@@ -90,7 +90,7 @@ $rol = $_SESSION['usersAPI']['rol'];
                             echo '    </div>';
                             echo '<div style="display:flex; justify-content: center;">';
                             echo     '<input type=text class="productId" value="'. $product .'" style="height:0px; visibility: hidden;">';
-                            echo '  <button id="btnBuy" type="button" class="submitBtn btn btn-primary col-md-6 signUpBtn" style="width: 40%;">Enviar</button>';
+                            echo '  <button id="" type="button" class="submitBtn btn btn-primary col-md-6 signUpBtn" style="width: 40%;">Enviar</button>';
                             echo '</div>';
                             echo '  </td>';
                             echo '</tr>';

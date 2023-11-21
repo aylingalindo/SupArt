@@ -96,12 +96,14 @@ CREATE PROCEDURE cartManagement(
 BEGIN
     -- Insert
     DECLARE userTotal DECIMAL(10, 2);
-    SET @currentItems = (SELECT numItems FROM cart WHERE product = vID AND user = vUser);
-    SET @totalItems = @currentItems + vNumItems;
+    DECLARE currentItems INT; -- Added missing variable declaration
+    DECLARE totalItems INT; -- Added missing variable declaration
+    
+    SET currentItems = (SELECT numItems FROM cart WHERE product = vID AND user = vUser);
+    SET totalItems = currentItems + vNumItems;
 
     IF vOption = 1 THEN
-
-        IF @currentItems IS NULL THEN
+        IF currentItems IS NULL THEN
             INSERT INTO cart(
                 product,
                 numItems,
@@ -112,9 +114,9 @@ BEGIN
                 vNumItems,
                 vUser
             );
-        ELSEIF @currentItems <> 0 THEN
+        ELSEIF currentItems <> 0 THEN
             UPDATE cart SET 
-                numItems = @totalItems
+                numItems = totalItems
             WHERE product = vID;
             SELECT 'Producto insertado correctamente!' as Mensaje;
         END IF;
@@ -122,26 +124,28 @@ BEGIN
 
     -- Select
     IF vOption = 2 THEN
-        SET userTotal = SELECT CalculateUserCartTotal(21);
+        SET userTotal = (SELECT CalculateUserCartTotal(21));
         SELECT *,
-           userTotal AS 'TotalToPay'
-    FROM UserCart
-    WHERE user = vUser;
+               userTotal AS 'TotalToPay'
+        FROM UserCart
+        WHERE user = vUser;
     END IF;
 
-	--	Update numItems
-	IF vOption = 3 THEN
-		UPDATE cart SET
-			numItems = vNumItems
+    --  Update numItems
+    IF vOption = 3 THEN
+        UPDATE cart SET
+            numItems = vNumItems
         WHERE cartID = vID;
-	END IF;
+    END IF;
 
-    -- Delete specific product form cart
+    -- Delete specific product from cart
     IF vOption = 4 THEN
-        DELETE FROM cart WHERE cartID = vCartID;
+        DELETE FROM cart WHERE cartID = vID; -- Updated to use vID instead of vCartID
     END IF;
 END //
 DELIMITER ;
+
+
 
 DELIMITER //
 CREATE PROCEDURE msgManagement(
@@ -718,12 +722,12 @@ BEGIN
 
     IF vOption = 2 THEN
         DELETE FROM cart
-        WHERE user_id = vUserID AND product_id = vProductID;
+        WHERE user = vUserID AND product = vProductID;
     END IF;
 
     IF vOption = 3 THEN
         DELETE FROM cart
-        WHERE user_id = vUserID;
+        WHERE user = vUserID;
     END IF;
    
 END //

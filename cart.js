@@ -106,6 +106,7 @@ function loadCartItems() {
         url: './API/cartsAPI.php?action=getAll',
         method: 'POST',
         success: function (result) {
+            alert(result)
             console.log(result);
         },
         error: function (xhr, status, error) {
