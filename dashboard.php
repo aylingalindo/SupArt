@@ -73,7 +73,7 @@ $nuevos = $product->showProducts(8,3, null, null, null);
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.php">
+              <a class="nav-link" onclick="logout()">
                 Log out
               </a>
             </li>
@@ -207,6 +207,6 @@ $nuevos = $product->showProducts(8,3, null, null, null);
     </footer>
     </div>
   </div>
-
+<script src="Middleware.js"></script>
 </body>
 </html>

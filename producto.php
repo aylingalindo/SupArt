@@ -96,7 +96,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.php">
+              <a class="nav-link" onclick="logout()">
                 Log out
               </a>
             </li>
@@ -478,5 +478,6 @@
     </div>
   </div>
 
+  <script src="Middleware.js"></script>
 </body>
 </html>

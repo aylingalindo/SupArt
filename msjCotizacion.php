@@ -201,5 +201,6 @@
     </div>
   </div>
 
+  <script src="Middleware.js"></script>
 </body>
 </html>
