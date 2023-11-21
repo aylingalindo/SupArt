@@ -735,14 +735,13 @@ END //
 DELIMITER ;
 
 delimiter //
-create procedure salesFilter(vOption int,vUser int, vDateIn timestamp, vDateFin timestamp, vCat int)
+create procedure salesFilter(vOption int,vUser int, vDateIn date, vDateFin date, vCat int)
 BEGIN
-    IF vOption=1 THEN
+ IF vOption=1 THEN
 		IF vDateIn is not null and vDateFin is not null THEN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -752,13 +751,12 @@ BEGIN
 	        	sellerUserID AS SellerID,
         	    	buyerUserID AS BuyerID
 	       		FROM SoldProducts
-        		WHERE sellerUserID = vUser and purchaseDate>=vDateIn and purchaseDate<=vDateFin and categoryID=IFNULL(vCat, categoryID);
+        		WHERE sellerUserID = vUser and DATE(purchaseDate)>=vDateIn and DATE(purchaseDate)<=vDateFin and categoryID=IFNULL(vCat, categoryID);
 		END IF;
         IF vDateIn is not null and vDateFin is null THEN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -768,13 +766,12 @@ BEGIN
 	        	sellerUserID AS SellerID,
         	    	buyerUserID AS BuyerID
 	       		FROM SoldProducts
-        		WHERE sellerUserID = vUser and purchaseDate>=vDateIn and categoryID=IFNULL(vCat, categoryID);
+        		WHERE sellerUserID = vUser and DATE(purchaseDate)>=vDateIn and categoryID=IFNULL(vCat, categoryID);
 		END IF;
         IF vDateIn is null and vDateFin is not null THEN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -784,13 +781,12 @@ BEGIN
 	        	sellerUserID AS SellerID,
         	    	buyerUserID AS BuyerID
 	       		FROM SoldProducts
-        		WHERE sellerUserID = vUser and purchaseDate<=vDateFin and categoryID=IFNULL(vCat, categoryID);
+        		WHERE sellerUserID = vUser and DATE(purchaseDate)<=vDateFin and categoryID=IFNULL(vCat, categoryID);
 		END IF;
         IF vDateIn is null and vDateFin is null THEN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -812,7 +808,6 @@ BEGIN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -822,13 +817,12 @@ BEGIN
 	        	sellerUserID AS SellerID,
         	    	buyerUserID AS BuyerID
 	       		FROM SoldProducts
-        		WHERE buyerUserID = vUser and purchaseDate>=vDateIn and purchaseDate<=vDateFin and categoryID=IFNULL(vCat, categoryID);
+        		WHERE buyerUserID = vUser and DATE(purchaseDate)>=vDateIn and DATE(purchaseDate)<=vDateFin and categoryID=IFNULL(vCat, categoryID);
 		END IF;
         IF vDateIn is not null and vDateFin is null THEN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -838,13 +832,12 @@ BEGIN
 	        	sellerUserID AS SellerID,
         	    	buyerUserID AS BuyerID
 	       		FROM SoldProducts
-        		WHERE buyerUserID = vUser and purchaseDate>=vDateIn and categoryID=IFNULL(vCat, categoryID);
+        		WHERE buyerUserID = vUser and DATE(purchaseDate)>=vDateIn and categoryID=IFNULL(vCat, categoryID);
 		END IF;
         IF vDateIn is null and vDateFin is not null THEN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -854,13 +847,12 @@ BEGIN
 	        	sellerUserID AS SellerID,
         	    	buyerUserID AS BuyerID
 	       		FROM SoldProducts
-        		WHERE buyerUserID = vUser and purchaseDate<=vDateFin and categoryID=IFNULL(vCat, categoryID);
+        		WHERE buyerUserID = vUser and DATE(purchaseDate)<=vDateFin and categoryID=IFNULL(vCat, categoryID);
 		END IF;
         IF vDateIn is null and vDateFin is null THEN
 			 SELECT
         	    	productName,
 	            	category,
-		        image,
 		        folio,
 	           	purchaseDate,
 	      		review,
@@ -873,6 +865,7 @@ BEGIN
         		WHERE buyerUserID = vUser and categoryID=IFNULL(vCat, categoryID);
 		END IF;
 	END IF;
+
 
 
 
