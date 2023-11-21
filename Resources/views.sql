@@ -58,5 +58,4 @@ SELECT
     products.stock AS `totalStock`
 FROM cart
 JOIN products ON cart.product = products.productID
-JOIN product_category ON cart.product = product_category.product
-JOIN category ON product_category.category = category.categoryID;
+JOIN category ON products.category = category.categoryID;

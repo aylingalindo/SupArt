@@ -1,5 +1,5 @@
 <?php
- include_once './Consultas/productConsult.php';
+ include_once '../Consultas/productConsult.php';
  include_once 'Consultas/productConsult.php';
 
  session_start();
@@ -10,6 +10,7 @@ if (isset($_GET['action'])) {
 
     switch ($action) {
         case 'insert':
+            echo 'insert';
             $product->createProduct();
             break;
 
@@ -118,12 +119,16 @@ class productsAPI {
 
     //INSERT USER
     function createProduct() {
+        echo 'funcion';
         $newProduct = new Product();
+        echo 'funcion';
 
         if (isset($_POST['name']) && isset($_POST['pricingType']) && isset($_POST['price']) && isset($_POST['stock']) && isset($_POST['prodDesc']) && isset($_POST['productID']) && isset($_POST['cat'])) 
         {
             
+                echo 'isset';
 
+                
                 $name = $_POST['name'];   
                 $pricingType = $_POST['pricingType'];
                 $price = $_POST['price'];
@@ -152,6 +157,13 @@ class productsAPI {
                     $pricingType = "Sell";
                 }
 
+                echo ($name);
+                echo ($pricingType);
+                echo ($price);
+                echo ($stock);
+                echo ($prodDesc);
+                echo ($productID);
+                echo ($cat);
 
                 $resultado = $newProduct->productManagement($option, $productID, $stock, $name, $prodDesc, $pricingType, $price, null, null, $uploadedBy, $cat);
 
@@ -204,6 +216,7 @@ class productsAPI {
 
     }
 
+    
     function showProducts($option,$prodID,$myProducts, $category, $text) {
         $Product = new Product();
 
@@ -220,9 +233,9 @@ class productsAPI {
 
         $resultado = $Product->showProducts($option,$productID, $uploadedBy, $category, $text);
 
-        /*if($category != null){
-            echo '<script>window.location.href = "../index.php";</script>';
-        }*/
+        //if($category != null){
+            //echo '<script>window.location.href = "../index.php";</script>';
+        //}
 
         return $resultado; 
 
@@ -234,9 +247,9 @@ class productsAPI {
 
         $resultado = $Product->showProductFiles(1,$prodID);
 
-        /*if($category != null){
-            echo '<script>window.location.href = "../index.php";</script>';
-        }*/
+        //if($category != null){
+            //echo '<script>window.location.href = "../index.php";</script>';
+        //}
 
         return $resultado; 
 

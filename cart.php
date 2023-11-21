@@ -1,4 +1,6 @@
-<?php session_start(); 
+<?php session_start();
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
     /*$cartID = $_SESSION['cartProducts'][i]['cartID'];
 	$product = $_SESSION['cartProducts'][i]['product'];
 	$numItems = $_SESSION['cartProducts'][i]['numItems'];
@@ -178,6 +180,8 @@
                             echo  '</td>';
                             echo'</tr>';
                         }
+                    }else{
+                      echo "hola";
                     }
     ?>
 

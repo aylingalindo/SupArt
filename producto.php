@@ -1,6 +1,4 @@
 <?php 
-  ini_set('display_errors', 1);
-  error_reporting(E_ALL);
   session_start();
 
   $username = $_SESSION['usersAPI']['username'];
@@ -51,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="Themes/style.css">
     <script defer src="default.js"></script>
     <script defer src="cart.js"></script>
-    <script defer src="ventasProductos.js"></script>
+    <!--<script defer src="ventasProductos.js"></script>-->
     <script defer src="chats.js"></script>
 </head>
 <body>
@@ -463,7 +461,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary productBtn" data-bs-dismiss="modal">Cancelar</button>
-                        <button id="addCart" type="button" class="btn btn-primary signUpBtn">Confirmar</button>
+                        <button id="addCart" type="button" onclick="addToCart()" class="btn btn-primary signUpBtn">Confirmar</button>
                     </div>
                 </div>
             </div>

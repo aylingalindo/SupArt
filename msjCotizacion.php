@@ -86,7 +86,7 @@
               <ul class="list-box list-group justify-content-center">
 <?php
             foreach ($_SESSION['allchatsAPI'] as $chat) {
-                $currentProduct = $_SESSION['chatAPI']['current']['productID'] ? $_SESSION['chatAPI']['current']['productID'] : $_SESSION['allchatsAPI'][0]['productID'];
+                $currentProduct = isset($_SESSION['chatAPI']['current']['productID']) ? $_SESSION['chatAPI']['current']['productID'] : $_SESSION['allchatsAPI'][0]['productID'];
                 $productName = $chat['productName'];
                 $dinamicID = $chat['productID'];
                 $recieverID = $chat['receiverID'];
@@ -100,7 +100,7 @@
                 echo '    <h6>'. $recieverUser .'</h6>';
                 echo '  </div>';
                 echo '  <input type="hidden" class="productID" value="' . $dinamicID . '">';
-                echo '  <input type="hidden" class="sellerID" value="' . $recieverID . '">';
+                echo '  <input type="hidden" class="recieverID" value="' . $recieverID . '">';
 
                 echo '</li>';
             }
@@ -121,6 +121,7 @@
                       function makeProductLink($message, $productID, $productName) {
                             return preg_replace('/'. $productName .'/', '<a href="product.php?id=' . $productID . '">'. $productName .'</a>', $message);
                       }
+                      echo makeProductLink($content, $product, $productName);
 
                       function sender($content, $product, $productName){
                           echo'<tr>';
@@ -153,10 +154,10 @@
                       }
                       if(isset($_SESSION['chatAPI']['current']['messages'])){
                         $currentUser = $_SESSION['usersAPI']['userID'];
-		                $reciever = $_SESSION['chatAPI']['current']['receiverID'];
-		                $sender = $_SESSION['chatAPI']['current']['senderID'];
-		                $product = $_SESSION['chatAPI']['current']['productID'];
-		                $productName = $_SESSION['chatAPI']['current']['productName'];
+    		                $reciever = $_SESSION['chatAPI']['current']['receiverID'];
+    		                $sender = $_SESSION['chatAPI']['current']['senderID'];
+    		                $product = $_SESSION['chatAPI']['current']['productID'];
+    		                $productName = $_SESSION['chatAPI']['current']['productName'];
 
                         foreach ($_SESSION['chatAPI']['current']['messages'] as $message) {
                             $content = $message['message'];

@@ -89,7 +89,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE cartManagement(
     vOption     INT,
-    vID  INT,
+    vID         INT,
     vNumItems   INT, 
     vUser       INT
 )
@@ -122,7 +122,7 @@ BEGIN
 
     -- Select
     IF vOption = 2 THEN
-        SET userTotal = CalculateUserCartTotal(vUser);
+        SET userTotal = SELECT CalculateUserCartTotal(21);
         SELECT *,
            userTotal AS 'TotalToPay'
     FROM UserCart
@@ -577,7 +577,7 @@ BEGIN
 
     SELECT COUNT(*) INTO chatExist
     FROM chat
-    WHERE (receiverID = vReceiver AND senderID = vSender AND productID = vProduct)
+    WHERE (receiverID = vReceiver AND senderID = vSender OR receiverID = vSender AND senderID = vReceiver AND productID = vProduct)
     LIMIT 1;
 
     SELECT COUNT(*) INTO isSeller
@@ -699,3 +699,34 @@ BEGIN
         DELETE FROM cart WHERE user = vUser;
     END IF;
 END;
+
+DELIMITER //
+
+CREATE PROCEDURE reviewManagement(
+    IN vOption INT,
+    IN vProductID INT,
+    IN vScore INT,
+    IN vUserID INT,
+    IN vCommentText VARCHAR(200),
+    IN vPurchaseID INT
+)
+BEGIN
+    IF vOption = 1 THEN
+        INSERT INTO reviews (product, score, user, comment, purchaseID)
+        VALUES (vProductID, vScore, vUserID, vCommentText, vPurchaseID);
+    END IF;
+
+    IF vOption = 2 THEN
+        DELETE FROM cart
+        WHERE user_id = vUserID AND product_id = vProductID;
+    END IF;
+
+    IF vOption = 3 THEN
+        DELETE FROM cart
+        WHERE user_id = vUserID;
+    END IF;
+   
+END //
+
+DELIMITER ;
+

@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    alert("entra")
+    
 });
 
 //#region === Nueva conversacion ===

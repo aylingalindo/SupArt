@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 session_start();
  include_once '../Consultas/cartConsult.php';
 
@@ -36,8 +38,7 @@ class cartsAPI {
                 $myCart = new Cart();
                 $option = 1;
                 $userID = $_SESSION['usersAPI']['userID'];
-                /* USAR ESTE CUANDO API PRODUCTO FUNCIONE */ //$productID = $_SESSION['productsAPI']['productID']);
-                /* QUITAR CUANDO API DE PRODUCTO FUNCIONE */$productID = (isset($_SESSION['productsAPI']['productID'])) ? $_SESSION['productsAPI']['productID'] : 4;
+                $productID = $_POST['productID'];
                 $numItems = $_POST['numItems'];
 
                 echo $userID . '<-- this user id.....';

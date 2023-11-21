@@ -39,7 +39,7 @@ function renderPaypalBtn() {
                         detalles: detalles
                     }),
                     success: function (result) {
-                        window.location.href = "calificarProductos.php";
+                        window.location.href = "calificarProducto.php";
                     },
                     error: function (xhr, status, error) {
                         // Handle errors here
@@ -63,8 +63,11 @@ function renderPaypalBtn() {
 /* MODAL agregar a carrito */
 $("#addCart").on('click', function () {
     var items = $("#numItems").val();
+     var productID = $(".idProducto").val();
+
     var data = {
-        numItems: items
+        numItems: items,
+        productID: productID
     };
 
     $.ajax({
@@ -73,7 +76,7 @@ $("#addCart").on('click', function () {
         data: data,
         success: function (result) {
             alert(result)
-            window.location.href = "producto.php";
+            window.location.href = "producto.php?productID="+productID;
         },
         error: function (xhr, status, error) {
             // Handle errors here
@@ -196,4 +199,36 @@ $(".cart-saveItems").on('click', function () {
     });
 });
 
+//#endregion
+
+
+//#region === COTIZACION ===
+/*$("#product-message").on('click', function () {
+    var productoID = $(".idProducto").val();
+    var vendedorID = $(".idVendedor").val();
+
+    var data = {
+        idProducto: productoID,
+        idVendedor: vendedorID,
+        message: "Me gustaria cotizar el precio del producto"
+    };
+
+    newChat(data);
+});
+
+function newChat(data) {
+    $.ajax({
+        url: './API/chatAPI.php?action=newChat',
+        method: 'POST',
+        data: data,
+        success: function (result) {
+            alert(result)
+            window.location.href = 'msjCotizacion.php';
+        },
+        error: function (xhr, status, error) {
+            // Handle errors here
+            console.log('Error:', error);
+        }
+    });
+}*/
 //#endregion

@@ -1,3 +1,7 @@
+<?php session_start(); 
+$rol = $_SESSION['usersAPI']['rol'];
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,8 +30,9 @@
     <div id="content" style="padding-top: 2rem;">
       <!-- FEED -->
       <section>
-
         <div class="row" style="margin-left: 20px; margin-right: 20px;">
+          
+
           <h4>Califica los productos :)</h4>
         <hr>
           
@@ -42,6 +47,7 @@
                             $cartID = $product['cartID'];
                             $name = $product['name'];
                             $category = $product['category'];
+                            $product = $product['product'];
                     
                             echo '<tr>';
                             echo '  <td>';
@@ -60,19 +66,19 @@
                             echo '      <h5>Calificacion:</h5>';
                             echo '    </div>';
                             echo '    <div id="califInput" class="row">';
-                            echo '      <div class="col-1">';
+                            echo '      <div class="calif col-1">';
                             echo '        <i class="icon ion-md-brush no"></i>';
                             echo '      </div>';
-                            echo '      <div class="col-1">';
+                            echo '      <div class="calif col-1">';
                             echo '        <i class="icon ion-md-brush no"></i>';
                             echo '      </div>';
-                            echo '      <div class="col-1">';
+                            echo '      <div class="calif col-1">';
                             echo '        <i class="icon ion-md-brush no"></i>';
                             echo '      </div>';
-                            echo '      <div class="col-1">';
+                            echo '      <div class="calif col-1">';
                             echo '        <i class="icon ion-md-brush no"></i>';
                             echo '      </div>';
-                            echo '      <div class="col-1">';
+                            echo '      <div class="calif col-1">';
                             echo '        <i class="icon ion-md-brush no"></i>';
                             echo '      </div>';
                             echo '    </div>';
@@ -80,135 +86,27 @@
                             echo '  <td>';
                             echo '    <div class="form-group">';
                             echo '        <h5>Comentario:</h5>';
-                            echo '        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>';
+                            echo '        <textarea class="comment form-control" id="exampleFormControlTextarea1" rows="3"></textarea>';
                             echo '    </div>';
+                            echo '<div style="display:flex; justify-content: center;">';
+                            echo     '<input type=text class="productId" value="'. $product .'" style="height:0px; visibility: hidden;">';
+                            echo '  <button id="btnBuy" type="button" class="submitBtn btn btn-primary col-md-6 signUpBtn" style="width: 40%;">Enviar</button>';
+                            echo '</div>';
                             echo '  </td>';
                             echo '</tr>';
+
                         }
+                    }else{
+                      echo '<h5 class="td-title">No productos</h5>';
                     }
     ?>
-                <tr>
-                  <td>
-                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libretas</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="califInput" class="row">
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-group">
-                        <h5>Comentario:</h5>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson® Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libretas</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="califInput" class="row">
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-group">
-                        <h5>Comentario:</h5>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta3.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Strathmore - Cuaderno de bocetos de la serie 200</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libretas</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <div id="califInput" class="row">
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                      <div class="calif col-1">
-                        <i class="icon ion-md-brush no"></i>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-group">
-                        <h5>Comentario:</h5>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                  </td>
-                </tr>
               </tbody>
             </table>
-           
 
           </div>
         </div>
         <div style="display:flex; justify-content: center;">
-          <button id="btnBuy" type="button" class="btn btn-primary col-md-6 signUpBtn" style="width: 40%;">Enviar</button>
+          <button id="btnBuy" type="button" class="btn btn-primary col-md-6 signUpBtn" style="width: 40%;">Salir de calificar productos</button>
         </div>
         <div class="row" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
 
@@ -221,7 +119,7 @@
       <footer>
       <div class="row text-center">
         <div class="col-4">
-          <p>Copyright © 2023 wm.In</p>
+          <p>Copyright Â© 2023 wm.In</p>
         </div>
       </div>
     </footer>
