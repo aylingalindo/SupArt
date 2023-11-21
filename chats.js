@@ -20,9 +20,9 @@ $("#product-message").on('click', function () {
     var vendedorID = $(".idVendedor").val();
 
     var data = {
-        idProducto: productoID,
-        idVendedor: vendedorID,
-        message: "Me gustaria cotizar el precio del producto:"
+        "idProducto": productoID,
+        "idVendedor": vendedorID,
+        "message": "Me gustaria cotizar el precio del producto:"
     };
 
     setChat(data);
@@ -38,7 +38,7 @@ $("#sendBtn").on('click', function () {
     var productID = activeProductID.find('.productID').val();
 
     var data = {
-        message: inputValue,
+        "message": inputValue,
     };
 
     $.ajax({
@@ -81,11 +81,11 @@ function currentChat(productID, listItem) {
     $(listItem).addClass('active');
 
     alert("this is the " + productID);
-    var vendedorID = $(".sellerID").val();
+    var vendedorID = $(listItem).attr('receiverId');
     var data = {
-        idProducto: productID,
-        idVendedor: vendedorID,
-        message: "Me gustaria cotizar el precio del producto:"
+        "idProducto": productID,
+        "idVendedor": vendedorID,
+        "message": "Me gustaria cotizar el precio del producto:"
     };
     setChat(data);
 }
@@ -112,8 +112,8 @@ function initialSet() {
     var productID = activeProductID.find('.productID').val();
 
     var data = {
-        message: inputValue,
-        productID: ''
+        "message": inputValue,
+        "productID": ''
     };
 
     $.ajax({
@@ -138,21 +138,3 @@ function initialChats(product) {
 }
 
 
-$(document).ready(function () {
-    // Function to load chats on sidebar when the page loads
-    function loadChatsOnSidebar() {
-        //$_SESSION['chatAPI']['current']['messages'] = array();
-        $.ajax({
-            url: './API/chatAPI.php?action=getAllChats', // Adjust URL as per your file structure
-            method: 'POST',
-            success: function (result) {
-            },
-            error: function (xhr, status, error) {
-                console.error('Error:', error);
-            }
-        });
-    }
-
-    // Call the function to load chats on sidebar when the page loads
-    loadChatsOnSidebar();
-});

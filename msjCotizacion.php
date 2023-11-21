@@ -85,6 +85,7 @@
             <div id="wishlistList" class="col-4">
               <ul class="list-box list-group justify-content-center">
 <?php
+            
             foreach ($_SESSION['allchatsAPI'] as $chat) {
                 $currentProduct = isset($_SESSION['chatAPI']['current']['productID']) ? $_SESSION['chatAPI']['current']['productID'] : $_SESSION['allchatsAPI'][0]['productID'];
                 $productName = $chat['productName'];
@@ -93,7 +94,7 @@
                 $recieverUser = $chat['recieverUser'];
                 $sellerID = $chat['sellerID'];
 
-                echo '<li class="list-group-item ' . (($dinamicID == $currentProduct) ? 'active' : '') . '" onclick="currentChat(' . $dinamicID . ', this)">';
+                echo '<li class="list-group-item ' . (($dinamicID == $currentProduct) ? 'active' : '') . '" receiverId="'.$recieverID.'" onclick="currentChat(' . $dinamicID . ', this)">';
                 echo '  <div class="row">';
                 echo '    <img class="msjImg" src="Img/pfpImg.png">';
                 echo '    <h5>'. $productName .'</h5>';
@@ -121,7 +122,7 @@
                       function makeProductLink($message, $productID, $productName) {
                             return preg_replace('/'. $productName .'/', '<a href="product.php?id=' . $productID . '">'. $productName .'</a>', $message);
                       }
-                      echo makeProductLink($content, $product, $productName);
+                      //echo makeProductLink($content, $product, $productName);
 
                       function sender($content, $product, $productName){
                           echo'<tr>';
@@ -200,7 +201,29 @@
     </footer>
     </div>
   </div>
+<script>
+  
+$(document).ready(function () {
+    // Function to load chats on sidebar when the page loads
+    function loadChatsOnSidebar() {
+        //$_SESSION['chatAPI']['current']['messages'] = array();
+        $.ajax({
+            url: './API/chatAPI.php?action=getAllChats', // Adjust URL as per your file structure
+            method: 'POST',
+            success: function (result) {
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
 
+    // Call the function to load chats on sidebar when the page loads
+    loadChatsOnSidebar();
+    if(!<?php if (isset($_SESSION['allchatsAPI'])){echo 'true';}else{echo 'false';}?>)
+      window.location.href="msjCotizacion.php";
+});
+</script>
   <script src="Middleware.js"></script>
 </body>
 </html>
