@@ -74,23 +74,23 @@ include_once 'API/categoryAPI.php';
       <div class="container-fluid d-flex justify-content-end filter-container">
   <div class="row filter-menu">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="mb-3">
           <label for="startDate" class="form-label">Start Date:</label>
           <input type="date" class="form-control" id="startDate">
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="mb-3">
           <label for="endDate" class="form-label">End Date:</label>
           <input type="date" class="form-control" id="endDate">
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="mb-3">
           <label for="Cat" class="form-label">Category:</label>
           <select id="Cat" name="cat" class="form-select" aria-label="Category select" onchange="selectCategory()">
-            <option value="0" selected>Todas las Categorias</option>
+            <option value="-1" selected>Todas las Categorias</option>
             <?php
               foreach ($categorias as $cat) {
                 echo "<option " . ($cat['categoryID'] == $category ? 'selected' : '') . " value=" . $cat['categoryID'] . " name='cat'>" . $cat['name'] . "</option>";
@@ -99,6 +99,11 @@ include_once 'API/categoryAPI.php';
           </select>
         </div>
       </div>
+      <div class="col-md-3">
+      <button id="filtrar" type="button" class="btn btn-primary">
+          Filtrar
+        </button>
+        </div>
     </div>
   </div>
 </div>
@@ -119,7 +124,7 @@ include_once 'API/categoryAPI.php';
 
             
             <table class="table table-hover">
-              <tbody>
+              <tbody id="contenido">
 
 <?php
                 if(isset($_SESSION['salesAPI'])){
@@ -250,6 +255,114 @@ include_once 'API/categoryAPI.php';
     </footer>
     </div>
   </div>
+  <script>
+  
+  /*$(document).ready(function () {
+      function loadSalesFilter(data) {
+        $.ajax({
+            url: './API/salesAPI.php?action=getAllFilter',
+            method: 'POST',
+            data: data,
+            success: function (result) {
+                console.log(result);
+                alert("success")
+            },
+            error: function (xhr, status, error) {
+                // Handle errors here
+                console.log('Error:', error);
+            }
+        });
+     }
+
+     function loadSales() {
+        $.ajax({
+            url: './API/salesAPI.php?action=getAll',
+            method: 'POST',
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (xhr, status, error) {
+                // Handle errors here
+                console.log('Error:', error);
+            }
+        });
+      }
+*/
+      
+      $("#filtrar").on("click", function(){
+            var _category = $("#Cat").val()==-1?null:$("#Cat").val();
+            var _endDate = $("#endDate").val()==""?null:$("#endDate").val();
+            var _startDate = $("#startDate").val()==""?null:$("#startDate").val();
+
+            alert(_category + " " + _endDate + " " + _startDate);
+            var data = {
+                "category": _category,
+                "endDate": _endDate,
+                "startDate": _startDate,
+                "action": 0
+            }
+            
+            $.ajax({
+            url: './API/ventasAPI.php',
+            method: 'POST',
+            data: data,
+            success: function (result) {
+              var roluser=<?php if($_SESSION['usersAPI']['rol'] == 2){ echo "'block'";}else{ echo "'none'";}?>;
+              resultados=JSON.parse(result);
+              $('#contenido').empty();
+              resultados.forEach(element => {
+                $('#contenido').append(`
+               <tr>
+                        <td>
+                        <img src="Img/prodImg.jpeg" class="object-fit-contain td-img" alt="...">
+                        </td>
+                      <td>
+                       <div class="row">
+                       <h5 class="td-title">${element.productName}</h5>
+                        </div>
+                        <div class="row">
+                          <h6>${element.category}</h6>
+                        </div>
+                       </td>
+                       <td>
+                        <div class="row">
+                          <p>${element.purchaseDate}</p>
+                          <div id="stock_sales"class="row">
+                              <h6 style="display: ${roluser}">Existencia actual: ${element.stock}</h6>
+                          </div>
+                        </div>
+                        <div id="calif" class="row">
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush"></i>
+                          </div>
+                          <div class="col-1">
+                            <i class="icon ion-md-brush no"></i>
+                          </div>
+                        </div>
+                       </td>
+                        <td>
+                        <h5>Cantidad: ${element.numItems}</h5>
+                        <h4 class="td-price">$${element.total} MXN</h4>
+                        </td>
+                        </tr>`);
+              });
+            },
+            error: function (xhr, status, error) {
+                // Handle errors here
+                console.log('Error:', error);
+            }
+        });
+        })
+  </script>
 
   <script src="Middleware.js"></script>
 </body>

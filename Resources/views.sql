@@ -25,7 +25,8 @@ SELECT
     r.score AS review,
     pu.numItems,
     pu.total,
-    p.stock 
+    p.stock,
+    p.category as categoryID
 FROM products p
 JOIN purchaseinfo pu ON p.productID = pu.product
 JOIN category c ON p.category = c.categoryID
