@@ -729,6 +729,19 @@ BEGIN
         DELETE FROM cart
         WHERE user = vUserID;
     END IF;
+
+    If vOption = 4 THEN 
+        SELECT 
+            a.score, 
+            a.comment,
+            a.user as userID,
+            CONCAT (b.name, ' ', b.lastnameP) as userFullName,
+            b.image as userImage
+            From reviews a
+            left join users b on a.user = b.userID
+            where a.product = vProductID;
+
+    END IF;
    
 END //
 
