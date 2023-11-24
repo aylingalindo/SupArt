@@ -185,75 +185,7 @@ error_reporting(E_ALL);
                     }
     ?>
 
-                <tr>
-                  <td>
-                    <img src="Img/libreta.jpeg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Block Strathmore 400 Sketch</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libretas</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>Cantidad: 1</h5>
-                    <h4 class="td-price">$200.00 MXN</h4>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-close"></i>
-                    </button>
-                    <button class="btn btn-primary closeBtn">
-                        <i class="icon ion-md-create"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta2.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Canson Art Book One</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libretas</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>Cantidad: 1</h5>
-                    <h4 class="td-price">$232.00 MXN</h4>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-close"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img src="Img/libreta3.jpg" class="object-fit-contain td-img" alt="...">
-                  </td>
-                  <td>
-                    <div class="row">
-                      <h5 class="td-title">Strathmore - Cuaderno de bocetos de la serie 200</h5>
-                    </div>
-                    <div class="row">
-                      <h6>Libretas</h6>
-                    </div>
-                  </td>
-                  <td>
-                    <h5>Cantidad: 2</h5>
-                    <h4 class="td-price">$134.00 MXN</h4>
-                  </td>
-                  <td>
-                    <button class="btn btn-primary closeBtn">
-                      <i class="icon ion-md-close"></i>
-                    </button>
-                  </td>
-                </tr>
+                
               </tbody>
             </table>
           </div>

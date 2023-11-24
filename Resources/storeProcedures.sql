@@ -244,22 +244,8 @@ CREATE PROCEDURE productManagement(
 BEGIN
 	-- Get info from products from one user or one product
     IF vOption = 1 THEN
-		SELECT
-			a.productID
-			,a.stock
-			,a.name
-			,a.description
-			,a.pricingType
-			,a.price
-			,a.review
-			,a.approvedBy
-			,a.uploadedBy
-			,a.category
-			,b.name as categoryName
-            ,CONCAT(c.name,' ',c.lastnameP) as uploadedByName
-		FROM products a
-		Left Join category b on  a.category = b.categoryID
-        Left Join users c on a.uploadedBy = c.userID
+		Select *
+        from vProductDetails
 		WHERE (uploadedBy = coalesce(vUploadedBy, uploadedBy)) and (productID = COALESCE(vProductID,productID));
 	END IF;
 

@@ -59,3 +59,68 @@ SELECT
 FROM cart
 JOIN products ON cart.product = products.productID
 JOIN category ON products.category = category.categoryID;
+
+
+CREATE VIEW vProductOverview AS
+SELECT 
+    a.productID as productID,
+    a.stock as stock,
+    a.name as name,
+    a.description as description, 
+    a.pricingType as pricingType,
+    a.price as price, 
+    a.review as review,
+    a.approvedBy as approvedBy,
+    a.uploadedBy as uploadedBy,
+    a.category as category,
+    CASE WHEN b.fileName = 'mp4'
+    THEN null
+    ELSE b.file END as file,
+    CASE WHEN b.fileName = 'mp4'
+    THEN null
+    ELSE b.fileName END as fileName,
+    CONCAT(c.name, ' ', c.lastnameP) as uploadedName
+FROM products a
+LEFT JOIN mediaFilesProducts b on a.productID = b.product
+LEFT JOIN users c on a.uploadedBy = c.userID
+group by a.productID
+
+
+CREATE VIEW vProductDetails AS
+SELECT
+            a.productID
+            ,a.stock
+            ,a.name
+            ,a.description
+            ,a.pricingType
+            ,a.price
+            ,a.review
+            ,a.approvedBy
+            ,a.uploadedBy
+            ,a.category
+            ,b.name as categoryName
+            ,CONCAT(c.name,' ',c.lastnameP) as uploadedByName
+        FROM products a
+        Left Join category b on  a.category = b.categoryID
+        Left Join users c on a.uploadedBy = c.userID
+
+
+
+CREATE VIEW vPopularesDashboardP as
+Select 
+            a.*,
+            SUM(b.numItems) AS totalItemsSold
+        From vProductOverview a
+        Left Join purchaseInfo b on a.productID = b.product
+        group by a.productID
+        order by totalItemsSold DESC
+        limit 15;
+
+
+create view vcalifdashboardp as
+Select *
+        From vProductOverview
+        order by review desc 
+        limit 15;
+
+
